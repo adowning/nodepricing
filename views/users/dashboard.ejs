@@ -1,2 +1,7 @@
 <% layout(layoutPath) -%>
 Welcome to your dashboard.
+<ul>
+<% for(var i=0; i<users.length; i++) {%>
+   <li><%= users[i] %></li>
+<% } %>
+</ul>

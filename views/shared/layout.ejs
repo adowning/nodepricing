@@ -8,17 +8,26 @@
     <link rel='stylesheet' href='/css/style.css' />
     <script src="/js/jquery-1.9.1.js"></script>
     <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/jquery.jpanelmenu.min.js"></script>
     <script src="/js/main.js"></script>
+
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
   </head>
   <body>
+    
     <% include navigation.ejs %>
-    <div class="container-fluid">
+<!--     <div class="container-fluid">
       <div class="row-fluid">
-        <div class="span12">
+        <div class="span12"> -->
           <% include alert_messages.ejs %>
+          <div class="content">
           <%- body -%>
+<!--         </div>
         </div>
-      </div>
+      </div> -->
     </div>
+<!--     <% if(userIsAuthenticated){ %>
+    <script>jPM.trigger(true);</script>
+    <% } %> -->
   </body>
 </html>

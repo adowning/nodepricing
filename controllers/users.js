@@ -9,7 +9,13 @@ exports.login = function(req, res){
 
 // Get dashboard
 exports.dashboard = function(req, res){
-  res.render('users/dashboard');
+    User.find(function(err,users){
+    if(err) return next(err);
+    res.render('users/dashboard',{
+      users:users
+    });
+  });
+
 }
 
 // Authenticate user
@@ -52,6 +58,7 @@ exports.list = function(req, res, next){
     });
   });
 }
+
 
 // Update user
 exports.update = function(req, res, next){

@@ -3,8 +3,13 @@
 var express = require('express')
   , mongoose = require('mongoose')
   , UserModel = require('./models/user')
+  , CompanyModel = require('./models/company')
   , User = mongoose.model('User')
+  , Company = mongoose.model('Company')
+  , onlinepricing = require('./controllers/onlinepricing')
   , welcome = require('./controllers/welcome')
+  , program = require('./controllers/program')
+  , companies = require('./controllers/companies')
   , users = require('./controllers/users')
   , http = require('http')
   , path = require('path')
@@ -121,6 +126,7 @@ function redirectAuthenticated(req, res, next){
 // Routing
 
 app.get('/', welcome.index);
+app.get('/onlinepricing', onlinepricing.fetch);
 app.get('/login', redirectAuthenticated, users.login);
 app.get('/reset_password', redirectAuthenticated, users.reset_password);
 app.post('/reset_password', redirectAuthenticated, users.generate_password_reset);
@@ -134,7 +140,14 @@ app.post('/account', ensureAuthenticated, users.userValidations, users.update);
 app.get('/dashboard', ensureAuthenticated, users.dashboard);
 app.get('/logout', users.logout);
 app.get('/users', ensureAuthenticated, users.list); // for illustrative purposes only
+app.get('/program', ensureAuthenticated, program.getmycompany);
+app.get('/cregister', ensureAuthenticated, companies.register);
+app.post('/cregister', ensureAuthenticated, companies.companyValidations, companies.create);
+app.get('/editcompany', ensureAuthenticated, companies.account);
+app.post('/editcompany', ensureAuthenticated, companies.companyValidations, companies.update);
 app.all('*', welcome.not_found);
+
+
 
 // Start Server w/ DB Connection
 

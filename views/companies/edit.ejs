@@ -1,0 +1,13 @@
+<% layout(layoutPath) -%>
+<h1>Edit Company Settings</h1>
+<form action="/editcompany" method="post">
+  <fieldset>
+    <label>Company Name:</label>
+    <input type="text" name="name" value="<%= comp.name || "" %>"/>
+    <label>Website:</label>
+    <input type="text" name="website" value="<%= comp.url "" %>"/>
+    <label>Company Email:</label>
+    <input type="email" name="email" value="<%= comp.email %>"/>   
+    <button class="btn">Update</button>
+  </fieldset>
+</form>
