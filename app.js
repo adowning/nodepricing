@@ -126,7 +126,7 @@ function redirectAuthenticated(req, res, next){
 // Routing
 
 app.get('/', welcome.index);
-app.get('/onlinepricing', onlinepricing.fetch);
+app.get('/onlinepricing/:id', onlinepricing.fetch);
 app.get('/login', redirectAuthenticated, users.login);
 app.get('/reset_password', redirectAuthenticated, users.reset_password);
 app.post('/reset_password', redirectAuthenticated, users.generate_password_reset);
@@ -157,4 +157,9 @@ db.once('open', function callback () {
   http.createServer(app).listen(app.get('port'), function(){
     console.log('Express server listening on port ' + app.get('port'));
   });
+});
+
+app.use(function (req, res, next){
+   res.locals.scripts = ['/js/pricing_script.js', '/js/date2.js']
+   next();
 });

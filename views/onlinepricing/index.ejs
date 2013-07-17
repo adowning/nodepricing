@@ -1,0 +1,963 @@
+<head>
+    <link href='/css/bootstrap.min.css' rel='stylesheet'>
+    <link href='/css/bootstrap-responsive.min.css' rel='stylesheet'>
+    <link href='/css/pricing.css' rel='stylesheet'>
+
+    <title></title>
+</head>
+
+<body>
+    <div class="container-fluid" id="zipcodearea">
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="row-fluid">
+                    <div class="span2"></div>
+
+                    <div class="span8"><img src="/img/acc.gif"></div>
+
+                    <div class="span2"></div>
+                </div>
+
+                <div class="row-fluid">
+                    <div class="span12"></div>
+                </div>
+
+                <div class="row-fluid">
+                    <div class="span4"></div>
+
+                    <div class="span4">
+                        <div class="well">
+                            <h4 id="zipModalLabel">Enter Your Zipcode</h4>
+
+                            <form onsubmit="return false;">
+                                <fieldset>
+                                    <input id="zipcode" name="zipcode"
+                                    placeholder="" required="" type="text">
+                                </fieldset>
+                            </form>
+                        </div>
+
+                        <div class="alert" id="nozip">
+                            Sorry but we do not service this area. If you feel
+                            this is an error please call 903 566-3081
+                        </div>
+
+                        <div class="pull-right">
+                            <button class="btn btn-primary" onclick=
+                            "zipCheck($('#zipcode').val());">Next <em class=
+                            "icon-arrow-right icon-white"></em></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="span4"></div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container-fluid" id="pricecalculator">
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="row-fluid">
+                    <div class="span2"></div>
+
+                    <div class="span8"><img src="/img/acc.gif"></div>
+
+                    <div class="span2"></div>
+                </div>
+
+                <div class="row-fluid">
+                    <div class="span2"></div>
+
+                    <div class="span8">
+                        <div class="row-fluid">
+                            <div class="span3">
+                                <div class="accordion" id="accordion2">
+                                    <div class="accordion-group">
+                                        <div class="accordion-heading">
+                                            <a class="accordion-toggle"
+                                            data-parent="#accordion2"
+                                            data-toggle="collapse" href=
+                                            "#collapseOne">Carpet</a>
+                                        </div>
+
+                                        <div class="accordion-body collapse"
+                                        id="collapseOne" style="height: 0px;">
+                                            <div class="accordion-inner">
+                                                <!-- <div class="well sidebar-nav"> -->
+
+                                                <ul class="nav nav-list" id=
+                                                "carpet-nav-list"></ul>
+                                                <!--  </div> -->
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="accordion-group">
+                                        <div class="accordion-heading">
+                                            <a class="accordion-toggle"
+                                            data-parent="#accordion2"
+                                            data-toggle="collapse" href=
+                                            "#collapseTwo">Tile</a>
+                                        </div>
+
+                                        <div class="accordion-body collapse"
+                                        id="collapseTwo">
+                                            <div class="accordion-inner">
+                                                <ul class="nav nav-list" id=
+                                                "tile-nav-list"></ul>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="accordion-group">
+                                        <div class="accordion-heading">
+                                            <a class="accordion-toggle"
+                                            data-parent="#accordion2"
+                                            data-toggle="collapse" href=
+                                            "#collapseThree">Oriental Rugs</a>
+                                        </div>
+
+                                        <div class="accordion-body collapse"
+                                        id="collapseThree">
+                                            <div class="accordion-inner">
+                                                <ul class="nav nav-list" id=
+                                                "upruglist"></ul>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="accordion-group">
+                                        <div class="accordion-heading">
+                                            <a class="accordion-toggle"
+                                            data-parent="#accordion2"
+                                            data-toggle="collapse" href=
+                                            "#collapseFour">Upholstery</a>
+                                        </div>
+
+                                        <div class="accordion-body collapse"
+                                        id="collapseFour">
+                                            <div class="accordion-inner">
+                                                <ul class="nav nav-list" id=
+                                                "upnavlist"></ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="span9">
+                                <div class="tableContainer" id=
+                                "tableContainer">
+                                    <table class="table table-condensed" id=
+                                    "carpetrooms">
+                                        <thead>
+                                            <tr>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody class="scrollContent" id=
+                                        "carpetroomstable">
+                                            <tr>
+                                                <td style="border-top: 0px;">
+                                                    <div class="alert" id=
+                                                    "noservice">
+                                                        Please select a service
+                                                        from the Menu on the
+                                                        Left
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div class="row" id="min_totals_row">
+                                    <div class="span6"></div>
+
+                                    <div class="span4" id="minchargediv">
+                                        <span class="mincharge-span"></span>
+                                    </div>
+
+                                    <div class="span2" id="pricebox">
+                                        <table id="totalstable">
+                                            <tbody>
+                                                <tr>
+                                                    <td>Sub Total</td>
+
+                                                    <td id="dollar">
+                                                    <span class="totalspan">0</span></td>
+                                                </tr>
+
+                                                <tr id="discountrow">
+                                                    <td id="disclabel">
+                                                    Discount</td>
+
+                                                    <td id="discountamount">
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>Tax</td>
+
+                                                    <td id="dollar">
+                                                    <span class="taxspan"
+                                                    style="text-align: right;">0</span></td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>Total</td>
+
+                                                    <td id="dollar">
+                                                    <span class="totspan">0</span></td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div class="row" id="testrow">
+                                    <div class="span8"></div>
+
+                                    <div class="span4">
+                                        <div class="pull-right">
+                                        <button class="btn" data-dismiss=
+                                        "modal" onclick=
+                                        "$('#nozip').hide(); $('#pricecalculator').hide(); $('#zipcodearea').show(); return false;">
+                                        <em class=
+                                        "icon-arrow-left"></em>Back</button>
+                                        <button class="btn btn-primary" id=
+                                        "priceNext" name="priceNext" onclick=
+                                        "$('#pricecalculator').hide(); $('#scheduleform').show(); return false;">
+                                        Next <em class=
+                                        "icon-arrow-right icon-white"></em></button>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+<div class="container-fluid" id="scheduleform">
+  <div class="row-fluid">
+    <div class="span2">
+    </div>
+    <div class="span8"><img src="/img/acc.gif">
+    </div>
+    <div class="span2">
+    </div>
+  </div>
+  <div class="row-fluid">
+    <div class="span2">
+    </div>
+    <div class="span8">
+      <div class="row-fluid">
+        <div class="span12">
+          <div id="schedule-div">
+        <div name="newtimetest" id="newtimetest">
+          <table name="prestable" id="prestable" class="table table-condensed">
+            <thead>
+              <tr>
+                <th class="lastweekhead">
+                  <i class="icon-arrow-left">
+                  </i>
+                  <a class="lastweek" href="#">
+                    last week
+                  </a>
+                </th>
+                <th name="prestable-date" id="prestable-date">
+                  asdf
+                </th>
+                <th class="nextweekhead">
+                  <a class="nextweek" href="#">
+                    next week
+
+                  </a>
+                  <i class="icon-arrow-right">
+                  </i>
+                </th>
+              </tr>
+            </thead>
+          </table>
+          <table name="stable" id="stable" class="table">
+            <thead>
+      <tr>
+        <th>
+        </th>
+        <th class="mondayhead">
+          Mon
+        </th>
+        <th class="tuesdayhead">
+          Tues
+        </th>
+        <th class="wendhead">
+          Wend
+        </th>
+        <th class="thurshead">
+          Thurs
+        </th>
+        <th class="frihead">
+          Fri
+        </th>
+        <th class="sathead">
+          Sat
+        </th>
+      </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+  </div>
+  </div>
+        </div>
+      </div>
+      <div class="row-fluid">
+        <div class="span12">
+            <div class="pull-right">
+                                                    <button class="btn" data-dismiss=
+                                        "modal" onclick=
+                                        "$('#nozip').hide(); $('#scheduleform').hide(); $('#pricecalculator').show(); return false;">
+                                        <em class=
+                                        "icon-arrow-left"></em>Back</button>
+                                        <button class="btn btn-primary" id=
+                                        "priceNext" name="priceNext" onclick=
+                                        "$('#scheduleform').hide(); $('#contactform').show(); return false;">
+                                        Next <em class=
+                                        "icon-arrow-right icon-white"></em></button>
+                                    </div>
+        </div>
+      </div>
+    </div>
+    <div class="span2">
+    </div>
+  </div>
+</div>
+
+</body>
+
+
+
+<div class="container-fluid" id="contactform">
+  <div class="row-fluid">
+    <div class="span2">
+    </div>
+    <div class="span8"><img src="/img/acc.gif">
+    </div>
+    <div class="span2">
+    </div>
+  </div>
+  <div class="row-fluid">
+    <div class="span2">
+    </div>
+    <div class="span8">
+      <div class="row-fluid">
+            <div class="span1">
+    </div>
+        <div class="span12">
+
+<!--         <ul id="errors" class="">
+          <li id="info">
+            There were some problems with your form submission:
+          </li>
+        </ul>
+        <p id="success">
+          Thanks for your message! We will get back to you ASAP!
+        </p> -->
+        <form  action="assets/php/send_form_email.php" name="emailForms" id="emailForm" method="POST">
+         
+            <div class="span4">
+              <label>
+                Name
+              </label>
+              <input name="customer_name" id="customer_name" type="text"  placeholder="John Galt" required>
+              <label>
+                Email Address
+              </label>
+              <input input type="email" type="text" name="email" id="email" placeholder="jg@email.com" required>
+              
+              <label>
+                Telephone
+              </label>
+              <input type='telephone' pattern="^\D?(\d{3})\D?\D?(\d{3})\D?(\d{4})$"    name="telephone" id="telephone" placeholder="903 555 1234" required>
+              <label>
+                Address
+              </label>
+              <input input type="address" name="address" id="address" type="text"  placeholder="4242 Easy St." required>
+     
+    </div>
+    <div class="span8">
+      <label>
+        Special Instructions for your technician:
+      </label>
+      <textarea placeholder="Any special instructions you would like to pass on to us or the technician goes here." name="instructions" id="instructions" class="span8" rows="10">
+      </textarea>
+    </div>
+    <input type="hidden" id="scheduledate" name="scheduledate" value="schedule_not_entered" required/>
+    <input type="hidden" id="scheduletime" name="scheduletime" value="time_not_entered" required/>
+    <input type="hidden" id="customerZipcode" name="customerZipcode" value="customerZipcode" required/>
+    <input type="hidden" id="servicesForm" name="servicesForm" value="list of services" required/>
+<!--     <div class="row"></div>
+    <div class="span6"></div><div class="span3" name="formbuttons" id="formbuttons">
+        <button class="btn" data-dismiss="modal" aria-hidden="true" onclick="$('#bookModal2').modal('hide'); $('#bookModal').modal('show'); return false;">
+      <i class="icon-arrow-left ">
+      </i>
+      Back
+    </button>
+    <button type="submit" class="btn btn-primary pull-right">
+      Schedule
+    </button>
+  </div> -->
+ 
+    </form>
+    
+
+        </div>
+            <div class="span1">
+    </div>
+      </div>
+      <div class="row-fluid">
+        <div class="span12">
+            <div class="pull-right">
+                                                    <button class="btn" data-dismiss=
+                                        "modal" onclick=
+                                        "$('#nozip').hide(); $('#contactform').hide(); $('#scheduleform').show(); return false;">
+                                        <em class=
+                                        "icon-arrow-left"></em>Back</button>
+                                        <button class="btn btn-primary" id=
+                                        "priceNext" name="priceNext" onclick=
+                                        "$('#contactform').hide(); $('#finish').show(); return false;">
+                                        Next <em class=
+                                        "icon-arrow-right icon-white"></em></button>
+                                    </div>
+        </div>
+      </div>
+    </div>
+    <div class="span2">
+    </div>
+  </div>
+</div>
+
+<!-- <div class="contactform" id="contactform">
+      <div id="contact-formx" class="clearfix">
+        <ul id="errors" class="">
+          <li id="info">
+            There were some problems with your form submission:
+          </li>
+        </ul>
+        <p id="success">
+          Thanks for your message! We will get back to you ASAP!
+        </p>
+        <form class="well span9" action="assets/php/send_form_email.php" name="emailForms" id="emailForm" method="POST">
+          <div class="row">
+            <div class="span3">
+              <label>
+                Name
+              </label>
+              <input name="customer_name" id="customer_name" type="text" class="span3" placeholder="John Galt" required>
+              <label>
+                Email Address
+              </label>
+              <input input type="email" type="text" class="span3" name="email" id="email" placeholder="jg@email.com" required>
+              
+              <label>
+                Telephone
+              </label>
+              <input type='telephone' pattern="^\D?(\d{3})\D?\D?(\d{3})\D?(\d{4})$"    name="telephone" id="telephone"  class="span3" placeholder="903 555 1234" required>
+              <label>
+                Address
+              </label>
+              <input input type="address" name="address" id="address" type="text" class="span3" placeholder="4242 Easy St." required>
+     
+    </div>
+    <div class="span6">
+      <label>
+        Special Instructions for your technician:
+      </label>
+      <textarea placeholder="Any special instructions you would like to pass on to us or the technician goes here." name="instructions" id="instructions" class="input-xlarge span6" rows="10">
+      </textarea>
+    </div>
+    <input type="hidden" id="scheduledate" name="scheduledate" value="schedule_not_entered" required/>
+    <input type="hidden" id="scheduletime" name="scheduletime" value="time_not_entered" required/>
+    <input type="hidden" id="customerZipcode" name="customerZipcode" value="customerZipcode" required/>
+    <input type="hidden" id="servicesForm" name="servicesForm" value="list of services" required/>
+    <div class="row"></div>
+    <div class="span6"></div><div class="span3" name="formbuttons" id="formbuttons">
+        <button class="btn" data-dismiss="modal" aria-hidden="true" onclick="$('#bookModal2').modal('hide'); $('#bookModal').modal('show'); return false;">
+      <i class="icon-arrow-left ">
+      </i>
+      Back
+    </button>
+    <button type="submit" class="btn btn-primary pull-right">
+      Schedule
+    </button>
+  </div>
+  </div>
+    </form>
+    
+  </div>
+  
+</div> -->
+
+<!-- 
+
+<link rel='stylesheet' href='/css/bootstrap.min.css' />
+<link rel='stylesheet' href='/css/pricing.css' />
+    <link rel='stylesheet' href='/css/bootstrap-responsive.min.css' />
+    <link rel='stylesheet' href='/css/style.css' />    <div data-backdrop="static" data-keyboard="false" id="zipModal"  tabindex="-1" role="dialog" aria-labelledby="zipModalLabel" aria-hidden="true">
+
+      <div class="modal-body">
+                <h3 id="zipModalLabel">
+          Enter Your Zipcode
+        </h3>
+        <br>
+        <div class="row" style="margin-bottom:0px;" ><div class="span3"></div><div class="span3">
+
+
+        <form onsubmit="return false;">
+          <fieldset>
+            <input name="zipcode" id="zipcode" type="text" placeholder="Enter your Zipcode..." required>
+          </fieldset>
+
+        </div>
+        <div class="span4">
+                    <div class="alert" name="nozip" id="nozip">
+            Sorry but we do not service this area. If you feel this is an error please call 903 566-3081
+          </div>
+        </div>
+      </form>
+      </div>
+      <div>
+      <div class="row"><div class="span3"></div><div class="span3" style="text-align: right;">
+
+        <button class="btn btn-primary" onclick="zipCheck($('#zipcode').val());">
+          Next 
+          <i class="icon-arrow-right icon-white">
+          </i>
+        </button>
+      </div>
+    </div>
+    </div>
+    </div>
+  </div>
+</div>
+
+
+
+  <div class="pwindow">
+    <div data-backdrop="static" data-keyboard="false" id="priceModal" name="priceModal"  tabindex="-1" >
+      <div class="header">
+
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+          ×
+        </button>
+
+        <div id="imgdiv" class="form-inline" style="border: 1px solid #DDDDDD; width: 450px; background-color: #FCF8E3;" >
+          <img src="assets/images/monthly_specials.png" />
+        <label id="rotate"></label>
+   
+    </div>
+
+      </div>
+      
+      <div class="body">
+        <div class="span10">
+          <div class="row">
+            <div class="span2">
+              <div class="container-fluid">
+                
+                
+                <div class="accordion" id="accordion2">
+                  
+                  <div class="accordion-group">
+                    
+                    <div class="accordion-heading">
+                      
+                      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+                        
+                        Carpet  
+                      </a>
+                      
+                    </div>
+                    
+                    <div id="collapseOne" class="accordion-body collapse" style="height: 0px; ">
+                      
+                      <div class="accordion-inner">
+                        
+                        <div class="well sidebar-nav">
+                          <ul class="nav nav-list" id="carpet-nav-list">
+                          </ul>
+                        </div>
+                      </div>
+                      
+                    </div>
+                    
+                  </div>
+                  
+                  <div class="accordion-group">
+                    
+                    <div class="accordion-heading">
+                      
+                      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
+                        
+                        Tile 
+                      </a>
+                      
+                    </div>
+                    
+                    <div id="collapseTwo" class="accordion-body collapse">
+                      
+                      <div class="accordion-inner">
+                        
+                        <div class="well sidebar-nav">
+                          <ul class="nav nav-list" id="tile-nav-list">
+                          </ul>
+                        </div>
+                      </div>
+                      
+                    </div>
+                    
+                  </div>
+                  
+                  <div class="accordion-group">
+                    
+                    <div class="accordion-heading">
+                      
+                      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseThree">
+                        
+                        Oriental Rugs
+                      </a>
+                      
+                    </div>
+                    
+                    <div id="collapseThree" class="accordion-body collapse">
+                      
+                      <div class="accordion-inner">
+                        
+                        <div class="well sidebar-nav">
+                          <ul class="nav nav-list" name="rug-nav-list" id="upruglist">
+                          </ul>
+                        </div>
+                      </div>
+                      
+                    </div>
+                    
+                  </div>
+                  
+                  <div class="accordion-group">
+                    
+                    <div class="accordion-heading">
+                      
+                      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseFour">
+                        
+                        Upholstery
+                      </a>
+                      
+                    </div>
+                    
+                    <div id="collapseFour" class="accordion-body collapse">
+                      
+                      <div class="accordion-inner">
+                        
+                        <div class="well sidebar-nav">
+                          <ul class="nav nav-list" id="upnavlist">
+                          </ul>
+                        </div>
+                        
+                      </div>
+                      
+                    </div>
+                    
+                  </div>
+                  
+                </div>
+                
+              </div>
+              
+            </div>
+            <div class="span8" name="quotespan" id="quotespan">
+              <div id="tableContainer" class="tableContainer">
+              <table class="table table-condensed" name="carpetrooms" id="carpetrooms">
+                <thead>
+                  <tr>
+                    <th class="fixedHeader" colspan="8" id="carpetrooms-header" name="carpetrooms-header">
+                      <div class="alert alert-success">Your Selections</div>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody id="carpetroomstable" class="scrollContent">
+                     <tr><td style="border-top: 0px;"><div class="alert" id="noservice">Please select a service from the Menu on the Left</div></td></tr>
+                    </tbody>
+                </table>
+              </div>
+                <div class="row" name="testrow" id="testrow">
+                  <div class="span3"></div>
+                  <div class="span2" name="minchargediv" id="minchargediv">
+                    <span class="mincharge-span"></span>
+                  </div>
+                  <div class="span3 pricebox">
+
+                                    <table name="pricebox" id="pricebox">
+                  <tbody>
+                    <tr>
+                      <td colspan="2" name="ph" id="ph">
+                        <div class="alert alert-success">Price Quote</div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="text-align: right;">
+                        Sub Total
+                      </td>
+                      <td name="dollar" id="dollar" style="text-align: right;">
+                        <span class="totalspan" >0</span>
+                      </td>
+                    </tr>
+                    <tr id="discountrow" name="discountrow" >
+                      <td name="disclable" id="disclabel">Discount</td><td name="discountamount" id="discountamount"></td>
+                    </tr>
+                    <tr style="border-bottom: 2px;">
+                      <td style="text-align: right;">
+                        Tax
+                      </td>
+                      <td name="dollar" id="dollar" style="text-align: right; border-bottom: 2px;">
+                        <span class="taxspan" style="text-align: right;">0</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="text-align: right;">
+                        Total
+                      </td>
+                      <td name="dollar" id="dollar" style="text-align: right;">
+                        <span class="totspan" style="text-align: right;">0</span>
+                      </td>
+                    </tr>
+                    <tr>
+                  </tbody>
+                </table>
+                  </div>
+                  <div class="row" id="abotrow">
+                  <span name="abotspan" class="span8">&nbsp;</span>
+                  </div>
+                  <div class="row">
+
+                  <div class="span5">
+                    
+                  <div class="input-append">
+  <input placeholder="Enter a coupon" class="span2" id="coupon" type="text">
+  <button class="btn" id="couponBut" type="button">Use!</button>
+</div>
+                  </div>
+                  <div class="span3" id="priceButtons">
+                      <button class="btn" data-dismiss="modal" aria-hidden="true" onclick="$('#nozip').hide(); $('#priceModal').modal('hide'); $('#zipModal').modal('show'); return false; ">
+      <i class="icon-arrow-left ">
+      </i>
+      
+    </button>
+    <button class="btn btn-primary" name="priceNext" id="priceNext" onclick="$('#priceModal').modal('hide'); $('#bookModal').modal('show');   return false;">
+      Next 
+      <i class="icon-arrow-right icon-white">
+      </i>
+    </button>
+                  </div>
+                </div>
+                </div>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="modal-footer">
+          
+
+        </div>
+      </div>
+    </div>  
+      
+
+
+
+    <div data-backdrop="static" data-keyboard="false" id="bookModal" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+          ×
+        </button>
+        <h3 id="myModalLabel">
+          Schedule Date & Time
+        </h3>
+      </div>
+      <div class="modal-body">
+        <div id="schedule-div">
+        <div name="newtimetest" id="newtimetest">
+          <table name="prestable" id="prestable" class="table table-condensed">
+            <thead>
+              <tr>
+                <th class="lastweekhead">
+                  <i class="icon-arrow-left">
+                  </i>
+                  <a class="lastweek" href="#">
+                    last week
+                  </a>
+                </th>
+                <th name="prestable-date" id="prestable-date">
+                  asdf
+                </th>
+                <th class="nextweekhead">
+                  <a class="nextweek" href="#">
+                    next week 
+                  </a>
+                  <i class="icon-arrow-right">
+                  </i>
+                </th>
+              </tr>
+            </thead>
+          </table>
+          <table name="stable" id="stable" class="table">
+            <thead>
+      <tr>
+        <th>
+        </th>
+        <th class="mondayhead">
+          Mon
+        </th>
+        <th class="tuesdayhead">
+          Tues
+        </th>
+        <th class="wendhead">
+          Wend
+        </th>
+        <th class="thurshead">
+          Thurs
+        </th>
+        <th class="frihead">
+          Fri
+        </th>
+        <th class="sathead">
+          Sat
+        </th>
+      </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+  </div>
+  </div>
+  </div>
+
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true" onclick="$('#bookModal').modal('hide'); $('#priceModal').modal('show'); return false;">
+      <i class="icon-arrow-left ">
+      </i>
+      Back
+    </button>
+    <button class="btn btn-primary" name="schenext" id="schenext" onclick="$('#bookModal').modal('hide'); $('#bookModal2').modal('show');  return false;">
+      Next 
+      <i class="icon-arrow-right icon-white">
+      </i>
+    </button>
+  </div>
+  </div>
+  
+  
+  <div data-backdrop="static" data-keyboard="false" id="bookModal2" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+        ×
+      </button>
+      <h3 id="myModalLabel">
+        Enter Contact Information
+      </h3>
+    </div>
+    <div class="modal-body">
+      <div id="contact-formx" class="clearfix"
+       >
+        <ul id="errors" class="">
+          <li id="info">
+            There were some problems with your form submission:
+          </li>
+        </ul>
+        <p id="success">
+          Thanks for your message! We will get back to you ASAP!
+        </p>
+        <form class="well span9" action="assets/php/send_form_email.php" name="emailForms" id="emailForm" method="POST">
+          <div class="row">
+            <div class="span3">
+              <label>
+                Name
+              </label>
+              <input name="customer_name" id="customer_name" type="text" class="span3" placeholder="John Galt" required>
+              <label>
+                Email Address
+              </label>
+              <input input type="email" type="text" class="span3" name="email" id="email" placeholder="jg@email.com" required>
+              
+              <label>
+                Telephone
+              </label>
+              <input type='telephone' pattern="^\D?(\d{3})\D?\D?(\d{3})\D?(\d{4})$"    name="telephone" id="telephone"  class="span3" placeholder="903 555 1234" required>
+              <label>
+                Address
+              </label>
+              <input input type="address" name="address" id="address" type="text" class="span3" placeholder="4242 Easy St." required>
+     
+    </div>
+    <div class="span6">
+      <label>
+        Special Instructions for your technician:
+      </label>
+      <textarea placeholder="Any special instructions you would like to pass on to us or the technician goes here." name="instructions" id="instructions" class="input-xlarge span6" rows="10">
+      </textarea>
+    </div>
+    <input type="hidden" id="scheduledate" name="scheduledate" value="schedule_not_entered" required/>
+    <input type="hidden" id="scheduletime" name="scheduletime" value="time_not_entered" required/>
+    <input type="hidden" id="customerZipcode" name="customerZipcode" value="customerZipcode" required/>
+    <input type="hidden" id="servicesForm" name="servicesForm" value="list of services" required/>
+    <div class="row"></div>
+    <div class="span6"></div><div class="span3" name="formbuttons" id="formbuttons">
+        <button class="btn" data-dismiss="modal" aria-hidden="true" onclick="$('#bookModal2').modal('hide'); $('#bookModal').modal('show'); return false;">
+      <i class="icon-arrow-left ">
+      </i>
+      Back
+    </button>
+    <button type="submit" class="btn btn-primary pull-right">
+      Schedule
+    </button>
+  </div>
+  </div>
+    </form>
+    
+  </div>
+  
+  </div>
+  </div> -->
+    
+  <script type="text/javascript" src="/js/jquery-1.9.1.js"></script> 
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"></script>
+  <script type="text/javascript" src="/js/bootstrap.min.js"></script>  
+  <script type="text/javascript" src="/js/date2.js"></script> 
+  <script type="text/javascript" src="/js/jquery.client.js"></script> 
+  <script type="text/javascript" src="/js/browser_fix.js"></script>
+  <script type="text/javascript" src="/js/pricing_data.js"></script>       
+    <script type="text/javascript" src="/js/pricing_script.js"></script>   
+
+      <!--
+      <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js">
+      </script>      
+       <script type="text/javascript" src="assets/js/bootstrap-datetimepicker.js" charset="UTF-8">
+      </script>
+      <script type="text/javascript" src="public/js/jquery.client.js">
+      </script>
+      --> 
+       
+
+     
