@@ -8,28 +8,7 @@ $(window).load(function(){
 
 $(document).ready(function () {
     var localkey = getParameters();
-  $.ajax({
-    url: "/onlinepricing",
-    type: "POST",
-    dataType: "json",
-     data: {key: 'go fuck yourself'},
-    // contentType: "application/json",
-    cache: false,
-    timeout: 5000,
-    complete: function(some) {
-      //called when complete
-      // console.log('comp'+some);
-      console.log('process complete');
-    },
 
-    success: function(some) {
-        console.log('asdf'+JSON.parse(some));
-   },
-
-    error: function() {
-      console.log('process error');
-    },
-  });
 
     buildItems();
     addAction();

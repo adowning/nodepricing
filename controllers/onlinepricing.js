@@ -19,9 +19,8 @@ var op;
  }
 
  exports.getonlinepricing = function (req, res, next){
-      // res.contentType('json');
-      // res.send({ some: op });
-      res.send( JSON.stringify(op) );
+       res.contentType('json');
+       res.send({ some: op });
  }
 
 exports.create = function(req, res, next){

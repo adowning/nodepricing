@@ -18,10 +18,40 @@ function getParameters() {
 
 
 $(document).ready(function () {
-    getParameters();
-    console.log(companykey);
-});
+    $.ajax({
+        url: "/onlinepricing",
+        type: "POST",
+        dataType: "json",
+        // data: {
+        //     key: 'go fuck yourself'
+        // },
+        // contentType: "application/json",
+        cache: false,
+        timeout: 5000,
+        complete: function (some) {
+            //called when complete
+            // console.log('comp'+some);
+            console.log('process complete');
+        },
 
+        success: function (some) {
+
+            var obj;
+            $.each(some, function (index, element) {
+
+                obj = element;
+
+            });
+            console.log(obj.key);
+        },
+
+        error: function () {
+            console.log('process error');
+        },
+    });
+
+    getParameters();
+});
 
 
 
