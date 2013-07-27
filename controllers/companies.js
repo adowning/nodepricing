@@ -124,14 +124,17 @@ exports.create = function(req, res, next){
   newCompany.ownername = req.user.username;
   newCompany.activemodules = "none"; 
   newCompany.key = Math.random().toString(36).slice(2);
-  newCompany.save(function(err, company){
+  var thiskey = newCompany.key;
+  console.log('building company with this keyh '+thiskey);
+  newCompany.generateBaseOnlinePrice(thiskey);
+  newCompany.save(function(err, comp){
     
     // Uniqueness and save validations
     
     if (err && err.code == 11000){
       var duplicatedAttribute = err.err.split("$")[1].split("_")[0];
       req.flash('error', "That " + duplicatedAttribute + " is already in use.");
-      return res.render('companies/new', {company : newCompany, errorMessages: req.flash('error')});
+      return res.render('companies/new', {comp : newCompany, errorMessages: req.flash('error')});
     }
     if(err) return next(err);
     
@@ -143,4 +146,5 @@ exports.create = function(req, res, next){
     //   return res.redirect('/dashboard');
     // });
   });
+  
 }

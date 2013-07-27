@@ -2,19 +2,35 @@
 //by ash downing 
 //andrewscarpetcleaning.com
 
-//$('.totals').hide();
-
-
-
-
-
-    $(window).load(function(){
-        $('#zipModal').show();
-    });
-
+$(window).load(function(){
+    $('#zipModal').show();
+});
 
 $(document).ready(function () {
-    console.log('ready function -----');
+    var localkey = getParameters();
+  $.ajax({
+    url: "/onlinepricing",
+    type: "POST",
+    dataType: "json",
+     data: {key: 'go fuck yourself'},
+    // contentType: "application/json",
+    cache: false,
+    timeout: 5000,
+    complete: function(some) {
+      //called when complete
+      // console.log('comp'+some);
+      console.log('process complete');
+    },
+
+    success: function(some) {
+        console.log('asdf'+JSON.parse(some));
+   },
+
+    error: function() {
+      console.log('process error');
+    },
+  });
+
     buildItems();
     addAction();
     $('#timeholder').prop('disabled', 'disabled');
@@ -28,8 +44,6 @@ $(document).ready(function () {
     $('#priceNext').prop("disabled", true);
     $('#schenext').prop("disabled", true);
     $('#zipcode').val("");
-    //hide shit
-    $('#nozip').hide();
     $('#timediv').hide();
     $('#zipModal').hide();
     $('#scheduleform').hide();
@@ -47,6 +61,16 @@ $(document).ready(function () {
     buildStable();
 
 
+function getParameters() {
+  var searchString = window.location;
+  var st = searchString.toString();
+  var parm = st.split('key=');
+  var p = parm[1];
+  if(p = "" || !p){
+    //TODO redirect to 404
+  }
+  return p;
+}
 
 $('.nextweek').on("click", function () {
     console.log('pussy');
@@ -630,7 +654,6 @@ $('.collapse').on('hide', function () {
 
 function buildItems() {
     var items = [];
-    console.log('1');
     //should probably clean this up and optimize code
     $.each(hashPrices, function (key, value) {
         var linkhtml = "<li><a class='action-addroom' href='#' data-type='carpet_furn' data-price='" + value + "'>" + key + "</a></li>";

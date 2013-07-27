@@ -6,6 +6,26 @@ var fri = Date.friday();
 var sat = Date.saturday();
 var sunday = Date.sunday();
 
+var companykey = "";
+
+function getParameters() {
+  var searchString = window.location;
+  var st = searchString.toString();
+  var parm = st.split('key=');
+  var p = parm[1];
+  companykey = p;
+};
+
+
+$(document).ready(function () {
+    getParameters();
+    console.log(companykey);
+});
+
+
+
+
+
 var zipList = new Array("1", "75701", "75703", "75707","75771", "75704",
     "75706","75792","75708","75702","75709","75707", "75701",
     "75705","75703","75762","75750","75791","75789");

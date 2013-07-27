@@ -3,14 +3,16 @@
 var express = require('express')
   , mongoose = require('mongoose')
   , UserModel = require('./models/user')
+  , OnlinePriceModel = require('./models/onlineprice')
   , CompanyModel = require('./models/company')
   , User = mongoose.model('User')
+  , OnlinePrice = mongoose.model('OnlinePrice')
   , Company = mongoose.model('Company')
-  , onlinepricing = require('./controllers/onlinepricing')
   , welcome = require('./controllers/welcome')
   , program = require('./controllers/program')
   , companies = require('./controllers/companies')
   , users = require('./controllers/users')
+  , onlinepricing = require('./controllers/onlinepricing')
   , http = require('http')
   , path = require('path')
   , engine = require('ejs-locals')
@@ -127,6 +129,9 @@ function redirectAuthenticated(req, res, next){
 
 app.get('/', welcome.index);
 app.get('/onlinepricing/:id', onlinepricing.fetch);
+app.post('/onlinepricing', onlinepricing.getonlinepricing);
+//app.post('/onlinepricing/:id', onlinepricing.onlinePricingValidations, onlinepricing.create);
+app.post('/createonlineprice/:id', onlinepricing.onlinePricingValidations, onlinepricing.create);
 app.get('/login', redirectAuthenticated, users.login);
 app.get('/reset_password', redirectAuthenticated, users.reset_password);
 app.post('/reset_password', redirectAuthenticated, users.generate_password_reset);

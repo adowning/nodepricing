@@ -5,6 +5,9 @@
    border-radius:3px;
 }
 
+#nozip {
+    display: none;
+}
 #totalstable td {
     font-style: bold;
     text-align: right;

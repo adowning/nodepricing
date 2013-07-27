@@ -28,6 +28,8 @@
                     <div class="span4">
                         <div class="well">
                             <h4 id="zipModalLabel">Enter Your Zipcode</h4>
+                            <h2>test .. <%= pricing.key %> </h2>
+                 
 
                             <form onsubmit="return false;">
                                 <fieldset>
@@ -37,7 +39,7 @@
                             </form>
                         </div>
 
-                        <div class="alert" id="nozip">
+                        <div class="alert" name="nozip" id="nozip">
                             Sorry but we do not service this area. If you feel
                             this is an error please call 903 566-3081
                         </div>
@@ -366,15 +368,20 @@
     </div>
         <div class="span12">
 
-<!--         <ul id="errors" class="">
-          <li id="info">
-            There were some problems with your form submission:
-          </li>
-        </ul>
-        <p id="success">
-          Thanks for your message! We will get back to you ASAP!
-        </p> -->
-        <form  action="assets/php/send_form_email.php" name="emailForms" id="emailForm" method="POST">
+
+<form action="/createonlineprice/<%= pricing.key %>" method="post">
+  <fieldset>
+    <label>Company Name:</label>
+    <input type="text" name="name" value=""/>
+    <label>Address:</label>
+    <input type="address" name="address" value=""/>
+    <label>Email:</label>
+    <input type="email" name="email" value=""/>   
+    <button class="btn">Create</button>
+  </fieldset>
+</form>
+
+<!--         <form action="/create" method="post" >
          
             <div class="span4">
               <label>
@@ -407,19 +414,8 @@
     <input type="hidden" id="scheduletime" name="scheduletime" value="time_not_entered" required/>
     <input type="hidden" id="customerZipcode" name="customerZipcode" value="customerZipcode" required/>
     <input type="hidden" id="servicesForm" name="servicesForm" value="list of services" required/>
-<!--     <div class="row"></div>
-    <div class="span6"></div><div class="span3" name="formbuttons" id="formbuttons">
-        <button class="btn" data-dismiss="modal" aria-hidden="true" onclick="$('#bookModal2').modal('hide'); $('#bookModal').modal('show'); return false;">
-      <i class="icon-arrow-left ">
-      </i>
-      Back
-    </button>
-    <button type="submit" class="btn btn-primary pull-right">
-      Schedule
-    </button>
-  </div> -->
- 
-    </form>
+
+
     
 
         </div>
@@ -440,13 +436,26 @@
                                         Next <em class=
                                         "icon-arrow-right icon-white"></em></button>
                                     </div>
-        </div>
+        </div>    
       </div>
+          </form> -->
     </div>
     <div class="span2">
     </div>
   </div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
 
 <!-- <div class="contactform" id="contactform">
       <div id="contact-formx" class="clearfix">
