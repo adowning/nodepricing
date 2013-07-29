@@ -10,7 +10,7 @@ var OnlinePriceSchema = new Schema({
   	name : { type: String, default: "name" },
   	activeservices : { type: Array, default: ["Carpet", "Tile", "Rugs"] },
     ziplist : { type: Array, default: ["00000"] },
-    tripcharges : { type: Array, default: [{"00000": "13"}] },
+    tripcharges : { type: Array, default: [{'00000': 13}] },
     timeslots : { type: Array, default: ["9:00 am", "11:00 am", "1:00 pm", "3:00 pm"] },
     advertisements : { type: Array, default: ["Half off tile protector", "%20 off carpet protector", "%15 off upholstery cleaning"] },
     bookedslots : { type: Array, default: [] },
@@ -74,35 +74,30 @@ var OnlinePriceSchema = new Schema({
     couponcodes : { type: Array, default: [{"111": "10"}] },
     tileprices : { type: Array, default: [{
     'Small Area (1-100sf)': 44,
-    'Med. Area (101-200sf)': 64,
+    'Med Area (101-200sf)': 64,
     'Large Area (201-300sf)': 75
     }] },
     tilesealerprices : { type: Array, default: [{
     'Small Area (1-100sf)': 44,
-    'Med. Area (101-200sf)': 64,
+    'Med Area (101-200sf)': 64,
     'Large Area (201-300sf)': 75
     }] },
     rugprices : { type: Array, default: [{
     'Small Rug (1-50sf)': 70,
-    'Med. Rug (51-150sf)': 215,
+    'Med Rug (51-150sf)': 215,
     'Large Rug (150+ sf)': 325
     }] },
     rugprotectionprices : { type: Array, default: [{
     'Small Rug (1-50sf)': 70,
-    'Med. Rug (51-150sf)': 215,
+    'Med Rug (51-150sf)': 215,
     'Large Rug (150+ sf)': 325
     }] },
     rugdeodorizeprices : { type: Array, default: [{
     'Small Rug (1-50sf)': 70,
-    'Med. Rug (51-150sf)': 215,
+    'Med Rug (51-150sf)': 215,
     'Large Rug (150+ sf)': 325
     }] },
 });
 
-
- OnlinePriceSchema.methods.setBase = function() {
-    
-  	
- };
 
 module.exports = mongoose.model('OnlinePrice', OnlinePriceSchema);

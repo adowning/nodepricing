@@ -15,17 +15,16 @@ var CompanySchema = new Schema({
  	console.log('going to try and make a onlinepricew with key '+key);
     var newOnlinePrice = new OnlinePrice();
     newOnlinePrice.key = key;
-    newOnlinePrice.setBase();
-    newOnlinePrice.save(function(err, company){
+    newOnlinePrice.save(function(err, price){
     
     // Uniqueness and save validations
     
-    // if (err && err.code == 11000){
-    //   var duplicatedAttribute = err.err.split("$")[1].split("_")[0];
-    //   req.flash('error', "That " + duplicatedAttribute + " is already in use.");
-    //   return res.render('companies/new', {company : newCompany, errorMessages: req.flash('error')});
-    // }
-    // if(err) return next(err);
+    if (err && err.code == 11000){
+      var duplicatedAttribute = err.err.split("$")[1].split("_")[0];
+      req.flash('error', "That " + duplicatedAttribute + " is already in use.");
+      return res.render('companies/new', {price : newPrice, errorMessages: req.flash('error')});
+    }
+    if(err) console.log(err);
     
     // New user created successfully, logging In
     
@@ -37,7 +36,7 @@ var CompanySchema = new Schema({
     //   return res.redirect('/dashboard');
     // });
   });
-
+    console.log('made price with email'+newOnlinePrice.email);
 
  };
 

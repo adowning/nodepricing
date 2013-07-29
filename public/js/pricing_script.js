@@ -1,6 +1,9 @@
 //Pricing calc 
 //by ash downing 
 //andrewscarpetcleaning.com
+var carpetprices;
+var carpetprotectionprices;
+var carpetdeodorizeprices;
 
 $(window).load(function(){
     $('#zipModal').show();
@@ -10,8 +13,6 @@ $(document).ready(function () {
     var localkey = getParameters();
 
 
-    buildItems();
-    addAction();
     $('#timeholder').prop('disabled', 'disabled');
     $(".settime").click(function (e) {
         $('#scheduletime').val($(this).data('time'));
@@ -35,10 +36,32 @@ $(document).ready(function () {
     $('#tilerooms').hide();
     $('#discountrow').hide();
 
+    //TODO this sucks redo
+    $.each(price.carpetprices, function (index, element){
+        carpetprices = element;
+    });
+    $.each(price.carpetprotectionprices, function (index, element){
+        carpetprotectionprices = element;
+    });
+    $.each(price.carpetdeodorizeprices, function (index, element){
+        carpetdeodorizeprices = element;
+    });    
 
-
+    buildItems();
+    addAction();
     buildStable();
 
+
+Number.prototype.formatMoney = function (c, d, t) {
+    var n = this,
+        c = isNaN(c = Math.abs(c)) ? 2 : c,
+        d = d == undefined ? "." : d,
+        t = t == undefined ? "," : t,
+        s = n < 0 ? "-" : "",
+        i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "",
+        j = (j = i.length) > 3 ? j % 3 : 0;
+    return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
+};
 
 function getParameters() {
   var searchString = window.location;
@@ -64,8 +87,23 @@ $('.lastweek').on("click", function () {
 
     $(rotateAds);
  checkBrowserChangeBookModal();
+
+ $('.collapse').on('show', function () {
+    console.log('setting ag');
+    console.log('active group =' + $(this).parent().find('.accordion-toggle').text().replace(/[^A-Za-z]+/g, ''));
+    activegroup = $(this).parent().find('.accordion-toggle').text().replace(/[^A-Za-z]+/g, '');
+});
+
+$('.collapse').on('hide', function () {
+    $(this).parent().find('a').removeClass('open'); //remove active state to button on close
+});
+
    
 });
+
+
+
+
 
 $('#zipcode').keyup(function (e) {
     e.preventDefault();
@@ -99,12 +137,13 @@ $('#coupon').keyup(function (e) {
 function checkValidity(item) {
 
     //seems verbose but allows for high variabilty in activegroup
-    //may change later to reduce code 
+    //may change later to reduce code
     switch (activegroup) {
     case "Carpet":
-        var roomcleaningcost = hashPrices[item];
-        var protectprice = hashPricesProt[item];
-        var deodorizeprice = hashPricesDeod[item];
+        console.log('hai');
+        var roomcleaningcost = carpetprices[item];
+        var protectprice = carpetprotectionprices[item];
+        var deodorizeprice = carpetdeodorizeprices[item];
         if (roomcleaningcost == undefined || protectprice == undefined || deodorizeprice == undefined) {
             return false;
         } else {
@@ -162,9 +201,10 @@ function addAction() {
 
         case "carpet_furn":
             var roomtype = $(this).html();
-
-            var roomtype_nospace = roomtype.replaceAll(' ', '_');
-            roomtype_nospace = roomtype.replace(/\W/g, '');
+            console.log(roomtype);
+            //var roomtype_nospace = roomtype.replaceAll(' ', '_');
+            var roomtype_nospace = roomtype.replace(/\W/g, '');
+            console.log('rtns'+roomtype_nospace);
             sp = 'Protect';
             if(activegroup == "Tile"){
                 sp = 'Seal';
@@ -341,9 +381,11 @@ function updateTotal() {
             thistype = tt[1];
             thistype = thistype.replace('_', ' ');
             if (currentgroup == "Carpet") {
-                var roomcleaningcost = hashPrices[thistype];
-                var protectprice = hashPricesProt[thistype];
-                var deodorizeprice = hashPricesDeod[thistype];
+                console.log('hai2u');
+                 var roomcleaningcost = carpetprices[thistype];
+                 var protectprice = carpetprotectionprices[thistype];
+                 var deodorizeprice = carpetdeodorizeprices[thistype];
+            console.log('hai23');
             }
             if (currentgroup == "Upholstery") {
                 var roomcleaningcost = hashUp[thistype];
@@ -371,6 +413,7 @@ function updateTotal() {
             runningcleaningtotal = (runningcleaningtotal + (selectValue * roomcleaningcost)) + protection + deodorize;
         }
         r++;
+        console.log('end');
     });
 
     if (runningcleaningtotal !== 0 && runningcleaningtotal) {
@@ -393,7 +436,7 @@ function updateTotal() {
         var tax = runningcleaningtotal * .0825;
         var ftax = parseFloat(tax.toFixed(2));
         tot = parseFloat((ftax + runningcleaningtotal).toFixed(2));
-
+        console.log(Object.prototype.toString.call(runningcleaningtotal));
         $('.totalspan').text((runningcleaningtotal).formatMoney(2, '.', ','));
         $('.taxspan').text((ftax).formatMoney(2, '.', ','));
         //add trip charge
@@ -423,19 +466,27 @@ $('#myTab a').click(function (e) {
 
 
 function zipCheck(zip) {
-
-    if ($.inArray(zip, zipList) == -1) {
+    
+    var tc;
+    $.each(price.tripcharges, function (index, element) {
+          tc = element;
+     });
+    
+    if ($.inArray(zip, price.ziplist) == -1) {
         $('#nozip').show();
 
     } else {
-        console.log('zipfound');
         $('#nozip').hide();
         $('#customerZipcode').val(zip);
         $('#zipcodearea').hide();
         $('#pricecalculator').show();
         //see if this zip code incurs a tripcharge
-        if(tripcharges[zip]){
-            tripcharge = tripcharges[zip];
+        if(!tc){
+            return;
+        }
+        if(tc[zip]){
+            console.log('tc = '+tc[zip]);
+            tripcharge = tc[zip];
             updateTotal();
         }else{
             tripcharge = 0;
@@ -471,7 +522,7 @@ function getCount(aVal, myArr) {
 
 
 function buildStable() {
-
+    
     $("#stable > tbody > tr").remove();
     $('#prestable-date').html("<h4>" + monday.toString('MMMM dS') + ' - ' + sat.toString('MMMM dS') + "</h4>");
     $('.mondayhead').html("Mon<br>" + monday.toString('dS'));
@@ -480,10 +531,17 @@ function buildStable() {
     $('.thurshead').html('Thu<br>' + thurs.toString('dS'));
     $('.frihead').html('Fri<br>' + fri.toString('dS'));
     $('.sathead').html('Sat<br>' + sat.toString('dS'));
-
-    for (var i in timeslots) {
-        $("#stable > tbody").append("<tr><td>" + timeslots[i] + "</td><td class='open' name='slot " + i + " day " + monday + "'><img src='/img/Open.jpg' alt='This timeslot is available'></td><td class='open' name='slot " + i + " day " + tuesday + "'><img  src='/img/Open.jpg' alt='This timeslot is available'></td><td class='open' name='slot " + i + " day " + wend + "'><img src='/img/Open.jpg' alt='This timeslot is available'></td><td class='open' name='slot " + i + " day " + thurs + "'><img src='/img/Open.jpg' alt='This timeslot is available'></td><td class='open' name='slot " + i + " day " + fri + "'><img src='/img/Open.jpg' alt='This timeslot is available'></td><td class='open' name='slot " + i + " day " + sat + "'><img src='/img/Open.jpg' alt='This timeslot is available'></td> </tr>");
-    }
+    var i = 0;
+    $.each(price.timeslots, function (index, element) {
+          ts = element;
+        $("#stable > tbody").append("<tr><td>" +element + "</td><td class='open' name='slot " + i + " day " + monday + "'><img src='/img/Open.jpg' alt='This timeslot is available'></td><td class='open' name='slot " + i + " day " + tuesday + "'><img  src='/img/Open.jpg' alt='This timeslot is available'></td><td class='open' name='slot " + i + " day " + wend + "'><img src='/img/Open.jpg' alt='This timeslot is available'></td><td class='open' name='slot " + i + " day " + thurs + "'><img src='/img/Open.jpg' alt='This timeslot is available'></td><td class='open' name='slot " + i + " day " + fri + "'><img src='/img/Open.jpg' alt='This timeslot is available'></td><td class='open' name='slot " + i + " day " + sat + "'><img src='/img/Open.jpg' alt='This timeslot is available'></td> </tr>");
+        i++;
+     });
+    // //console.log(ts.length);
+    // for (var i in ts) {
+    //     //console.log(ts[i]);
+    //     $("#stable > tbody").append("<tr><td>" +ts[i] + "</td><td class='open' name='slot " + i + " day " + monday + "'><img src='/img/Open.jpg' alt='This timeslot is available'></td><td class='open' name='slot " + i + " day " + tuesday + "'><img  src='/img/Open.jpg' alt='This timeslot is available'></td><td class='open' name='slot " + i + " day " + wend + "'><img src='/img/Open.jpg' alt='This timeslot is available'></td><td class='open' name='slot " + i + " day " + thurs + "'><img src='/img/Open.jpg' alt='This timeslot is available'></td><td class='open' name='slot " + i + " day " + fri + "'><img src='/img/Open.jpg' alt='This timeslot is available'></td><td class='open' name='slot " + i + " day " + sat + "'><img src='/img/Open.jpg' alt='This timeslot is available'></td> </tr>");
+    // }
 
     fillSchedule();
 }
@@ -548,14 +606,14 @@ function fillSchedule() {
         }
         }
         // see what is booked
-        for (var i in bookedslots) {
-            if (bookedslots[i] == $(this).prop('name')) {
+        for (var i in price.bookedslots) {
+            if (price.bookedslots[i] == $(this).prop('name')) {
                 $(this).children('img').attr('src', "/img/Closed.gif");
                 $(this).prop('class', 'closed');
             }
         }
 
-    });
+    })
     $('.open').click(function (event) {
         $(this).children('img').attr('src', "/img/Selected.jpg");
         $(this).prop('class', 'selected');
@@ -590,9 +648,10 @@ function parseDate(daystring) {
 function setJobDateTime(dt) {
     var day = dt.split(' day ');
     var time = day[0].replace(/[^\d.]/g, "");
-    var t = timeslots[time];
+    var t = price.timeslots[time];
     var sday2 = day[1].split('GMT');
     var sadate = Date.parse(sday2[0].replace(' 00:00:00', ''));
+    console.log('t '+t);
     $('#scheduletime').val(t);
     $('#scheduledate').val(sadate);
 
@@ -604,39 +663,29 @@ function setJobDateTime(dt) {
     }
 }
 
-Number.prototype.formatMoney = function (c, d, t) {
-    var n = this,
-        c = isNaN(c = Math.abs(c)) ? 2 : c,
-        d = d == undefined ? "." : d,
-        t = t == undefined ? "," : t,
-        s = n < 0 ? "-" : "",
-        i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "",
-        j = (j = i.length) > 3 ? j % 3 : 0;
-    return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
-};
 
 function rotateAds() {
     var ct = $("#rotate").data("advert") || 0;
-    $("#rotate").data("advert", ct == advertisments.length - 1 ? 0 : ct + 1).html('<h3><i>' + '&nbsp;' + advertisments[ct] + '</i></h3>')
+    $("#rotate").data("advert", ct == price.advertisments.length - 1 ? 0 : ct + 1).html('<h3><i>' + '&nbsp;' + price.advertisments[ct] + '</i></h3>')
         .fadeIn().delay(8000).fadeOut(300, rotateAds);
 }
 
-$('.collapse').on('show', function () {
 
-    console.log('active group =' + $(this).parent().find('.accordion-toggle').text().replace(/[^A-Za-z]+/g, ''));
-    activegroup = $(this).parent().find('.accordion-toggle').text().replace(/[^A-Za-z]+/g, '');
-});
-
-$('.collapse').on('hide', function () {
-    $(this).parent().find('a').removeClass('open'); //remove active state to button on close
-});
 
 function buildItems() {
     var items = [];
     //should probably clean this up and optimize code
-    $.each(hashPrices, function (key, value) {
+    console.log('builditems');
+    
+    // $.each(price.carpetprices, function (index, element){
+    //     carpetprices = element;
+    // });
+    $.each(carpetprices, function (key, value) {
+        console.log(value);
+        //console.log(key);
         var linkhtml = "<li><a class='action-addroom' href='#' data-type='carpet_furn' data-price='" + value + "'>" + key + "</a></li>";
         items.push(linkhtml);
+        console.log(linkhtml);
     });
     $('#carpet-nav-list').append(items.join(''));
     linkhtml = "";

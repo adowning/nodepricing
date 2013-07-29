@@ -1,3 +1,4 @@
+var price = "";
 var monday = Date.monday();
 var tuesday = Date.tuesday();
 var wend = Date.wednesday();
@@ -5,8 +6,8 @@ var thurs = Date.thursday();
 var fri = Date.friday();
 var sat = Date.saturday();
 var sunday = Date.sunday();
-
 var companykey = "";
+var zipList;
 
 function getParameters() {
   var searchString = window.location;
@@ -29,22 +30,23 @@ $(document).ready(function () {
         cache: false,
         timeout: 5000,
         complete: function (some) {
-            //called when complete
-            // console.log('comp'+some);
-            console.log('process complete');
-        },
+$.getScript("/js/pricing_script.js", function(){
 
+
+   console.log("Script loaded and executed.");
+   // here you can use anything you defined in the loaded script
+
+});
+        },
         success: function (some) {
 
-            var obj;
+            
             $.each(some, function (index, element) {
 
-                obj = element;
+                price = element;
 
             });
-            console.log(obj.key);
         },
-
         error: function () {
             console.log('process error');
         },
@@ -53,61 +55,64 @@ $(document).ready(function () {
     getParameters();
 });
 
+// function buildPrice(){
+//     console.log(price.tripcharges.length);
+//     console.log(price.tripcharges['00000']);
+// }
 
 
+// var zipList = new Array("1", "75701", "75703", "75707","75771", "75704",
+//     "75706","75792","75708","75702","75709","75707", "75701",
+//     "75705","75703","75762","75750","75791","75789");
 
-var zipList = new Array("1", "75701", "75703", "75707","75771", "75704",
-    "75706","75792","75708","75702","75709","75707", "75701",
-    "75705","75703","75762","75750","75791","75789");
-
-var tripcharges = {'75701':'25', 
-                    '75703':'200'};
+//var tripcharges = {'75701':'25', 
+//                    '75703':'200'};
 var tripcharge = 0;
 
-var timeslots = new Array("9:00 am", "11:00 am", "1:00 pm", "3:00 pm");
+// var timeslots = new Array("9:00 am", "11:00 am", "1:00 pm", "3:00 pm");
 var activecarpetrooms = new Array();
 var tot = 0;
 var activegroup = "";
-var advertisments = ["Half off tile protector",
-        "%20 off carpet protector", "$10 off upholstery cleaning"
-];
+// var advertisments = ["Half off tile protector",
+//         "%20 off carpet protector", "$10 off upholstery cleaning"
+// ];
 var base = 0;
-var bookedslots = new Array("slot 1 day Fri Apr 05 2013 00:00:00 GMT-0500 (Central Daylight Time)");
+// var bookedslots = new Array("slot 1 day Fri Apr 05 2013 00:00:00 GMT-0500 (Central Daylight Time)");
 var discountvalue = 0;
 var browser = "";
 
-var hashPrices = {
-    'Bedroom': 39,
-    'Living Room': 46,
-    'Dining Room': 30,
-    'Living/Dining Combo': 55,
-    'Hall': 10,
-    'Game Room': 48,
-    'Misc (0-225)sf': 35,
-    'Misc (225-400)sf': 55
-}
+// var hashPrices = {
+//     'Bedroom': 39,
+//     'Living Room': 46,
+//     'Dining Room': 30,
+//     'Living/Dining Combo': 55,
+//     'Hall': 10,
+//     'Game Room': 48,
+//     'Misc (0-225)sf': 35,
+//     'Misc (225-400)sf': 55
+// }
 
-var hashPricesProt = {
-    'Bedroom': 39,
-    'Living Room': 46,
-    'Dining Room': 30,
-    'Living/Dining Combo': 55,
-    'Hall': 10,
-    'Game Room': 48,
-    'Misc (0-225)sf': 35,
-    'Misc (225-400)sf': 55
-}
+// var hashPricesProt = {
+//     'Bedroom': 39,
+//     'Living Room': 46,
+//     'Dining Room': 30,
+//     'Living/Dining Combo': 55,
+//     'Hall': 10,
+//     'Game Room': 48,
+//     'Misc (0-225)sf': 35,
+//     'Misc (225-400)sf': 55
+// }
 
-var hashPricesDeod = {
-    'Bedroom': 39,
-    'Living Room': 46,
-    'Dining Room': 30,
-    'Living/Dining Combo': 55,
-    'Hall': 10,
-    'Game Room': 48,
-    'Misc (0-225)sf': 35,
-    'Misc (225-400)sf': 55
-}
+// var hashPricesDeod = {
+//     'Bedroom': 39,
+//     'Living Room': 46,
+//     'Dining Room': 30,
+//     'Living/Dining Combo': 55,
+//     'Hall': 10,
+//     'Game Room': 48,
+//     'Misc (0-225)sf': 35,
+//     'Misc (225-400)sf': 55
+// }
 
 
 var hashUp = {
