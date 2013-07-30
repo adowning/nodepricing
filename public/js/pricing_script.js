@@ -1,9 +1,7 @@
 //Pricing calc 
 //by ash downing 
 //andrewscarpetcleaning.com
-var carpetprices;
-var carpetprotectionprices;
-var carpetdeodorizeprices;
+
 
 $(window).load(function(){
     $('#zipModal').show();
@@ -37,15 +35,43 @@ $(document).ready(function () {
     $('#discountrow').hide();
 
     //TODO this sucks redo
-    $.each(price.carpetprices, function (index, element){
-        carpetprices = element;
-    });
-    $.each(price.carpetprotectionprices, function (index, element){
-        carpetprotectionprices = element;
-    });
-    $.each(price.carpetdeodorizeprices, function (index, element){
-        carpetdeodorizeprices = element;
-    });    
+    // $.each(price.carpetprices, function (index, element){
+    //     carpetprices = element;
+    // });
+    // $.each(price.carpetprotectionprices, function (index, element){
+    //     carpetprotectionprices = element;
+    // });
+    // $.each(price.carpetdeodorizeprices, function (index, element){
+    //     carpetdeodorizeprices = element;
+    // });    
+
+    // $.each(price.upholsteryprices, function (index, element){
+    //     hashUp = element;
+    // });
+    // $.each(price.upholsteryprotectionprices, function (index, element){
+    //     hashUpProt = element;
+    // });
+    // $.each(price.upholsterydeodorizeprices, function (index, element){
+    //     hashUpDeod = element;
+    // });
+
+    // $.each(price.tileprices, function (index, element){
+    //     hashUp = element;
+    // });
+    // $.each(price.tilesealerprices, function (index, element){
+    //     hashUpProt = element;
+    // });
+
+    // $.each(price.rugprices, function (index, element){
+    //     hashUpDeod = element;
+    // });
+    // $.each(price.rugprotectionprices, function (index, element){
+    //     hashUpDeod = element;
+    // });
+    // $.each(price.rugdeodorizeprices, function (index, element){
+    //     hashUpDeod = element;
+    // });
+
 
     buildItems();
     addAction();
@@ -85,8 +111,6 @@ $('.lastweek').on("click", function () {
 });
 
 
-    $(rotateAds);
- checkBrowserChangeBookModal();
 
  $('.collapse').on('show', function () {
     console.log('setting ag');
@@ -98,6 +122,8 @@ $('.collapse').on('hide', function () {
     $(this).parent().find('a').removeClass('open'); //remove active state to button on close
 });
 
+    $(rotateAds);
+ checkBrowserChangeBookModal();
    
 });
 
@@ -135,7 +161,7 @@ $('#coupon').keyup(function (e) {
 });
 
 function checkValidity(item) {
-
+    console.log('checking val');
     //seems verbose but allows for high variabilty in activegroup
     //may change later to reduce code
     switch (activegroup) {
@@ -188,6 +214,7 @@ function checkValidity(item) {
 };
 
 function addAction() {
+    console.log('adding action');
     $(".action-addroom").click(function (e) {
 
         //prelim check to make sure we have prices for everything, if not
@@ -307,6 +334,7 @@ function addScrollBar() {
 };
 
 function amountChangeOptions(roomtype_nospace, roomtype) {
+    console.log('fun amountChangeOptions');
     //remove row if we changed clean amount to 0
     if ($('#carpetclean' + roomtype_nospace + ' :selected').val() == 0) {
         $('#carpetclean' + roomtype_nospace + '').parent().parent().remove();
@@ -373,9 +401,10 @@ function updateTotal() {
     var r = 0;
     $("#carpetrooms tr").each(function () {
         $this = $(this);
+        console.log('r '+r);
         if (r > 1) {
             var currentgroup = ($this).prop('class');
-
+            console.log('cur group '+currentgroup);
             var thistype = $(this).find('td:eq(0)').html();
             var tt = thistype.split(" - ");
             thistype = tt[1];
@@ -681,16 +710,14 @@ function buildItems() {
     //     carpetprices = element;
     // });
     $.each(carpetprices, function (key, value) {
-        console.log(value);
         //console.log(key);
         var linkhtml = "<li><a class='action-addroom' href='#' data-type='carpet_furn' data-price='" + value + "'>" + key + "</a></li>";
         items.push(linkhtml);
-        console.log(linkhtml);
     });
     $('#carpet-nav-list').append(items.join(''));
     linkhtml = "";
     items = [];
-
+    console.log('2');
     $.each(hashUp, function (key, value) {
        linkhtml = "<li><a class='action-addroom' href='#' data-type='carpet_furn' data-price='" + value + "'>" + key + "</a></li>";
       items.push(linkhtml);
@@ -698,7 +725,7 @@ function buildItems() {
     $('#upnavlist').append(items.join(''));
     linkhtml = "";
     items = [];
-
+    console.log('3');
     $.each(hashRugPrices, function (key, value) {
        linkhtml = "<li><a class='action-addroom' href='#' data-type='carpet_furn' data-price='" + value + "'>" + key + "</a></li>";
       items.push(linkhtml);
@@ -706,7 +733,7 @@ function buildItems() {
     $('#upruglist').append(items.join(''));
     linkhtml = "";
     items = [];
-
+    console.log('4');
     $.each(hashTilePrices, function (key, value) {
         linkhtml = "<li><a class='action-addroom' href='#' data-type='carpet_furn' data-price='" + value + "'>" + key + "</a></li>";
         items.push(linkhtml);
@@ -714,6 +741,7 @@ function buildItems() {
     $('#tile-nav-list').append(items.join(''));
     linkhtml = "";
     items = [];
+    console.log('builditems done');
 }
 
 String.prototype.replaceAll = function (str1, str2, ignore) {

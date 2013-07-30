@@ -8,6 +8,18 @@ var sat = Date.saturday();
 var sunday = Date.sunday();
 var companykey = "";
 var zipList;
+var carpetprices;
+var carpetprotectionprices;
+var carpetdeodorizeprices;
+var hashUp;
+var hashUpProt;
+var hashUpDeod;
+var hashTilePrices;
+var hashTilePricesProt;
+var hashRugPrices;
+var hashRugProt;
+var hashRugDeod;
+
 
 function getParameters() {
   var searchString = window.location;
@@ -30,6 +42,8 @@ $(document).ready(function () {
         cache: false,
         timeout: 5000,
         complete: function (some) {
+            console.log('comp starting');
+            setDataVars();
 $.getScript("/js/pricing_script.js", function(){
 
 
@@ -46,15 +60,57 @@ $.getScript("/js/pricing_script.js", function(){
                 price = element;
 
             });
+            console.log('suc comp');
         },
         error: function () {
             console.log('process error');
         },
     });
 
-    getParameters();
+    
 });
 
+
+function setDataVars() {
+        //TODO this sucks redo
+    $.each(price.carpetprices, function (index, element){
+        carpetprices = element;
+    });
+    $.each(price.carpetprotectionprices, function (index, element){
+        carpetprotectionprices = element;
+    });
+    $.each(price.carpetdeodorizeprices, function (index, element){
+        carpetdeodorizeprices = element;
+    });    
+
+    $.each(price.upholsteryprices, function (index, element){
+        hashUp = element;
+    });
+    $.each(price.upholsteryprotectionprices, function (index, element){
+        hashUpProt = element;
+    });
+    $.each(price.upholsterydeodorizeprices, function (index, element){
+        hashUpDeod = element;
+    });
+
+    $.each(price.tileprices, function (index, element){
+        hashTilePrices = element;
+    });
+    $.each(price.tilesealerprices, function (index, element){
+        hashTilePricesProt = element;
+    });
+
+    $.each(price.rugprices, function (index, element){
+        hashRugPrices = element;
+    });
+    $.each(price.rugprotectionprices, function (index, element){
+        hashRugProt = element;
+    });
+    $.each(price.rugdeodorizeprices, function (index, element){
+        hashRugDeod = element;
+    });
+    console.log('got vars');
+}
 // function buildPrice(){
 //     console.log(price.tripcharges.length);
 //     console.log(price.tripcharges['00000']);
@@ -68,7 +124,13 @@ $.getScript("/js/pricing_script.js", function(){
 //var tripcharges = {'75701':'25', 
 //                    '75703':'200'};
 var tripcharge = 0;
+var selecteddate = "";
 
+
+var couponCodes = {
+    '111': '10',
+    '112': '20'
+};
 // var timeslots = new Array("9:00 am", "11:00 am", "1:00 pm", "3:00 pm");
 var activecarpetrooms = new Array();
 var tot = 0;
@@ -115,71 +177,65 @@ var browser = "";
 // }
 
 
-var hashUp = {
-    'Sofa': 75,
-    'Recliner': 65,
-    'Ottoman': 15,
-    'Dining Chair': 15,
-    'Loveseat': 55,
-    'Wingback Chair': 25,
-    'Sectional': 85
-}
+// var hashUp = {
+//     'Sofa': 75,
+//     'Recliner': 65,
+//     'Ottoman': 15,
+//     'Dining Chair': 15,
+//     'Loveseat': 55,
+//     'Wingback Chair': 25,
+//     'Sectional': 85
+// }
 
-var hashUpProt = {
-    'Sofa': 25,
-    'Recliner': 15,
-    'Ottoman': 5,
-    'Dining Chair': 5,
-    'Loveseat': 15,
-    'Wingback Chair': 5,
-    'Sectional': 25
-}
+// var hashUpProt = {
+//     'Sofa': 25,
+//     'Recliner': 15,
+//     'Ottoman': 5,
+//     'Dining Chair': 5,
+//     'Loveseat': 15,
+//     'Wingback Chair': 5,
+//     'Sectional': 25
+// }
 
-var hashUpDeod = {
-    'Sofa': 25,
-    'Recliner': 15,
-    'Ottoman': 5,
-    'Dining Chair': 5,
-    'Loveseat': 15,
-    'Wingback Chair': 5,
-    'Sectional': 25
-}
-
-var selecteddate = "";
+// var hashUpDeod = {
+//     'Sofa': 25,
+//     'Recliner': 15,
+//     'Ottoman': 5,
+//     'Dining Chair': 5,
+//     'Loveseat': 15,
+//     'Wingback Chair': 5,
+//     'Sectional': 25
+// }
 
 
-var couponCodes = {
-    '111': '10',
-    '112': '20'
-};
 
-var hashTilePrices = {
-    'Small Area (1-100sf)': 44,
-    'Med. Area (101-200sf)': 64,
-    'Large Area (201-300sf)': 75
-}
+// var hashTilePrices = {
+//     'Small Area (1-100sf)': 44,
+//     'Med. Area (101-200sf)': 64,
+//     'Large Area (201-300sf)': 75
+// }
 
-var hashTilePricesProt = {
-    'Small Area (1-100sf)': 44,
-    'Med. Area (101-200sf)': 64,
-    'Large Area (201-300sf)': 75
-}
+// var hashTilePricesProt = {
+//     'Small Area (1-100sf)': 44,
+//     'Med. Area (101-200sf)': 64,
+//     'Large Area (201-300sf)': 75
+// }
 
 
-var hashRugPrices = {
-    'Small Rug (1-50sf)': 70,
-    'Med. Rug (51-150sf)': 215,
-    'Large Rug (150+ sf)': 325
-}
+// var hashRugPrices = {
+//     'Small Rug (1-50sf)': 70,
+//     'Med. Rug (51-150sf)': 215,
+//     'Large Rug (150+ sf)': 325
+// }
 
-var hashRugProt = {
-    'Small Rug (1-50sf)': 70,
-    'Med. Rug (51-150sf)': 215,
-    'Large Rug (150+ sf)': 325
-}
+// var hashRugProt = {
+//     'Small Rug (1-50sf)': 70,
+//     'Med. Rug (51-150sf)': 215,
+//     'Large Rug (150+ sf)': 325
+// }
 
-var hashRugDeod = {
-    'Small Rug (1-50sf)': 70,
-    'Med. Rug (51-150sf)': 215,
-    'Large Rug (150+ sf)': 325
-}
+// var hashRugDeod = {
+//     'Small Rug (1-50sf)': 70,
+//     'Med. Rug (51-150sf)': 215,
+//     'Large Rug (150+ sf)': 325
+// }
