@@ -132,7 +132,7 @@ function redirectAuthenticated(req, res, next){
 
 app.get('/', welcome.index);
 app.get('/onlinepricing/:id', onlinepricing.fetch);
-app.get('onlinepricing/thanks', onlinepricing.thanks);
+//app.get('onlinepricing/thanks', onlinepricing.thanks);
 app.post('/onlinepricing', onlinepricing.getonlinepricing);
 //app.post('/neworder/:id', onlinepricing.onlinePricingValidations, onlinepricing.create);
 app.post('/createonlineprice/:id', onlinepricing.onlinePricingValidations, onlinepricing.create);

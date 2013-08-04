@@ -33,7 +33,7 @@
 
                             <form onsubmit="return false;">
                                 <fieldset>
-                                    <input id="zipcode" name="zipcode"
+                                    <input id="zipcodetext" name="zipcodetext" value="00000"
                                     placeholder="" required="" type="text">
                                 </fieldset>
                             </form>
@@ -46,7 +46,7 @@
 
                         <div class="pull-right">
                             <button class="btn btn-primary" onclick=
-                            "zipCheck($('#zipcode').val());">Next <em class=
+                            "zipCheck($('#zipcodetext').val());">Next <em class=
                             "icon-arrow-right icon-white"></em></button>
                         </div>
                     </div>
@@ -235,7 +235,7 @@
                                         "icon-arrow-left"></em>Back</button>
                                         <button class="btn btn-primary" id=
                                         "priceNext" name="priceNext" onclick=
-                                        "$('#pricecalculator').hide(); $('#scheduleform').show(); return false;">
+                                        "$('#pricecalculator').hide(); $('#scheduleform').show(); setServices(); return false;">
                                         Next <em class=
                                         "icon-arrow-right icon-white"></em></button>
                                     </div>
@@ -368,18 +368,95 @@
     </div>
         <div class="span12">
 
-
+<!-- 
 <form action="/createonlineprice/<%= pricing.key %>" method="post">
   <fieldset>
-    <label>Company Name:</label>
+    <label>Name:</label>
     <input type="text" name="name" value=""/>
-    <label>Address:</label>
-    <input type="address" name="address" value=""/>
     <label>Email:</label>
-    <input type="email" name="email" value=""/>   
+    <input type="email" name="email" value=""/> 
+    <label>Phone:</label>
+    <input type="phone" name="phone" value=""/> 
+    <label>Address:</label>
+    <input type="address" name="address" value=""/>  
     <button class="btn">Create</button>
+    <label>
+        Special Instructions for your technician:
+      </label>
+      <textarea placeholder="Any special instructions you would like to pass on to us or the technician goes here." name="instructions" id="instructions" class="input-xlarge span6" rows="10">
+     </textarea>
   </fieldset>
-</form>
+</form> -->
+
+
+      </button>
+      <h3>
+        Enter Contact Information
+      </h3>
+  
+    <div>
+      <div id="contact-formx" class="clearfix"
+       >
+<!--         <ul id="errors" class="">
+          <li id="info">
+            There were some problems with your form submission:
+          </li>
+        </ul>
+        <p id="success">
+          Thanks for your message! We will get back to you ASAP!
+        </p> -->
+<form action="/createonlineprice/<%= pricing.key %>" method="post">
+          <div class="row">
+            <div class="span3">
+              <label>
+                Name
+              </label>
+              <input name="name" value="asdf" id="name" type="text" class="span3" placeholder="John Galt" required>
+              <label>
+                Email Address
+              </label>
+              <input input type="email" value="asdf@asdf.com" type="text" class="span3" name="email" id="email" placeholder="jg@email.com" required>
+              
+              <label>
+                Telephone
+              </label>
+              <input type='telephone' value='9999999999' pattern="^\D?(\d{3})\D?\D?(\d{3})\D?(\d{4})$"    name="telephone" id="telephone"  class="span3" placeholder="903 555 1234" required>
+              <label>
+                Address
+              </label>
+              <input input type="address" value='123 asdf' name="address" id="address" type="text" class="span3" placeholder="4242 Easy St." required>
+     
+    </div>
+    <div class="span6">
+      <label>
+        Special Instructions for your technician:
+      </label>
+      <textarea placeholder="Any special instructions you would like to pass on to us or the technician goes here." name="instructions" id="instructions" class="input-xlarge span6" rows="10">
+      </textarea>
+    </div>
+    <input type="hidden" id="scheduledate" value='laskdjf' name="scheduledate" required/>
+    <input type="hidden" id="scheduletime" value='asdf' name="scheduletime"  required/>
+    <input type="hidden" id="zipcode" name="zipcode"  required/>
+    <input type="hidden" id="services" name="services"  required/>
+        <input type="hidden" id="services_totals" name="services_totals"  required/>
+    <div class="row"></div>
+    <div class="span6"></div><div class="span3" name="formbuttons" id="formbuttons">
+        <button class="btn" data-dismiss="modal" aria-hidden="true" onclick="$('#bookModal2').modal('hide'); $('#bookModal').modal('show'); return false;">
+      <i class="icon-arrow-left ">
+      </i>
+      Back
+    </button>
+    <button type="submit" class="btn btn-primary pull-right">
+      Schedule
+    </button>
+  </div>
+  </div>
+    </form>
+    
+  </div>
+  
+  </div>
+
 
 <!--         <form action="/create" method="post" >
          
@@ -954,6 +1031,7 @@
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"></script>
   <script type="text/javascript" src="/js/bootstrap.min.js"></script>  
   <script type="text/javascript" src="/js/date2.js"></script> 
+    <script type="text/javascript" src="/js/jquery.json-2.4.min.js"></script>    
   <script type="text/javascript" src="/js/jquery.client.js"></script> 
   <script type="text/javascript" src="/js/browser_fix.js"></script>
   <script type="text/javascript" src="/js/pricing_data.js"></script>       

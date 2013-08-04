@@ -7,7 +7,8 @@ var CompanySchema = new Schema({
   	activemodules : { type: String, required: true, index: { unique: false } },
   	key : { type: String, required: true, index: { unique: true } },
   	url : { type: String, required: true, index: { unique: false } },
-  	name : { type: String, required: true, index: { unique: true } },
+    address : { type: String, required: false, index: { unique: false } },  	
+    name : { type: String, required: true, index: { unique: true } },
   	ownername : { type: String, required: true, index: { unique: true } }
 });
 

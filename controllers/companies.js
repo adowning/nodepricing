@@ -13,7 +13,6 @@ exports.register = function(req, res){
 exports.account = function(req,res){
   var user = req.user;
     Company.findOne({ownername:user.username}, function(err, comp){
-    console.log('asdfasdfasdffd');
     if(err) return next(err);
     //if(!comp) return next(err);
     if(!comp){

@@ -1,1 +1,206 @@
-<h1>Thanks!</h1>
+<!-- <h1>Thanks!</h1>
+<table>
+
+<% for(var i=0; i<order.services.length; i++) {%>
+<tr>
+   <td><%= order.services[i].group %></td>
+   <td><%= order.services[i].roomname %></td>
+   <td><%= order.services[i].cost %></td>
+</tr>
+<% } %>
+
+</table> -->
+
+<!doctype html>
+<html dir="ltr" lang="en" class="no-js">
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width" />
+
+<title>Work Order</title>
+
+<link rel="stylesheet" href="/css/onlinepricing/reset.css" media="screen" />
+<link rel="stylesheet" href="/css/onlinepricing/style.css" media="screen" />
+
+<!-- give life to HTML5 objects in IE -->
+<!--[if lte IE 8]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+<!-- js HTML class -->
+<!-- <script>(function(H){H.className=H.className.replace(/\bno-js\b/,'js')})(document.documentElement)</script>-->
+
+</head>
+<body>
+<!-- begin markup -->
+
+
+
+<div id="invoice" class="new">
+
+
+	<div class="this-is">
+		<strong>Work Order</strong>
+	</div><!-- invoice headline -->
+
+
+	<header id="header">
+		<div class="invoice-intro">
+			<h1><%= comp.name %></h1>
+			<p>Building a Better Tomorrow Through Your Destruction</p>
+		</div>
+
+		<dl class="invoice-meta">
+			<dt class="invoice-number">Order #</dt>
+			<dd><%= order.ordernumber %></dd>
+<!-- 			<dt class="invoice-date">Date Created</dt>
+			<dd>01-24-2012</dd> -->
+			<dt class="invoice-due">Schedule Date</dt>
+			<dd><%= order.scheduledate %></dd>
+			<dt class="invoice-due">Schedule Time</dt>
+			<dd><%= order.scheduletime %></dd>
+		</dl>
+	</header>
+	<!-- e: invoice header -->
+
+
+	<section id="parties">
+
+		<div class="invoice-to">
+			<h2>Order For:</h2>
+			<div id="hcard-Hiram-Roth" class="vcard">
+				<div class="org"><%= order.name %></div>
+				<div class="org"></div>
+				<div class="org"><%= order.email %></div>
+				
+				<div class="adr">
+					<div class="street-address"><%= order.address %></div>
+					<span class="locality">Paris</span>
+					<span class="country-name">TexasFake</span>
+				</div>
+
+				<div class="tel"><%= order.telephone %></div>
+			</div><!-- e: vcard -->
+		</div><!-- e invoice-to -->
+
+
+		<div class="invoice-from">
+			<h2>Our Contact Info:</h2>
+			<div id="hcard-Admiral-Valdore" class="vcard">
+				<div class="org"><%= comp.name %></div>
+				<div class="org"></div>
+				<div class="org"><%= comp.email %></div>
+				
+				<div class="adr">
+					<div class="street-address"><%= comp.address %></div>
+					<span class="locality">Paris</span>
+					<span class="country-name">TexasFake</span>
+				</div>
+
+				<div class="tel"><%= comp.telephone %></div>
+			</div><!-- e: vcard -->
+		</div><!-- e invoice-from -->
+
+
+<!-- 		<div class="invoice-status">
+			<h3>Order Status</h3>
+			<strong>Invoice is <em>Scheduled for:</em></strong>
+
+			<dl class="invoice-meta">
+			<dt class="invoice-date">Date of Work Order</dt>
+			<dd>01-24-2012</dd>
+			<dt class="invoice-due">Due Date</dt>
+			<dd>02-10-2012</dd>
+		</dl>
+
+		</div> --><!-- e: invoice-status -->
+
+	</section><!-- e: invoice partis -->
+
+
+	<section class="invoice-financials">
+
+		<div class="invoice-items">
+			<table>
+				<caption>Your Order</caption>
+				<thead>
+					<tr>
+						<th>Item</th>
+						<th>Quantity</th>
+						<th>Price</th>
+					</tr>
+				</thead>
+				<tbody>
+				<% for(var i=0; i<order.services.length; i++) {%>
+					<tr>
+						<th><%= order.services[i].roomname %></th>
+						<td>1</td>
+						<td><%= order.services[i].cost %></td>
+					</tr>
+					<% } %>
+				</tbody>
+<!-- 				<tfoot>
+					<tr>
+						<td colspan="3">Amounts in bars of Gold Pressed Latinum</td>
+					</tr>
+				</tfoot> -->
+			</table>
+		</div><!-- e: invoice items -->
+
+
+		<div class="invoice-totals">
+			<table>
+				<caption>Totals:</caption>
+				<tbody>
+					<tr>
+						<th>Subtotal:</th>
+						<td></td>
+						<td><%= order.services_totals.subtotal %></td>
+					</tr>
+					<tr>
+						<th>Tax:</th>
+						<td></td>
+						<td><%= order.services_totals.tax %></td>
+					</tr>
+					<tr>
+						<th>Total:</th>
+						<td></td>
+						<td><%= order.services_totals.total %></td>
+					</tr>
+				</tbody>
+			</table>
+<!-- 
+			<div class="invoice-pay">
+				<h5>Pay with...</h5>
+				<ul>
+					<li>
+						<a href="#" class="gcheckout">Checkout with Google</a>
+					</li>
+					<li>
+						<a href="#" class="acheckout">Checkout with Amazon</a>
+					</li>
+				</ul>
+			</div> -->
+		</div><!-- e: invoice totals -->
+
+
+		<div class="invoice-notes">
+			<h6>Notes for technician:</h6>
+			<p> <%= order.instructions %></p>
+
+		</div><!-- e: invoice-notes -->
+
+	</section><!-- e: invoice financials -->
+
+
+	<footer id="footer">
+		<p>
+			 Return to <a href="http://andrewscarpetcleaning.com">Andrews Carpet Cleaning</a>.
+		</p>
+	</footer>
+
+
+</div><!-- e: invoice -->
+
+
+</body>
+</html>

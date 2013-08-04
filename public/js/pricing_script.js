@@ -1,14 +1,27 @@
 //Pricing calc 
 //by ash downing 
 //andrewscarpetcleaning.com
-
+var services = new Object();
 
 $(window).load(function(){
     $('#zipModal').show();
 });
 
+
+
 $(document).ready(function () {
+   
     var localkey = getParameters();
+    //var onlineUsers = { names: [{name="Joe"}, {name="bloggs"}]};
+    var animal = new Object();
+
+//     var people = {
+//     1 : { id: 1, name: 'Joe', cost: 3},
+//     3 : { id: 3, name: 'Sam', cost: 4},
+//     8 : { id: 8, name: 'Eve', cost: 5}
+// };
+
+
 
 
     $('#timeholder').prop('disabled', 'disabled');
@@ -101,7 +114,7 @@ function getParameters() {
 }
 
 $('.nextweek').on("click", function () {
-    console.log('pussy');
+    //console.log('pussy');
     addWeek(7);
 });
 
@@ -113,8 +126,8 @@ $('.lastweek').on("click", function () {
 
 
  $('.collapse').on('show', function () {
-    console.log('setting ag');
-    console.log('active group =' + $(this).parent().find('.accordion-toggle').text().replace(/[^A-Za-z]+/g, ''));
+    //console.log('setting ag');
+    //console.log('active group =' + $(this).parent().find('.accordion-toggle').text().replace(/[^A-Za-z]+/g, ''));
     activegroup = $(this).parent().find('.accordion-toggle').text().replace(/[^A-Za-z]+/g, '');
 });
 
@@ -127,15 +140,26 @@ $('.collapse').on('hide', function () {
    
 });
 
+// function test(){
+//         console.log('starting test');
+//          //order = new Object();
+//          //order_services = {carpet: {'bedroom': 49, 'kitchen': 7}};
+//          //encoded = $.toJSON( order_services );
+//          //result = JSON.parse(encoded);
+//          //order.services = result;
+       
+//          // var order_services = ['1', '2'];
+//          // _.each(order_services, element){
+//          //    console.log(element);
+//          // }
+// };
 
 
 
-
-$('#zipcode').keyup(function (e) {
+$('#zipcodetext').keyup(function (e) {
     e.preventDefault();
     if (e.keyCode == 13) {
-        zipCheck($('#zipcode').val());
-
+        zipCheck($('#zipcodetext').val());
     }
 
 });
@@ -161,12 +185,12 @@ $('#coupon').keyup(function (e) {
 });
 
 function checkValidity(item) {
-    console.log('checking val');
+    //console.log('checking val');
     //seems verbose but allows for high variabilty in activegroup
     //may change later to reduce code
     switch (activegroup) {
     case "Carpet":
-        console.log('hai');
+        //console.log('hai');
         var roomcleaningcost = carpetprices[item];
         var protectprice = carpetprotectionprices[item];
         var deodorizeprice = carpetdeodorizeprices[item];
@@ -214,7 +238,7 @@ function checkValidity(item) {
 };
 
 function addAction() {
-    console.log('adding action');
+    //console.log('adding action');
     $(".action-addroom").click(function (e) {
 
         //prelim check to make sure we have prices for everything, if not
@@ -228,10 +252,9 @@ function addAction() {
 
         case "carpet_furn":
             var roomtype = $(this).html();
-            console.log(roomtype);
-            //var roomtype_nospace = roomtype.replaceAll(' ', '_');
-            var roomtype_nospace = roomtype.replace(/\W/g, '');
-            console.log('rtns'+roomtype_nospace);
+            ////console.log(roomtype);
+            var roomtype_nospace = roomtype.replace(' ', '_');
+            roomtype_nospace = roomtype.replace(/\W/g, '');
             sp = 'Protect';
             if(activegroup == "Tile"){
                 sp = 'Seal';
@@ -239,12 +262,12 @@ function addAction() {
             if (_.indexOf(activecarpetrooms, $(this).html()) == -1) {
                 $('#carpetrooms').find('tbody').append('<tr class="' + activegroup + '" value=' + $(this).data('price') + '><td id="roomcell" name="roomcell">' + activegroup + " - " + $(this).html() + '</td><td id="selectcell" name="selectcell" ><select class="input-mini" id="carpetclean' + roomtype_nospace + '" class="input-mini"><option>0</option></select></td><td id="optioncell" name="optioncell">Clean</td><td id="selectcell" name="selectcell" ><select  id="carpetprotect' + roomtype_nospace + '"  class="input-mini"><option>0</option></select></td><td id="optioncell" name="optioncell">'+sp+'</td><td id="selectcell" name="selectcell" ><select id="carpetdeodorize' + roomtype_nospace + '"  class="input-mini"><option>0</option></select></td><td id="optioncell-last" name="optioncell-last">Deodorize</td></tr>');
                 if(_.indexOf(roomtype_nospace, "Tile") !== -1){
-                    console.log('holla');
+                    //console.log('holla');
                     $('td[class*=carpetdeodorize]').hide();
                 }
                 //fill cleaning select box
                 for (var i = 0; i < 10; i++) {
-                    // console.log('#carpetclean' + roomtype_nospace + '');
+                    // //console.log('#carpetclean' + roomtype_nospace + '');
                     $('#carpetclean' + roomtype_nospace + '').append($('<option>', {
                         value: i + 1,
                         text: i + 1
@@ -256,15 +279,15 @@ function addAction() {
                 activecarpetrooms.push(roomtype);
                 var size = getCount(roomtype, activecarpetrooms);
             } else {
-                console.log('adding to same row');
+                //console.log('adding to same row');
                 activecarpetrooms.push($(this).html());
                 var size = getCount(roomtype, activecarpetrooms);
-                console.log('size '+size);
+                //console.log('size '+size);
                 var oldprot = parseInt($("#carpetprotect" + roomtype_nospace + " option:selected").val());
                  var olddeod = parseInt($("#carpetdeodorize" + roomtype_nospace + " option:selected").val());
                 var newtotal = parseInt($("#carpetclean" + roomtype_nospace + " option:selected").val()) + parseInt(1);
-                console.log(' roomtype_nospace'+ roomtype_nospace);
-            console.log('#carpetclean' + roomtype_nospace + " option:eq(" + size + ")");
+                //console.log(' roomtype_nospace'+ roomtype_nospace);
+            //console.log('#carpetclean' + roomtype_nospace + " option:eq(" + size + ")");
                 $('#carpetclean' + roomtype_nospace + " option:eq(" + size + ")").prop("selected", true);
                 
                  }
@@ -309,7 +332,10 @@ function addAction() {
                 });
             //}
             if(activegroup == "Tile"){
-                $("#carpetrooms tr td:last-child").hide();
+                var row_index = $(this).parent().index('tr');
+                console.log('rindex'+ row_index);
+                //$("#carpetrooms tr td:last-child").hide();
+                $('#carpetrooms tr:eq(-1) td:last-child').hide();
                 $("#carpetdeodorize" + roomtype_nospace).hide();
             }
             $('#carpetrooms').show();
@@ -334,7 +360,7 @@ function addScrollBar() {
 };
 
 function amountChangeOptions(roomtype_nospace, roomtype) {
-    console.log('fun amountChangeOptions');
+    //console.log('fun amountChangeOptions');
     //remove row if we changed clean amount to 0
     if ($('#carpetclean' + roomtype_nospace + ' :selected').val() == 0) {
         $('#carpetclean' + roomtype_nospace + '').parent().parent().remove();
@@ -401,20 +427,20 @@ function updateTotal() {
     var r = 0;
     $("#carpetrooms tr").each(function () {
         $this = $(this);
-        console.log('r '+r);
+        //console.log('r '+r);
         if (r > 1) {
             var currentgroup = ($this).prop('class');
-            console.log('cur group '+currentgroup);
+            //console.log('cur group '+currentgroup);
             var thistype = $(this).find('td:eq(0)').html();
             var tt = thistype.split(" - ");
             thistype = tt[1];
             thistype = thistype.replace('_', ' ');
             if (currentgroup == "Carpet") {
-                console.log('hai2u');
+                //console.log('hai2u');
                  var roomcleaningcost = carpetprices[thistype];
                  var protectprice = carpetprotectionprices[thistype];
                  var deodorizeprice = carpetdeodorizeprices[thistype];
-            console.log('hai23');
+            //console.log('hai23');
             }
             if (currentgroup == "Upholstery") {
                 var roomcleaningcost = hashUp[thistype];
@@ -442,7 +468,7 @@ function updateTotal() {
             runningcleaningtotal = (runningcleaningtotal + (selectValue * roomcleaningcost)) + protection + deodorize;
         }
         r++;
-        console.log('end');
+        //console.log('end');
     });
 
     if (runningcleaningtotal !== 0 && runningcleaningtotal) {
@@ -451,7 +477,7 @@ function updateTotal() {
             runningcleaningtotal = parseInt(runningcleaningtotal)+parseInt(tripcharge);
           
         }
-        console.log(runningcleaningtotal);
+        //console.log(runningcleaningtotal);
         if (runningcleaningtotal < 99.50) {
             runningcleaningtotal = 99.50;
             $('.mincharge-span').html("<div class='alert'>* Minimum charge.</div>");
@@ -465,7 +491,7 @@ function updateTotal() {
         var tax = runningcleaningtotal * .0825;
         var ftax = parseFloat(tax.toFixed(2));
         tot = parseFloat((ftax + runningcleaningtotal).toFixed(2));
-        console.log(Object.prototype.toString.call(runningcleaningtotal));
+        //console.log(Object.prototype.toString.call(runningcleaningtotal));
         $('.totalspan').text((runningcleaningtotal).formatMoney(2, '.', ','));
         $('.taxspan').text((ftax).formatMoney(2, '.', ','));
         //add trip charge
@@ -495,7 +521,7 @@ $('#myTab a').click(function (e) {
 
 
 function zipCheck(zip) {
-    
+    console.log('using zip '+zip);
     var tc;
     $.each(price.tripcharges, function (index, element) {
           tc = element;
@@ -506,30 +532,50 @@ function zipCheck(zip) {
 
     } else {
         $('#nozip').hide();
-        $('#customerZipcode').val(zip);
+        $('#zipcode').val(zip);
         $('#zipcodearea').hide();
         $('#pricecalculator').show();
+        console.log('set zip to '+$('#zipcode').val());
         //see if this zip code incurs a tripcharge
         if(!tc){
             return;
         }
         if(tc[zip]){
-            console.log('tc = '+tc[zip]);
+            //console.log('tc = '+tc[zip]);
             tripcharge = tc[zip];
+            getCityState(zip);
             updateTotal();
         }else{
             tripcharge = 0;
+            getCityState(zip);
             updateTotal();
         }
+
+
 
     }
 }
 
+function getCityState(zip){
+    var client = new XMLHttpRequest();
+    client.open("GET", "http://api.zippopotam.us/us/"+'75701'+"", true);
+    client.onreadystatechange = function() {
+    if(client.readyState == 4) {-96
+        var result = JSON.parse(client.responseText);
+        var r2 = result.places[0];
+        var fieldName = "place name";
+        $('#city').val(r2[fieldName]);
+        $('#state').val(r2.state);
 
+    };
+};
+
+client.send();
+}
 function setCouponCode(key) {
     var value = couponCodes[key];
     if (value == undefined) {
-        console.log('invalid coupon code attemted');
+        //console.log('invalid coupon code attemted');
     } else {
         discountvalue = value;
         $('#discountamount').text(value);
@@ -566,9 +612,9 @@ function buildStable() {
         $("#stable > tbody").append("<tr><td>" +element + "</td><td class='open' name='slot " + i + " day " + monday + "'><img src='/img/Open.jpg' alt='This timeslot is available'></td><td class='open' name='slot " + i + " day " + tuesday + "'><img  src='/img/Open.jpg' alt='This timeslot is available'></td><td class='open' name='slot " + i + " day " + wend + "'><img src='/img/Open.jpg' alt='This timeslot is available'></td><td class='open' name='slot " + i + " day " + thurs + "'><img src='/img/Open.jpg' alt='This timeslot is available'></td><td class='open' name='slot " + i + " day " + fri + "'><img src='/img/Open.jpg' alt='This timeslot is available'></td><td class='open' name='slot " + i + " day " + sat + "'><img src='/img/Open.jpg' alt='This timeslot is available'></td> </tr>");
         i++;
      });
-    // //console.log(ts.length);
+    // ////console.log(ts.length);
     // for (var i in ts) {
-    //     //console.log(ts[i]);
+    //     ////console.log(ts[i]);
     //     $("#stable > tbody").append("<tr><td>" +ts[i] + "</td><td class='open' name='slot " + i + " day " + monday + "'><img src='/img/Open.jpg' alt='This timeslot is available'></td><td class='open' name='slot " + i + " day " + tuesday + "'><img  src='/img/Open.jpg' alt='This timeslot is available'></td><td class='open' name='slot " + i + " day " + wend + "'><img src='/img/Open.jpg' alt='This timeslot is available'></td><td class='open' name='slot " + i + " day " + thurs + "'><img src='/img/Open.jpg' alt='This timeslot is available'></td><td class='open' name='slot " + i + " day " + fri + "'><img src='/img/Open.jpg' alt='This timeslot is available'></td><td class='open' name='slot " + i + " day " + sat + "'><img src='/img/Open.jpg' alt='This timeslot is available'></td> </tr>");
     // }
 
@@ -576,8 +622,8 @@ function buildStable() {
 }
 
 function addWeek(delta) {
-    console.log(delta);
-    console.log(base);
+    //console.log(delta);
+    //console.log(base);
     if (base == 0 && delta < 0) {
         return false;
     };
@@ -595,11 +641,11 @@ function addWeek(delta) {
 function fillSchedule() {
 
     if(browser == 'old'){
-        console.log('old browser found, building diff schedule');
+        //console.log('old browser found, building diff schedule');
     $(".open").each(function () {
         adate = $(this).prop('name');
         if(!adate || adate == null || adate == 'undefined' ){
-            console.log('adate neg');
+            //console.log('adate neg');
         } else {
         $(this).children('img').prop('src', "/img/Closed.gif");
         $(this).prop('class', 'closed');
@@ -620,7 +666,7 @@ function fillSchedule() {
     $(".open").each(function () {
         adate = $(this).attr('name');
         if(!adate || adate == null || adate == 'undefined' ){
-            console.log('adate neg');
+            //console.log('adate neg');
         } else {
             if(parseDate(adate) != 'closed'){
             if (parseDate(adate).isBefore(Date.today().addDays(1))) {
@@ -628,10 +674,10 @@ function fillSchedule() {
                 $(this).prop('class', 'closed');
             } else {
 
-                console.log('parsed date was after today');
+                //console.log('parsed date was after today');
             }
         }else{
-            console.log('date already closed, doing nothing');
+            //console.log('date already closed, doing nothing');
         }
         }
         // see what is booked
@@ -661,13 +707,13 @@ function parseDate(daystring) {
     if($.client.browser != 'Explorer'){
     var adate = Date.parse(day3);
     if(!adate){
-        console.log('date is null');
+        //console.log('date is null');
         return "closed";
     }
 }else{
     var adate = Date.parse(day2[0]);
         if(!adate){
-        console.log('date is null');
+        //console.log('date is null');
         return "closed";
     }
 }
@@ -680,7 +726,7 @@ function setJobDateTime(dt) {
     var t = price.timeslots[time];
     var sday2 = day[1].split('GMT');
     var sadate = Date.parse(sday2[0].replace(' 00:00:00', ''));
-    console.log('t '+t);
+    //console.log('t '+t);
     $('#scheduletime').val(t);
     $('#scheduledate').val(sadate);
 
@@ -704,20 +750,20 @@ function rotateAds() {
 function buildItems() {
     var items = [];
     //should probably clean this up and optimize code
-    console.log('builditems');
+    //console.log('builditems');
     
     // $.each(price.carpetprices, function (index, element){
     //     carpetprices = element;
     // });
     $.each(carpetprices, function (key, value) {
-        //console.log(key);
+        ////console.log(key);
         var linkhtml = "<li><a class='action-addroom' href='#' data-type='carpet_furn' data-price='" + value + "'>" + key + "</a></li>";
         items.push(linkhtml);
     });
     $('#carpet-nav-list').append(items.join(''));
     linkhtml = "";
     items = [];
-    console.log('2');
+    //console.log('2');
     $.each(hashUp, function (key, value) {
        linkhtml = "<li><a class='action-addroom' href='#' data-type='carpet_furn' data-price='" + value + "'>" + key + "</a></li>";
       items.push(linkhtml);
@@ -725,7 +771,7 @@ function buildItems() {
     $('#upnavlist').append(items.join(''));
     linkhtml = "";
     items = [];
-    console.log('3');
+    //console.log('3');
     $.each(hashRugPrices, function (key, value) {
        linkhtml = "<li><a class='action-addroom' href='#' data-type='carpet_furn' data-price='" + value + "'>" + key + "</a></li>";
       items.push(linkhtml);
@@ -733,7 +779,7 @@ function buildItems() {
     $('#upruglist').append(items.join(''));
     linkhtml = "";
     items = [];
-    console.log('4');
+    //console.log('4');
     $.each(hashTilePrices, function (key, value) {
         linkhtml = "<li><a class='action-addroom' href='#' data-type='carpet_furn' data-price='" + value + "'>" + key + "</a></li>";
         items.push(linkhtml);
@@ -741,7 +787,7 @@ function buildItems() {
     $('#tile-nav-list').append(items.join(''));
     linkhtml = "";
     items = [];
-    console.log('builditems done');
+    //console.log('builditems done');
 }
 
 String.prototype.replaceAll = function (str1, str2, ignore) {
@@ -750,7 +796,53 @@ String.prototype.replaceAll = function (str1, str2, ignore) {
 
 function checkBrowserChangeBookModal (){
     if($.client.browser =="Explorer" && $.client.browserversion < 8){
-        console.log($.client.browser +" "+$.client.browserversion);
+        //console.log($.client.browser +" "+$.client.browserversion);
         alert('Your broswer is very out of date and may not work correctly with our pricing calculator.')
     }
+}
+
+function setServices(){
+    // //services.carpet = ['bedroom', 'dining room'];
+    // var thing = { plugin: 'jquery-json', version: 2.4 };
+    // //services.tile = "tile"
+    // //var order_services = {carpet: {'bedroom': 49 }};
+    // var order_services = {carpet: {'bedroom': 49, 'kitchen': 7}};
+    //var i = 0;
+    var obj = new Array();
+    $('#carpetrooms > tbody  > tr').each(function() {
+                 var row_array = {};
+                // var row_name = $(this).find('td:first').html();
+                // var row_cost = $(this).attr('value');
+                // var row_type = $(this).attr('class');
+
+                if($(this).attr('class')){
+                 //row_array.roomname = $(this).find('td:first').html().replace(""+$(this).attr('class')+" - " , "");
+                 row_array.roomname = $(this).find('td:first').html();
+                 row_array.cost = $(this).attr('value');
+                 row_array.group = $(this).attr('class');
+                 obj.push(row_array);
+                console.log(row_array.group+" "+row_array.roomname+" "+row_array.cost);
+        }
+                
+        //i++;
+    });
+    console.log('done ' + $('.totspan').text());
+
+    //var stots = new Array();
+    var tots = {};
+    tots.subtotal = $('.totalspan').text();
+    tots.tax = $('.taxspan').text();
+    tots.total = $('.totspan').text();
+    //stots.push(tots);
+    //console.log(stots[0].subtotal);
+    var encodedobj = $.toJSON( obj );
+
+    $('#services').val(encodedobj);
+
+    var encodedtots = $.toJSON( tots);
+
+    $('#services_totals').val(encodedtots);
+
+
+
 }

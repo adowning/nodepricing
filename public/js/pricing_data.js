@@ -42,12 +42,12 @@ $(document).ready(function () {
         cache: false,
         timeout: 5000,
         complete: function (some) {
-            console.log('comp starting');
+            //console.log('comp starting');
             setDataVars();
 $.getScript("/js/pricing_script.js", function(){
 
 
-   console.log("Script loaded and executed.");
+   //console.log("Script loaded and executed.");
    // here you can use anything you defined in the loaded script
 
 });
@@ -60,10 +60,10 @@ $.getScript("/js/pricing_script.js", function(){
                 price = element;
 
             });
-            console.log('suc comp');
+            //console.log('suc comp');
         },
         error: function () {
-            console.log('process error');
+            //console.log('process error');
         },
     });
 
@@ -109,11 +109,11 @@ function setDataVars() {
     $.each(price.rugdeodorizeprices, function (index, element){
         hashRugDeod = element;
     });
-    console.log('got vars');
+    //console.log('got vars');
 }
 // function buildPrice(){
-//     console.log(price.tripcharges.length);
-//     console.log(price.tripcharges['00000']);
+//     //console.log(price.tripcharges.length);
+//     //console.log(price.tripcharges['00000']);
 // }
 
 
