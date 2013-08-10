@@ -33,7 +33,7 @@
 
                             <form onsubmit="return false;">
                                 <fieldset>
-                                    <input id="zipcodetext" name="zipcodetext" value="00000"
+                                    <input id="zipcodetext" name="zipcodetext" value="75701"
                                     placeholder="" required="" type="text">
                                 </fieldset>
                             </form>
@@ -334,7 +334,8 @@
                                         "icon-arrow-left"></em>Back</button>
                                         <button class="btn btn-primary" id=
                                         "priceNext" name="priceNext" onclick=
-                                        "$('#scheduleform').hide(); $('#contactform').show(); return false;">
+                                        "$('#scheduleform').hide(); $('#contactform').show();
+                                        console.log($('#zipcode').val()); return false;">
                                         Next <em class=
                                         "icon-arrow-right icon-white"></em></button>
                                     </div>
@@ -434,6 +435,8 @@
       <textarea placeholder="Any special instructions you would like to pass on to us or the technician goes here." name="instructions" id="instructions" class="input-xlarge span6" rows="10">
       </textarea>
     </div>
+    <input type="hidden" id="city" name="city"  required/>
+    <input type="hidden" id="state" name="state"  required/>
     <input type="hidden" id="scheduledate" value='laskdjf' name="scheduledate" required/>
     <input type="hidden" id="scheduletime" value='asdf' name="scheduletime"  required/>
     <input type="hidden" id="zipcode" name="zipcode"  required/>

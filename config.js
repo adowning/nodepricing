@@ -1,8 +1,8 @@
 // This is just a sample.  This should be in your .gitignore file as it may contain sensitive information (password, secret keys, etc.).
 module.exports = {
   "development" : {
-    MANDRILL_USERNAME : 'your mandrill username',
-    MANDRILL_API_KEY : 'your mandrill api key'
+    MANDRILL_USERNAME : 'ashdowning@gmail.com',
+    MANDRILL_API_KEY : '6nsbN1tfhGSKxhyGFstpOA'
   },
   "production" : {
     // Set these env variables in your hosted environment

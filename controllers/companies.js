@@ -1,4 +1,4 @@
-var mongoose = require('mongoose')
+ var mongoose = require('mongoose')
   , User = mongoose.model('User')
   , Company = mongoose.model('Company')
   , passport = require('passport');
@@ -34,20 +34,24 @@ exports.companyValidations = function(req, res, next){
   var updatingCompany = !creatingCompany; // only to improve readability
   req.assert('name', 'You must provide a company name.').notEmpty();
   req.assert('url', 'A URL for your company is required.').notEmpty();
-  req.assert('email', 'Contact email is required.').notEmpty();
-  // req.assert('email', 'Your email address must be valid.').isEmail();
-  // req.assert('username', 'Username is required.').notEmpty();
-  // if(creatingCompany || (updatingCompany && req.body.password)){
-  //   req.assert('password', 'Your password must be 6 to 20 characters long.').len(6, 20);
-  // }
+  req.assert('publicemail', 'Contact email is required.').notEmpty();
+  req.assert('address', 'You must provide a company address.').notEmpty();
+  req.assert('zipcode', 'A zipcode for your company is required.').notEmpty();
+  req.assert('city', 'City is required.').notEmpty();
+  req.assert('state', 'State is required.').notEmpty();
+  req.assert('publicemail', 'You must provide a public company email.').notEmpty();
+  req.assert('telephone', 'A telephone number for your company is required.').notEmpty();
   var validationErrors = req.validationErrors() || [];
   // if (req.body.password != req.body.passwordConfirmation) validationErrors.push({msg:"Password and password confirmation did not match."});
+  console.log('hi');
   if (validationErrors.length > 0){
+
     validationErrors.forEach(function(e){
+      console.log('validation error'+ e.msg);
       req.flash('error', e.msg);
     });
     // Create handling if errors present
-    if (creatingCompany) return res.render('companies/new', {company : new Company(req.body), errorMessages: req.flash('error')});
+    if (creatingCompany) return res.render('companies/new', {comp : new Company(req.body), errorMessages: req.flash('error')});
     // Update handling if errors present
     else return res.redirect("/program/");
   } else next();
@@ -125,7 +129,8 @@ exports.create = function(req, res, next){
   newCompany.key = Math.random().toString(36).slice(2);
   var thiskey = newCompany.key;
   console.log('building company with this keyh '+thiskey);
-  newCompany.generateBaseOnlinePrice(thiskey);
+  console.log('tring to generate base onlien price with zip '+newCompany.zipcode);
+  newCompany.generateBaseOnlinePrice(thiskey, req, res, newCompany.zipcode);
   newCompany.save(function(err, comp){
     
     // Uniqueness and save validations

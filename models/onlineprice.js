@@ -9,7 +9,7 @@ var OnlinePriceSchema = new Schema({
     key : { type: String, required: true }, 
   	name : { type: String, default: "name" },
   	activeservices : { type: Array, default: ["Carpet", "Tile", "Rugs"] },
-    ziplist : { type: Array, default: ["0"] },
+    zipcode : { type: Array, default: ["0"] },
     tripcharges : { type: Array, default: [{'0': 13}] },
     timeslots : { type: Array, default: ["9:00 am", "11:00 am", "1:00 pm", "3:00 pm"] },
     advertisements : { type: Array, default: ["Half off tile protector", "%20 off carpet protector", "%15 off upholstery cleaning"] },

@@ -19,7 +19,7 @@ var hashTilePricesProt;
 var hashRugPrices;
 var hashRugProt;
 var hashRugDeod;
-
+var companyzipcode;
 
 function getParameters() {
   var searchString = window.location;
@@ -54,12 +54,12 @@ $.getScript("/js/pricing_script.js", function(){
         },
         success: function (some) {
 
-            
             $.each(some, function (index, element) {
-
+                console.log('>>> el '+element.key);
                 price = element;
 
             });
+
             //console.log('suc comp');
         },
         error: function () {
@@ -73,6 +73,8 @@ $.getScript("/js/pricing_script.js", function(){
 
 function setDataVars() {
         //TODO this sucks redo
+    companyzipcode = price.companyzipcode;
+
     $.each(price.carpetprices, function (index, element){
         carpetprices = element;
     });

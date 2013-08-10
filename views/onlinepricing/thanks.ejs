@@ -74,8 +74,8 @@
 				
 				<div class="adr">
 					<div class="street-address"><%= order.address %></div>
-					<span class="locality">Paris</span>
-					<span class="country-name">TexasFake</span>
+					<span class="locality"><%= order.city %>,<%= order.state %><%= order.zipcode %></span>
+			<!-- 		<span class="country-name">TexasFake</span> -->
 				</div>
 
 				<div class="tel"><%= order.telephone %></div>
@@ -92,8 +92,8 @@
 				
 				<div class="adr">
 					<div class="street-address"><%= comp.address %></div>
-					<span class="locality">Paris</span>
-					<span class="country-name">TexasFake</span>
+					<span class="locality"><%= comp.city %>,<%= comp.state %><%= comp.zipcode %></span>
+				<!-- 	<span class="country-name"><%= comp.state %></span> -->
 				</div>
 
 				<div class="tel"><%= comp.telephone %></div>
@@ -126,6 +126,8 @@
 					<tr>
 						<th>Item</th>
 						<th>Quantity</th>
+						<th>Protect</th>
+						<th>Deodorize</th>
 						<th>Price</th>
 					</tr>
 				</thead>
@@ -133,8 +135,10 @@
 				<% for(var i=0; i<order.services.length; i++) {%>
 					<tr>
 						<th><%= order.services[i].roomname %></th>
-						<td>1</td>
-						<td><%= order.services[i].cost %></td>
+						<td><%= order.services[i].quantity %></td>
+						<td><%= order.services[i].protection %></td>
+						<td><%= order.services[i].deodorize %></td>
+						<td><%= order.services[i].totalcost %></td>
 					</tr>
 					<% } %>
 				</tbody>

@@ -5,6 +5,8 @@ var mongoose = require('mongoose')
   , Company = mongoose.model('Company');
 
 var op;
+var comp;
+
  exports.fetch = function (req, res){
   var key = req.params.id;
   OnlinePrice.findOne({key:key}, function(err, pricing){
@@ -13,15 +15,20 @@ var op;
       return res.redirect('/badkey');
     }else{
       op = pricing;
-        res.render('onlinepricing/', { pricing:pricing });
+        res.render('onlinepricing/', { pricing:pricing, comp:comp });
    }
     });
  
  }
 
+
+function sendEmail(){
+  console.log('sending email');
+}
  exports.thanks = function (req, res){
-  //console.log('thanks in op');
+  console.log('thanks in op');
   res.render('onlinepricing/thanks');
+  console.log('after thanks displayed0');
   //TODO add some catches here later
 
   // var key = req.params.id;
@@ -39,11 +46,11 @@ var op;
 
  exports.getonlinepricing = function (req, res, next){
        res.contentType('json');
-       res.send({ some: op });
+       res.send({ some: op , comp: comp });
  }
 
 exports.create = function(req, res, next){
-	//console.log('created!!! with key '+req.params.id);
+	console.log('created!!! with key '+req.params.id);
 
     var count = 0;
     Company.find(function(err,companies){
@@ -88,14 +95,25 @@ exports.create = function(req, res, next){
     if(err) return next(err);
     //if(!comp) return next(err);
     if(!company){
-      return res.redirect('/cregister');
+      return res.redirect('/badorder');
     }else{
       // res.render('companies/edit',{
       // comp:comp
       //console.log('company found! '+ company.name);  
        comp = company;
     }
+            res.mailer.send('mailer/order_sent', {
+            to: order.email,
+            subject: 'Your Upcoming Cleaning Details',
+            subtotal: order.subtotal
+          }, function(err) {
+            if(err) return next(err);
+            // Sent email instructions, alerting user
+            req.flash('success', "You will receive a link to reset your password at "+req.body.email+".");
+            res.redirect('/');
+          });
  return res.render('onlinepricing/thanks', {order: order, comp: comp});
+  
   });
 
 
@@ -138,6 +156,8 @@ exports.onlinePricingValidations = function(req, res, next){
   req.assert('scheduledate', 'schedule date Error').notEmpty();
   req.assert('scheduletime', 'sched time Error').notEmpty();
   req.assert('zipcode', 'zip Error').notEmpty();
+  req.assert('city', 'city Error').notEmpty();
+  req.assert('state', 'state Error').notEmpty();
   req.assert('services', 'services Error').notEmpty();
   req.assert('services_totals', 'servicestotals Error').notEmpty();
  
@@ -146,12 +166,13 @@ exports.onlinePricingValidations = function(req, res, next){
   // if(creatingUser || (updatingUser && req.body.password)){
   //   req.assert('password', 'Your password must be 6 to 20 characters long.').len(6, 20);
   // } 
+  console.log('validating');
   var validationErrors = req.validationErrors() || [];
   //if (req.body.password != req.body.passwordConfirmation) validationErrors.push({msg:"Password and password confirmation did not match."});
   if (validationErrors.length > 0){
     //console.log('val errors= '+validationErrors.length);
     validationErrors.forEach(function(e){
-      //console.log(e.msg);
+      console.log(e.msg);
       req.flash('error', e.msg);
     });
     // Create handling if errors present
