@@ -17,7 +17,8 @@ var CompanySchema = new Schema({
   	tax : { type: String, default: 5, required: false, index: { unique: false } },   
     radius : { type: String, default: 30, required: false, index: { unique: false } },    
     ownername : { type: String, required: true, index: { unique: true } },
-    //companyzip : { type: String, required: true, index: { unique: false } }
+    ordertotal : { type: String, required: true, default: 0, index: {unique: false}},
+    slogan : { type: String, default: "Cleaning America's homes one at a time starting with yours", required: false, index: { unique: false } }   
 
 });
 
@@ -29,9 +30,6 @@ var CompanySchema = new Schema({
     newOnlinePrice.zipcode = zip;
     console.log('setting this onlineprice zip to '+zip);
     newOnlinePrice.save(function(err, price){
-    
-    // Uniqueness and save validations
-    
     if (err && err.code == 11000){
       var duplicatedAttribute = err.err.split("$")[1].split("_")[0];
       console.log(duplicatedAttribute);
@@ -39,24 +37,9 @@ var CompanySchema = new Schema({
       return res.render('companies/new', {price : price, errorMessages: req.flash('error')});
     }
     if(err) console.log(err);
-    
-    // New user created successfully, logging In
-    
-    //return res.redirect('/program');
-    
-    // req.login(user, function(err) {
-    //   if (err) { return next(err); }
-    //   req.flash('success', "Account created successfully!");
-    //   return res.redirect('/dashboard');
-    // });
   });
     console.log('made price with email'+newOnlinePrice.email);
 
  };
-
- CompanySchema.methods.getMyCompany = function(user) {
-   
-  	
- };
-
+ 
 module.exports = mongoose.model('Company', CompanySchema);

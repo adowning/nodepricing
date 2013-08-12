@@ -46,16 +46,16 @@
 	<header id="header">
 		<div class="invoice-intro">
 			<h1><%= comp.name %></h1>
-			<p>Building a Better Tomorrow Through Your Destruction</p>
+			<p><%= comp.slogan %></p>
 		</div>
 
 		<dl class="invoice-meta">
 			<dt class="invoice-number">Order #</dt>
-			<dd><%= order.ordernumber %></dd>
+			<dd><%= order.showNumber %></dd>
 <!-- 			<dt class="invoice-date">Date Created</dt>
 			<dd>01-24-2012</dd> -->
 			<dt class="invoice-due">Schedule Date</dt>
-			<dd><%= order.scheduledate %></dd>
+			<dd><%= order.formateddate %></dd>
 			<dt class="invoice-due">Schedule Time</dt>
 			<dd><%= order.scheduletime %></dd>
 		</dl>
@@ -88,7 +88,7 @@
 			<div id="hcard-Admiral-Valdore" class="vcard">
 				<div class="org"><%= comp.name %></div>
 				<div class="org"></div>
-				<div class="org"><%= comp.email %></div>
+				<div class="org"><%= comp.publicemail %></div>
 				
 				<div class="adr">
 					<div class="street-address"><%= comp.address %></div>
@@ -128,7 +128,7 @@
 						<th>Quantity</th>
 						<th>Protect</th>
 						<th>Deodorize</th>
-						<th>Price</th>
+						<!-- <th>Price</th> -->
 					</tr>
 				</thead>
 				<tbody>
@@ -138,7 +138,7 @@
 						<td><%= order.services[i].quantity %></td>
 						<td><%= order.services[i].protection %></td>
 						<td><%= order.services[i].deodorize %></td>
-						<td><%= order.services[i].totalcost %></td>
+						<!-- <td><%= order.services[i].totalcost %></td> -->
 					</tr>
 					<% } %>
 				</tbody>
@@ -197,9 +197,9 @@
 
 
 	<footer id="footer">
-		<p>
-			 Return to <a href="http://andrewscarpetcleaning.com">Andrews Carpet Cleaning</a>.
-		</p>
+		<h2>
+			 Return to <a href=<%= comp.url %>><%= comp.url %> </a>
+		</h2>
 	</footer>
 
 

@@ -18,6 +18,7 @@ var express = require('express')
   , orders = require('./controllers/onlinepricing')
   , http = require('http')
   , path = require('path')
+  , moment = require('moment')
   , engine = require('ejs-locals')
   , flash = require('connect-flash')
   , passport = require('passport')
@@ -39,6 +40,7 @@ app.use(express.methodOverride());
 app.use(express.cookieParser('your secret here'));
 app.use(express.session());
 app.use(flash());
+app.use(moment());
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -87,7 +89,8 @@ if ('development' == app.get('env')) {
 if ('development' == app.get('env')) {
   mongoose.connect('mongodb://localhost/bubblepop');
 } else {
-  // insert db connection for production
+  //mongodb:draive:blue42@mongo.onmodulus.net:27017/Revusi2b
+  mongoose.connect('mongodb://draive:blue42@mongo.onmodulus.net:27017/Revusi2b');
 }
 
 // Authentication
@@ -135,7 +138,7 @@ app.get('/onlinepricing/:id', onlinepricing.fetch);
 //app.get('onlinepricing/thanks', onlinepricing.thanks);
 app.post('/onlinepricing', onlinepricing.getonlinepricing);
 //app.post('/neworder/:id', onlinepricing.onlinePricingValidations, onlinepricing.create);
-app.post('/createonlineprice/:id', onlinepricing.onlinePricingValidations, onlinepricing.create);
+app.post('/createonlineprice/:id', onlinepricing.onlinePricingValidations, onlinepricing.createorder);
 app.get('/login', redirectAuthenticated, users.login);
 app.get('/reset_password', redirectAuthenticated, users.reset_password);
 app.post('/reset_password', redirectAuthenticated, users.generate_password_reset);
@@ -154,7 +157,9 @@ app.get('/cregister', ensureAuthenticated, companies.register);
 app.post('/cregister', ensureAuthenticated, companies.companyValidations, companies.create);
 app.get('/editcompany', ensureAuthenticated, companies.account);
 app.post('/editcompany', ensureAuthenticated, companies.companyValidations, companies.update);
+//app.get('/pricesettings', ensureAuthenticated, companies.pricesetting);
 app.all('*', welcome.not_found);
+
 
 
 
@@ -168,7 +173,12 @@ db.once('open', function callback () {
   });
 });
 
-app.use(function (req, res, next){
-   res.locals.scripts = ['/js/pricing_script.js', '/js/date2.js']
-   next();
-});
+// app.use(function (req, res, next){
+//    res.locals.scripts = ['/js/onlinepricing/pricing_script.js', '/js/date2.js']
+//    next();
+// });
+
+//Time formating thing
+//var moment = require('moment');
+//console.log(moment("05-06-1995", ["MM-DD-YYYY", "DD-MM-YYYY"]));
+

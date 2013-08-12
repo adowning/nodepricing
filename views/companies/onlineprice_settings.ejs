@@ -1,0 +1,21 @@
+<% layout(layoutPath) -%>
+<h1>Online Price Settings</h1>
+<form action="/onlinepricesettings" method="post">
+  <fieldset>
+    <label>First Name:</label>
+    <input type="text" name="firstName" value="<%= user.firstName %>"/>
+    <label>Last Name:</label>
+    <input type="text" name="lastName" value="<%= user.lastName %>"/>
+    <label>Email:</label>
+    <input type="email" name="email" value="<%= user.email %>"/>
+    <label>Username:</label>
+    <input type="text" name="username" value="<%= user.username %>"/>
+    <label>New Password:</label>
+    <input type="password" name="password"/>
+    <label>Retype New Password:</label>
+    <input type="password" name="passwordConfirmation"/>
+    <label>Current Password:</label>
+    <input type="password" name="currentPassword"/><br/>
+    <button class="btn">Register</button>
+  </fieldset>
+</form>
