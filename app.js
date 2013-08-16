@@ -135,6 +135,7 @@ function redirectAuthenticated(req, res, next){
 
 app.get('/', welcome.index);
 app.get('/onlinepricing/:id', onlinepricing.fetch);
+app.get('/showorder/:id/:num', onlinepricing.show_order);
 //app.get('onlinepricing/thanks', onlinepricing.thanks);
 app.post('/onlinepricing', onlinepricing.getonlinepricing);
 //app.post('/neworder/:id', onlinepricing.onlinePricingValidations, onlinepricing.create);
@@ -172,6 +173,16 @@ db.once('open', function callback () {
     console.log('Express server listening on port ' + app.get('port'));
   });
 });
+
+//show company keys
+Company.find(function(err, companies) {
+  if (err) console.log('er: ' + err);
+  for (var i = 0; i < companies.length; i++) {
+    console.log(companies[i].key);
+  }
+})
+
+
 
 // app.use(function (req, res, next){
 //    res.locals.scripts = ['/js/onlinepricing/pricing_script.js', '/js/date2.js']
