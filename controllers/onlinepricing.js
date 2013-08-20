@@ -14,7 +14,7 @@ var comp;
 
 exports.fetch = function(req, res) {
   var key = req.params.id;
-  setGVars(key);
+  setGVars(key, res);
   OnlinePrice.findOne({
     key: key
   }, function(err, pricing) {
@@ -111,9 +111,9 @@ function mailOrder(res, order, tcomp, next) {
   });
 }
 
-exports.pricesetting = function(req, res) {
-  res.render('companies/onlinepricing');
-}
+// exports.pricesetting = function(req, res) {
+//   res.render('companies/onlinepricing');
+// }
 
 // Validations for user objects upon user update or create
 exports.onlinePricingValidations = function(req, res, next) {
@@ -146,7 +146,7 @@ exports.onlinePricingValidations = function(req, res, next) {
   next();
 }
 
-function setGVars(key) {
+function setGVars(key, res) {
 
   console.log('started updateordertotal');
   Company.findOne({
@@ -199,7 +199,8 @@ exports.show_order = function(req, res, next) {
       }
       if (err) return next(err);
       tcomp = company;
-
+      console.log(req.params.id);
+      console.log(req.params.num);
       Order.findOne({
         companyid: req.params.id,
         ordernumber: req.params.num

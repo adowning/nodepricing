@@ -97,6 +97,10 @@ var OnlinePriceSchema = new Schema({
     'Med Rug (51-150sf)': 215,
     'Large Rug (150+ sf)': 325
     }] },
+    stylesettings : { type: Array, default: [{
+    'primary_color': 'green',
+    'secondary_color': 'blue'
+    }] },
 });
 
 

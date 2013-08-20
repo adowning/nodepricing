@@ -7,10 +7,11 @@
 </head>
 
 <body>
+    <div id="background">
     <div class="container-fluid" id="zipcodearea">
         <div class="row-fluid">
             <div class="span12">
-                <div class="row-fluid">
+                <div class="row-fluid" >
                     <div class="span2"></div>
 
                     <div class="span8"><img src="/img/acc.gif"></div>
@@ -26,7 +27,7 @@
                     <div class="span4"></div>
 
                     <div class="span4">
-                        <div class="well">
+                        <div class="well" id="zipcodewell">
                             <h4 id="zipModalLabel">Enter Your Zipcode</h4>
                             <form onsubmit="return false;">
                                 <fieldset>
@@ -70,7 +71,7 @@
                     <div class="span2"></div>
 
                     <div class="span8">
-                        <div class="row-fluid">
+                        <div class="row-fluid" id="pricearea">
                             <div class="span3">
                                 <div class="accordion" id="accordion2">
                                     <div class="accordion-group">
@@ -180,7 +181,7 @@
                                     </div>
 
                                     <div class="span2" id="pricebox">
-                                        <table id="totalstable">
+                                        <table id="totalstable" class="table table-condensed">
                                             <tbody>
                                                 <tr>
                                                     <td>Sub Total</td>
@@ -201,8 +202,7 @@
                                                     <td>Tax</td>
 
                                                     <td id="dollar">
-                                                    <span class="taxspan"
-                                                    style="text-align: right;">0</span></td>
+                                                    <span class="taxspan">0</span></td>
                                                 </tr>
 
                                                 <tr>
@@ -212,9 +212,7 @@
                                                     <span class="totspan">0</span></td>
                                                 </tr>
 
-                                                <tr>
-                                                    <td></td>
-                                                </tr>
+                                           
                                             </tbody>
                                         </table>
                                     </div>
@@ -344,7 +342,6 @@
   </div>
 </div>
 
-</body>
 
 
 
@@ -371,8 +368,7 @@
       </h3>
   
     <div>
-      <div id="contact-formx" class="clearfix"
-       >
+      <div id="contact-formx" class="clearfix">
 <form action="/createonlineprice/<%= pricing.key %>" method="post">
           <div class="row">
             <div class="span3">
@@ -420,7 +416,6 @@
       Schedule
     </button>
   </div>
-  </div>
     </form>
     
   </div>
@@ -431,7 +426,8 @@
     </div>
   </div>
 </div>
-    
+</body>
+
   <script type="text/javascript" src="/js/jquery-1.9.1.js"></script> 
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"></script>
   <script type="text/javascript" src="/js/bootstrap.min.js"></script>  

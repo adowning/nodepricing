@@ -4,11 +4,11 @@
 
 // if your reading through this shit, good for you because I'm no longer a professional programmer and when I was I wrote
 // board level C functions for a>d converters for interface boards, this is my first real forray into writing code that actually
-// does more than basic calculus.
+// does more than math.
 // so if you think its shit, well it probaqbly is
 
 $(document).ready(function() {
-    console.log('hai just loaded');
+    console.log('pricing_script just loaded');
     var localkey = getParameters();
     var animal = new Object();
     $('#timeholder').prop('disabled', 'disabled');
@@ -18,21 +18,6 @@ $(document).ready(function() {
         e.preventDefault();
     });
     var zip = "none";
-    //TODO hacked and needs fixed
-    $('#priceNext').prop("disabled", true);
-    $('#schenext').prop("disabled", true);
-    $('#zipcode').val("");
-    $('#timediv').hide();
-    $('#zipModal').hide();
-    $('#scheduleform').hide();
-    $('#pricecalculator').hide();
-    $('#contactform').hide();
-    //clean shit
-    $('#furniturelist').append('<tr><td>FURNITURE</td><td>Clean</td><td>Protect</td><td>Deodorize</td></tr>');
-    $('#furniturelist').hide();
-    $('#tilerooms').append('<tr><td>AREA</td><td>Clean</td><td>Seal</td></tr>');
-    $('#tilerooms').hide();
-    $('#discountrow').hide();
 
     buildItems();
     addAction();
@@ -111,7 +96,6 @@ $('#coupon').keyup(function(e) {
 });
 
 function checkValidity(item) {
-    //console.log('checking val');
     //seems verbose but allows for high variabilty in activegroup
     //may change later to reduce code
     switch (activegroup) {
@@ -352,7 +336,7 @@ function updateTotal() {
     var r = 0;
     $("#carpetrooms tr").each(function() {
         $this = $(this);
-        //console.log('r '+r);
+        //nasty, make a switch or something
         if (r > 1) {
             var currentgroup = ($this).prop('class');
             //console.log('cur group '+currentgroup);
@@ -481,11 +465,6 @@ function buildStable() {
         $("#stable > tbody").append("<tr><td>" + element + "</td><td class='open' name='slot " + i + " day " + monday + "'><img src='/img/Open.jpg' alt='This timeslot is available'></td><td class='open' name='slot " + i + " day " + tuesday + "'><img  src='/img/Open.jpg' alt='This timeslot is available'></td><td class='open' name='slot " + i + " day " + wend + "'><img src='/img/Open.jpg' alt='This timeslot is available'></td><td class='open' name='slot " + i + " day " + thurs + "'><img src='/img/Open.jpg' alt='This timeslot is available'></td><td class='open' name='slot " + i + " day " + fri + "'><img src='/img/Open.jpg' alt='This timeslot is available'></td><td class='open' name='slot " + i + " day " + sat + "'><img src='/img/Open.jpg' alt='This timeslot is available'></td> </tr>");
         i++;
     });
-    // ////console.log(ts.length);
-    // for (var i in ts) {
-    //     ////console.log(ts[i]);
-    //     $("#stable > tbody").append("<tr><td>" +ts[i] + "</td><td class='open' name='slot " + i + " day " + monday + "'><img src='/img/Open.jpg' alt='This timeslot is available'></td><td class='open' name='slot " + i + " day " + tuesday + "'><img  src='/img/Open.jpg' alt='This timeslot is available'></td><td class='open' name='slot " + i + " day " + wend + "'><img src='/img/Open.jpg' alt='This timeslot is available'></td><td class='open' name='slot " + i + " day " + thurs + "'><img src='/img/Open.jpg' alt='This timeslot is available'></td><td class='open' name='slot " + i + " day " + fri + "'><img src='/img/Open.jpg' alt='This timeslot is available'></td><td class='open' name='slot " + i + " day " + sat + "'><img src='/img/Open.jpg' alt='This timeslot is available'></td> </tr>");
-    // }
     fillSchedule();
 }
 
@@ -710,7 +689,7 @@ function setServices() {
             row_array.cost = $(this).attr('value');
             row_array.group = $(this).attr('class');
             row_array.quantity = $(this).find("td:eq(1)").find("select option:selected").val();
-            row_array.protection = $(this).find("td:eq(3)").find("select option:selected").val();            
+            row_array.protection = $(this).find("td:eq(3)").find("select option:selected").val();
             if (currentgroup == "Carpet" || currentgroup == "Upholstery" || currentgroup == "OrientalRugs") {
                 row_array.deodorize = $(this).find("td:eq(5)").find("select option:selected").val();
             }

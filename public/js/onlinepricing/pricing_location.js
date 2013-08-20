@@ -47,7 +47,7 @@ function zipCheck(zip) {
         getCityState(zip);
         $('#zipcodearea').hide();
         $('#pricecalculator').show();
-
+        //$("#pricecalculator").css({"visibility": "show"});
     } else {
         console.log('zipnotfound');
         $('#nozip').show();
@@ -75,10 +75,10 @@ function getValidZipcodes(zip) {
     //http:zipcodedistanceapi.redline13.com/rest/<api_key>/radius.<format>/<zip_code>/<distance>/<units>.
     //P7ojgTr5FJkIbrbF9h9LYk9JehUk6rXVylfPfHUVqeDCGPhP6qB5LKPZ1Jk8ai4J
     try{
-    //$.get("http://zipcodedistanceapi.redline13.com/rest/js-eWLI7VA9L3Sinm5VEl6IwoImCqPSsGPGCApJw0Th3Lzr8EmMZsuwRdStEHm7obN1/radius.json/75701/6/km", function(data){
-    //$.get("http:zipcodedistanceapi.redline13.com/rest/8MDTcVrv9d5qdbDtNaSHYtF3yF4j87WgTAa5vBBFPG53SIxFTpnST2VsI0MQ7I71/radius.json/75701/30/mile.", function(data) {
-    $.get("https://www.zipwise.com/webservices/radius.php?key=f1r2xqazuwf0os6g&zip=92626&radius=2", function (data){
-        alert("Data Loaded: " + data);
+    $.get("http://zipcodedistanceapi.redline13.com/rest/js-qtef5ioDN2d4NGSFdXv93EUWyQXxIsr9WFo1XNELPSQCzIiNGOWJsRG0IDyr6ZA2/radius.json/75701/30/mile", function(data){
+    //$.get("http:zipcodedistanceapi.redline13.com/rest/8MDTcVrv9d5qdbDtNaSHYtF3yF4j87WgTAa5vBBFPG53SIxFTpnST2VsI0MQ7I71/radius.json/75701/30/mile", function(data) {
+    // $.get("https://www.zipwise.com/webservices/radius.php?key=f1r2xqazuwf0os6g&zip=92626&radius=2", function (data){
+        //alert("Data Loaded: " + data);
     });
 }
 catch(err){

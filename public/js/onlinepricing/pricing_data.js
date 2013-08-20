@@ -20,17 +20,18 @@ var hashRugPrices;
 var hashRugProt;
 var hashRugDeod;
 var companyzipcode;
+var stylesettings;
 
 function getParameters() {
-  var searchString = window.location;
-  var st = searchString.toString();
-  var parm = st.split('key=');
-  var p = parm[1];
-  companykey = p;
+    var searchString = window.location;
+    var st = searchString.toString();
+    var parm = st.split('key=');
+    var p = parm[1];
+    companykey = p;
 };
 
 
-$(document).ready(function () {
+$(document).ready(function() {
     $.ajax({
         url: "/onlinepricing",
         type: "POST",
@@ -41,76 +42,82 @@ $(document).ready(function () {
         // contentType: "application/json",
         cache: false,
         timeout: 5000,
-        complete: function (some) {
+        complete: function(some) {
             //console.log('comp starting');
-            setDataVars();
-$.getScript("/js/onlinepricing/pricing_location.js", function(){
-console.log('pricing_location loaded');
-});
-$.getScript("/js/onlinepricing/pricing_script.js", function(){
-console.log('pricing_script loaded');
-});
-        },
-        success: function (some) {
+            //setDataVars();
 
-            $.each(some, function (index, element) {
-                console.log('>>> el '+element.key);
+            $.getScript("/js/onlinepricing/pricing_style.js", function() {
+                console.log('pricing_style loaded');
+            });
+            $.getScript("/js/onlinepricing/pricing_location.js", function() {
+                console.log('pricing_location loaded');
+            });
+            $.getScript("/js/onlinepricing/pricing_script.js", function() {
+                console.log('pricing_script loaded');
+            });
+            console.log('scripts loaded');
+        },
+        success: function(some) {
+
+            $.each(some, function(index, element) {
+                console.log('>>> el ' + element.key);
                 price = element;
 
             });
-
+            setDataVars();
             //console.log('suc comp');
         },
-        error: function () {
+        error: function() {
             //console.log('process error');
         },
     });
 
-    
+
 });
 
 
 function setDataVars() {
-        //TODO this sucks redo
+    //TODO this sucks redo
     companyzipcode = price.companyzipcode;
-
-    $.each(price.carpetprices, function (index, element){
+    stylesettings = price.stylesettings[0];
+    console.log(stylesettings['primary_color']);
+    $.each(price.carpetprices, function(index, element) {
         carpetprices = element;
     });
-    $.each(price.carpetprotectionprices, function (index, element){
+    $.each(price.carpetprotectionprices, function(index, element) {
         carpetprotectionprices = element;
     });
-    $.each(price.carpetdeodorizeprices, function (index, element){
+    $.each(price.carpetdeodorizeprices, function(index, element) {
         carpetdeodorizeprices = element;
-    });    
+    });
 
-    $.each(price.upholsteryprices, function (index, element){
+    $.each(price.upholsteryprices, function(index, element) {
         hashUp = element;
     });
-    $.each(price.upholsteryprotectionprices, function (index, element){
+    $.each(price.upholsteryprotectionprices, function(index, element) {
         hashUpProt = element;
     });
-    $.each(price.upholsterydeodorizeprices, function (index, element){
+    $.each(price.upholsterydeodorizeprices, function(index, element) {
         hashUpDeod = element;
     });
 
-    $.each(price.tileprices, function (index, element){
+    $.each(price.tileprices, function(index, element) {
         hashTilePrices = element;
     });
-    $.each(price.tilesealerprices, function (index, element){
+    $.each(price.tilesealerprices, function(index, element) {
         hashTilePricesProt = element;
     });
 
-    $.each(price.rugprices, function (index, element){
+    $.each(price.rugprices, function(index, element) {
         hashRugPrices = element;
     });
-    $.each(price.rugprotectionprices, function (index, element){
+    $.each(price.rugprotectionprices, function(index, element) {
         hashRugProt = element;
     });
-    $.each(price.rugdeodorizeprices, function (index, element){
+    $.each(price.rugdeodorizeprices, function(index, element) {
         hashRugDeod = element;
     });
-            console.log('setdatavars');
+    console.log('setdatavars'+stylesettings.length);
 
     //console.log('got vars');
 }

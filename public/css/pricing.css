@@ -1,24 +1,31 @@
+.body {
+    background-color: #FEF571; !important
+}
 .span4 > div, .span3 > div, .span2 > div, .span1 > div .span12 > div, .span11 > div, .span10 > div, .span9 > div, .span8 > div, .span7 > div,.span6 > div, .span5 > div
 {
-   background-color:#eee;
-   border: 1px solid #888;
    border-radius:3px;
 }
 
 #nozip {
     display: none;
 }
+#totalstable {
+    vertical-align: bottom;
+}
 #totalstable td {
     font-style: bold;
     text-align: right;
-    background-color: red;
-    vertical-align: bottom;
+    background-color: white;
+    vertical-align: bottom; !important
 }
 #priceboxtable {
     background-color: blue;
 }
 #zipnext {
     text-align: right;
+}
+.accordion {
+    background-color: white;
 }
 .accordion-toggle:hover {
     background-color: #609C46;
