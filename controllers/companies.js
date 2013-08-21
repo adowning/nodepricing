@@ -64,8 +64,6 @@
    } else next();
  }
 
-
- // Update user
  exports.update = function(req, res, next) {
    var user = req.user;
    Company.findOne({
@@ -120,39 +118,11 @@
 
  }
 
- exports.onlinepricingsettings = function(req, res, next) {
-  console.log('updateonlinepricingsettings');
-   // var creatingCompany = req.url == "/cregister";
-   // var updatingCompany = !creatingCompany; // only to improve readability
-   // req.assert('name', 'You must provide a company name.').notEmpty();
-   // req.assert('url', 'A URL for your company is required.').notEmpty();
-   // req.assert('publicemail', 'Contact email is required.').notEmpty();
-   // req.assert('address', 'You must provide a company address.').notEmpty();
-   // req.assert('zipcode', 'A zipcode for your company is required.').notEmpty();
-   // req.assert('city', 'City is required.').notEmpty();
-   // req.assert('state', 'State is required.').notEmpty();
-   // req.assert('publicemail', 'You must provide a public company email.').notEmpty();
-   // req.assert('telephone', 'A telephone number for your company is required.').notEmpty();
-   // var validationErrors = req.validationErrors() || [];
-   // // if (req.body.password != req.body.passwordConfirmation) validationErrors.push({msg:"Password and password confirmation did not match."});
-   // console.log('hi');
-   // if (validationErrors.length > 0) {
-
-   //   validationErrors.forEach(function(e) {
-   //     console.log('validation error' + e.msg);
-   //     req.flash('error', e.msg);
-   //   });
-   //   // Create handling if errors present
-   //   if (creatingCompany) return res.render('companies/new', {
-   //     comp: new Company(req.body),
-   //     errorMessages: req.flash('error')
-   //   });
-   //   // Update handling if errors present
-   //   else return res.redirect("/program/");
-   // } else next();
+ exports.updateonlinepricingavailability = function(req, res, next) {
+  console.log('updateavailability');
+   
  }
 
-  // Validations for user objects upon user update or create
  exports.companyPriceValidations = function(req, res, next) {
   console.log('companyPriceValidations is loading');
 

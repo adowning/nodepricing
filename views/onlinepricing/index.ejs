@@ -176,11 +176,11 @@
                                 <div class="row" id="min_totals_row">
                                     <div class="span6"></div>
 
-                                    <div class="span4" id="minchargediv">
+                                    <div class="span3" id="minchargediv">
                                         <span class="mincharge-span"></span>
                                     </div>
 
-                                    <div class="span2" id="pricebox">
+                                    <div class="span3" id="pricebox">
                                         <table id="totalstable" class="table table-condensed">
                                             <tbody>
                                                 <tr>
@@ -322,15 +322,14 @@
       <div class="row-fluid">
         <div class="span12">
             <div class="pull-right">
-                                                    <button class="btn" data-dismiss=
-                                        "modal" onclick=
+                                                    <button class="btn"  onclick=
                                         "$('#nozip').hide(); $('#scheduleform').hide(); $('#pricecalculator').show(); return false;">
                                         <em class=
                                         "icon-arrow-left"></em>Back</button>
                                         <button class="btn btn-primary" id=
                                         "priceNext" name="priceNext" onclick=
                                         "$('#scheduleform').hide(); $('#contactform').show();
-                                        console.log($('#zipcode').val()); return false;">
+                                         return false;">
                                         Next <em class=
                                         "icon-arrow-right icon-white"></em></button>
                                     </div>
@@ -371,31 +370,31 @@
       <div id="contact-formx" class="clearfix">
 <form action="/createonlineprice/<%= pricing.key %>" method="post">
           <div class="row">
-            <div class="span3">
+            <div class="span5">
               <label>
                 Name
               </label>
-              <input name="name" value="asdf" id="name" type="text" class="span3" placeholder="John Galt" required>
+              <input name="name" value="asdf" id="name" type="text" class="span5" placeholder="John Galt" required>
               <label>
                 Email Address
               </label>
-              <input input type="email" value="asdf@asdf.com" type="text" class="span3" name="email" id="email" placeholder="jg@email.com" required>
+              <input input type="email" value="asdf@asdf.com" type="text" class="span5" name="email" id="email" placeholder="jg@email.com" required>
               
               <label>
                 Telephone
               </label>
-              <input type='telephone' value='9999999999' pattern="^\D?(\d{3})\D?\D?(\d{3})\D?(\d{4})$"    name="telephone" id="telephone"  class="span3" placeholder="903 555 1234" required>
+              <input type='telephone' value='9999999999' pattern="^\D?(\d{3})\D?\D?(\d{3})\D?(\d{4})$"    name="telephone" id="telephone"  class="span5" placeholder="903 555 1234" required>
               <label>
                 Address
               </label>
-              <input input type="address" value='123 asdf' name="address" id="address" type="text" class="span3" placeholder="4242 Easy St." required>
+              <input input type="address" value='123 asdf' name="address" id="address" type="text" class="span5" placeholder="4242 Easy St." required>
      
     </div>
-    <div class="span6">
+    <div class="span7">
       <label>
         Special Instructions for your technician:
       </label>
-      <textarea placeholder="Any special instructions you would like to pass on to us or the technician goes here." name="instructions" id="instructions" class="input-xlarge span6" rows="10">
+      <textarea placeholder="Any special instructions you would like to pass on to us or the technician goes here." name="instructions" id="instructions" class="input-xlarge span7" rows="10">
       </textarea>
     </div>
     <input type="hidden" id="city" name="city"  required/>
@@ -407,12 +406,12 @@
         <input type="hidden" id="services_totals" name="services_totals"  required/>
     <div class="row"></div>
     <div class="span6"></div><div class="span3" name="formbuttons" id="formbuttons">
-        <button class="btn" data-dismiss="modal" aria-hidden="true" onclick="$('#bookModal2').modal('hide'); $('#bookModal').modal('show'); return false;">
+        <button type="button" value="Cancel" class="btn" aria-hidden="true" onclick="$('#contactform').hide(); $('#scheduleform').show(); return false;">
       <i class="icon-arrow-left ">
       </i>
       Back
     </button>
-    <button type="submit" class="btn btn-primary pull-right">
+    <button type="submit" value="Submit" class="btn btn-primary pull-right">
       Schedule
     </button>
   </div>

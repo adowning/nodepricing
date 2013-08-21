@@ -29,7 +29,11 @@ $(document).ready(function() {
 		"backgroundColor": "white"
 	});
 	$("#background").css({
-		"backgroundColor": "FEF571"
+		"backgroundColor": "71C1FE"
+	});
+	//fixme
+		$("accordian-toggle:hover").css({
+		"backgroundColor": "C1FE71"
 	});
 	//alert('hai'+stylesettings['primary_color']);
 });

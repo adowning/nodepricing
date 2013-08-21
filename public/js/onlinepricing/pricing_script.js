@@ -3,14 +3,12 @@
 //andrewscarpetcleaning.com
 
 // if your reading through this shit, good for you because I'm no longer a professional programmer and when I was I wrote
-// board level C functions for a>d converters for interface boards, this is my first real forray into writing code that actually
+// C for a>d converters for interface boards, this is my first real forray into writing code that actually
 // does more than math.
-// so if you think its shit, well it probaqbly is
+// so if you think its shit, well it probably is
 
 $(document).ready(function() {
     console.log('pricing_script just loaded');
-    var localkey = getParameters();
-    var animal = new Object();
     $('#timeholder').prop('disabled', 'disabled');
     $(".settime").click(function(e) {
         $('#scheduletime').val($(this).data('time'));
@@ -18,11 +16,9 @@ $(document).ready(function() {
         e.preventDefault();
     });
     var zip = "none";
-
     buildItems();
     addAction();
     buildStable();
-
 
     Number.prototype.formatMoney = function(c, d, t) {
         var n = this,
@@ -55,8 +51,6 @@ $(document).ready(function() {
 
         addWeek(-7);
     });
-
-
 
     $('.collapse').on('show', function() {
         //console.log('setting ag');
@@ -100,7 +94,6 @@ function checkValidity(item) {
     //may change later to reduce code
     switch (activegroup) {
         case "Carpet":
-            //console.log('hai');
             var roomcleaningcost = carpetprices[item];
             var protectprice = carpetprotectionprices[item];
             var deodorizeprice = carpetdeodorizeprices[item];
@@ -256,8 +249,6 @@ function addAction() {
 
             default:
         }
-
-
         e.preventDefault();
     });
 }
@@ -450,7 +441,6 @@ function getCount(aVal, myArr) {
 
 
 function buildStable() {
-
     $("#stable > tbody > tr").remove();
     $('#prestable-date').html("<h4>" + monday.toString('MMMM dS') + ' - ' + sat.toString('MMMM dS') + "</h4>");
     $('.mondayhead').html("Mon<br>" + monday.toString('dS'));
@@ -486,9 +476,8 @@ function addWeek(delta) {
 }
 
 function fillSchedule() {
-
     if (browser == 'old') {
-        //console.log('old browser found, building diff schedule');
+        console.log('old browser found, building diff schedule');
         $(".open").each(function() {
             adate = $(this).prop('name');
             if (!adate || adate == null || adate == 'undefined') {
@@ -517,10 +506,16 @@ function fillSchedule() {
         } else {
             if (parseDate(adate) != 'closed') {
                 if (parseDate(adate).isBefore(Date.today().addDays(1))) {
+
                     $(this).children('img').attr('src', "/img/Closed.gif");
                     $(this).prop('class', 'closed');
                 } else {
-
+                    for (var i in price.bookedslots) {
+                        if (price.bookedslots[i] == adate) {
+                            $(this).children('img').attr('src', "/img/Closed.gif");
+                            $(this).prop('class', 'closed');
+                        }
+                    }
                     //console.log('parsed date was after today');
                 }
             } else {
@@ -528,12 +523,8 @@ function fillSchedule() {
             }
         }
         // see what is booked
-        for (var i in price.bookedslots) {
-            if (price.bookedslots[i] == $(this).prop('name')) {
-                $(this).children('img').attr('src', "/img/Closed.gif");
-                $(this).prop('class', 'closed');
-            }
-        }
+        //alert('this prop name = '+ adate);
+
 
     })
     $('.open').click(function(event) {

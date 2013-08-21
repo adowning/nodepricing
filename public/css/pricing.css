@@ -28,7 +28,7 @@
     background-color: white;
 }
 .accordion-toggle:hover {
-    background-color: #609C46;
+    
     font-weight:bold;
 }
 
@@ -38,7 +38,6 @@
 
 .accordion-heading:hover
 {
-    background-color: #7D8847;
     text-decoration: none;
 }
 

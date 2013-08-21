@@ -45,16 +45,33 @@ $(document).ready(function() {
         complete: function(some) {
             //console.log('comp starting');
             //setDataVars();
+            $.ajax({
+  url: "/js/onlinepricing/pricing_style.js",
+  dataType: 'script',
+  success: console.log('got ps1'),
+  async: false
+});            $.ajax({
+  url: "/js/onlinepricing/pricing_location.js",
+  dataType: 'script',
+  success: console.log('got ps2'),
+  async: false
+});
+            $.ajax({
+  url: "/js/onlinepricing/pricing_script.js",
+  dataType: 'script',
+  success: console.log('got ps3'),
+  async: false
+});
 
-            $.getScript("/js/onlinepricing/pricing_style.js", function() {
-                console.log('pricing_style loaded');
-            });
-            $.getScript("/js/onlinepricing/pricing_location.js", function() {
-                console.log('pricing_location loaded');
-            });
-            $.getScript("/js/onlinepricing/pricing_script.js", function() {
-                console.log('pricing_script loaded');
-            });
+            // $.getScript("/js/onlinepricing/pricing_style.js", function() {
+            //     console.log('pricing_style loaded');
+            // });
+            // $.getScript("/js/onlinepricing/pricing_location.js", function() {
+            //     console.log('pricing_location loaded');
+            // });
+            // $.getScript("/js/onlinepricing/pricing_script.js", function() {
+            //     console.log('pricing_script loaded');
+            //});
             console.log('scripts loaded');
         },
         success: function(some) {
@@ -121,11 +138,6 @@ function setDataVars() {
 
     //console.log('got vars');
 }
-// function buildPrice(){
-//     //console.log(price.tripcharges.length);
-//     //console.log(price.tripcharges['00000']);
-// }
-
 
 // var zipList = new Array("1", "75701", "75703", "75707","75771", "75704",
 //     "75706","75792","75708","75702","75709","75707", "75701",
@@ -152,100 +164,3 @@ var base = 0;
 // var bookedslots = new Array("slot 1 day Fri Apr 05 2013 00:00:00 GMT-0500 (Central Daylight Time)");
 var discountvalue = 0;
 var browser = "";
-
-// var hashPrices = {
-//     'Bedroom': 39,
-//     'Living Room': 46,
-//     'Dining Room': 30,
-//     'Living/Dining Combo': 55,
-//     'Hall': 10,
-//     'Game Room': 48,
-//     'Misc (0-225)sf': 35,
-//     'Misc (225-400)sf': 55
-// }
-
-// var hashPricesProt = {
-//     'Bedroom': 39,
-//     'Living Room': 46,
-//     'Dining Room': 30,
-//     'Living/Dining Combo': 55,
-//     'Hall': 10,
-//     'Game Room': 48,
-//     'Misc (0-225)sf': 35,
-//     'Misc (225-400)sf': 55
-// }
-
-// var hashPricesDeod = {
-//     'Bedroom': 39,
-//     'Living Room': 46,
-//     'Dining Room': 30,
-//     'Living/Dining Combo': 55,
-//     'Hall': 10,
-//     'Game Room': 48,
-//     'Misc (0-225)sf': 35,
-//     'Misc (225-400)sf': 55
-// }
-
-
-// var hashUp = {
-//     'Sofa': 75,
-//     'Recliner': 65,
-//     'Ottoman': 15,
-//     'Dining Chair': 15,
-//     'Loveseat': 55,
-//     'Wingback Chair': 25,
-//     'Sectional': 85
-// }
-
-// var hashUpProt = {
-//     'Sofa': 25,
-//     'Recliner': 15,
-//     'Ottoman': 5,
-//     'Dining Chair': 5,
-//     'Loveseat': 15,
-//     'Wingback Chair': 5,
-//     'Sectional': 25
-// }
-
-// var hashUpDeod = {
-//     'Sofa': 25,
-//     'Recliner': 15,
-//     'Ottoman': 5,
-//     'Dining Chair': 5,
-//     'Loveseat': 15,
-//     'Wingback Chair': 5,
-//     'Sectional': 25
-// }
-
-
-
-// var hashTilePrices = {
-//     'Small Area (1-100sf)': 44,
-//     'Med. Area (101-200sf)': 64,
-//     'Large Area (201-300sf)': 75
-// }
-
-// var hashTilePricesProt = {
-//     'Small Area (1-100sf)': 44,
-//     'Med. Area (101-200sf)': 64,
-//     'Large Area (201-300sf)': 75
-// }
-
-
-// var hashRugPrices = {
-//     'Small Rug (1-50sf)': 70,
-//     'Med. Rug (51-150sf)': 215,
-//     'Large Rug (150+ sf)': 325
-// }
-
-// var hashRugProt = {
-//     'Small Rug (1-50sf)': 70,
-//     'Med. Rug (51-150sf)': 215,
-//     'Large Rug (150+ sf)': 325
-// }
-
-// var hashRugDeod = {
-//     'Small Rug (1-50sf)': 70,
-//     'Med. Rug (51-150sf)': 215,
-//     'Large Rug (150+ sf)': 325
-// }

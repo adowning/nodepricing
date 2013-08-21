@@ -72,8 +72,6 @@ exports.createorder = function(req, res, next) {
           //return res.render('users/new', {user : newUser, errorMessages: req.flash('error')});
         }
         if (err) return next(err);
-        //console.log('made order with email '+order.email);
-        //success
         req.flash('success', "Order created successfully!");
         var result = JSON.parse(order.services);
         ////console.log(result.plugin);
@@ -87,9 +85,7 @@ exports.createorder = function(req, res, next) {
         } catch (err) {
           order.formateddate = "error in prod";
         }
-
         mailOrder(res, order, tcomp, next);
-
         return res.render('onlinepricing/thanks', {
           order: order,
           comp: tcomp
@@ -108,12 +104,18 @@ function mailOrder(res, order, tcomp, next) {
     comp: tcomp
   }, function(err) {
     if (err) return next(err);
+  });  
+  res.mailer.send('mailer/orde_sent_company', {
+    from: order.email,
+    to: tcomp.publicemail,
+    subject: 'New Order Received !!',
+    order: order,
+    comp: tcomp
+  }, function(err) {
+    if (err) return next(err);
   });
-}
 
-// exports.pricesetting = function(req, res) {
-//   res.render('companies/onlinepricing');
-// }
+}
 
 // Validations for user objects upon user update or create
 exports.onlinePricingValidations = function(req, res, next) {
@@ -160,8 +162,6 @@ function setGVars(key, res) {
       console.log('comp -= comp name ' + company.name);
       comp = company;
     }
-    console.log('here i am ' + comp.name);
-
   });
 
   OnlinePrice.findOne({
@@ -175,8 +175,6 @@ function setGVars(key, res) {
       console.log('onlieprice -= onlieprice name ' + onlieprice.name);
       op = onlieprice;
     }
-    //console.log('here i am '+ comp.name);
-
   });
 }
 
@@ -199,8 +197,6 @@ exports.show_order = function(req, res, next) {
       }
       if (err) return next(err);
       tcomp = company;
-      console.log(req.params.id);
-      console.log(req.params.num);
       Order.findOne({
         companyid: req.params.id,
         ordernumber: req.params.num
@@ -227,3 +223,4 @@ exports.show_order = function(req, res, next) {
     }
   });
 }
+
