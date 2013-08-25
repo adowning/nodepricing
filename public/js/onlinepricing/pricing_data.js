@@ -21,25 +21,29 @@ var hashRugProt;
 var hashRugDeod;
 var companyzipcode;
 var stylesettings;
+var companykey = [];
+var st;
 
 function getParameters() {
     var searchString = window.location;
-    var st = searchString.toString();
-    var parm = st.split('key=');
-    var p = parm[1];
-    companykey = p;
+     st = searchString.toString();
+    var parm = st.split('/');
+    var p = parm[4];
+    console.log(p);
+    companykey.push(p);
 };
 
 
 $(document).ready(function() {
+    getParameters();
+
+    console.log(st);
     $.ajax({
         url: "/onlinepricing",
         type: "POST",
         dataType: "json",
-        // data: {
-        //     key: 'go fuck yourself'
-        // },
-        // contentType: "application/json",
+        data: JSON.stringify(companykey),
+        contentType: "application/json",
         cache: false,
         timeout: 5000,
         complete: function(some) {
@@ -62,7 +66,14 @@ $(document).ready(function() {
   success: console.log('got ps3'),
   async: false
 });
-
+//             if(st.indexOf("updateavailability") != -1){
+//             $.ajax({
+//   url: "/js/onlinepricing/availablity.js",
+//   dataType: 'script',
+//   success: console.log('got ps4'),
+//   async: false
+// });
+// }
             // $.getScript("/js/onlinepricing/pricing_style.js", function() {
             //     console.log('pricing_style loaded');
             // });
@@ -75,7 +86,7 @@ $(document).ready(function() {
             console.log('scripts loaded');
         },
         success: function(some) {
-
+            console.log('suc '+some.toString());
             $.each(some, function(index, element) {
                 console.log('>>> el ' + element.key);
                 price = element;

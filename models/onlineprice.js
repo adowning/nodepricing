@@ -13,7 +13,7 @@ var OnlinePriceSchema = new Schema({
     tripcharges : { type: Array, default: [{'0': 13}] },
     timeslots : { type: Array, default: ["9:00 am", "11:00 am", "1:00 pm", "3:00 pm"] },
     advertisements : { type: Array, default: ["Half off tile protector", "%20 off carpet protector", "%15 off upholstery cleaning"] },
-    bookedslots : { type: Array, default: [] },
+    bookedslots : { type: Array, default: ["slot 3 day Tue Aug 27 2013 00:00:00 GMT-0400 (EDT)"] },
     carpetprices : { type: Array, default: [{
     'Bedroom': 39,
     'Living Room': 46,

@@ -120,6 +120,7 @@ passport.use(new LocalStrategy(
 ));
 
 function ensureAuthenticated(req, res, next){
+  console.log('>>> ensuring authentication');
   if (req.isAuthenticated()) return next();
   req.flash('error', 'Please sign in to continue.');
   var postAuthDestination = req.url;
@@ -138,7 +139,9 @@ app.get('/onlinepricing/:id', onlinepricing.fetch);
 app.get('/showorder/:id/:num', onlinepricing.show_order);
 //app.get('onlinepricing/thanks', onlinepricing.thanks);
 app.post('/onlinepricing', onlinepricing.getonlinepricing);
-//app.post('/neworder/:id', onlinepricing.onlinePricingValidations, onlinepricing.create);
+app.post('/changeavailability', onlinepricing.changeavailability);
+app.get('/updateavailability', ensureAuthenticated, onlinepricing.fetchSettings);
+app.post('/updateavailability', onlinepricing.getonlinepricing);
 app.post('/createonlineprice/:id', onlinepricing.onlinePricingValidations, onlinepricing.createorder);
 app.get('/login', redirectAuthenticated, users.login);
 app.get('/reset_password', redirectAuthenticated, users.reset_password);

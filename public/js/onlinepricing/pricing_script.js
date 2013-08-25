@@ -559,6 +559,8 @@ function parseDate(daystring) {
 }
 
 function setJobDateTime(dt) {
+    console.log('logging dt = '+dt);
+    $('#dt').val(dt);
     var day = dt.split(' day ');
     var time = day[0].replace(/[^\d.]/g, "");
     var t = price.timeslots[time];
