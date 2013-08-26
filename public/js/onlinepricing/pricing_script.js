@@ -53,7 +53,7 @@ $(document).ready(function() {
     });
 
     $('.collapse').on('show', function() {
-        //console.log('setting ag');
+        console.log('setting ag');
         //console.log('active group =' + $(this).parent().find('.accordion-toggle').text().replace(/[^A-Za-z]+/g, ''));
         activegroup = $(this).parent().find('.accordion-toggle').text().replace(/[^A-Za-z]+/g, '');
     });
@@ -147,7 +147,8 @@ function addAction() {
         //prelim check to make sure we have prices for everything, if not
         //were gonna throw an error alert
         if (!checkValidity($(this).html())) {
-            alert('Error!');
+            console.log(activegroup);
+            alert('Error! '+ $(this).html());
             return false;
         }
         switch ($(this).data('type')) {

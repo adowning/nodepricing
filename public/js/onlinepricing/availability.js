@@ -92,7 +92,7 @@ function fillSchedule() {
         adate = $(this).attr('name');
         if (!adate || adate == null || adate == 'undefined') {} else {
             if (parseDate(adate) != 'closed') {
-                if (parseDate(adate).isBefore(Date.today().addDays(2))) {
+                if (parseDate(adate).isBefore(Date.today().addDays(1))) {
                     $(this).children('img').attr('src', "/img/Closed.gif");
                     $(this).prop('class', 'closed');
                     $(this).prop('old', 'yes');

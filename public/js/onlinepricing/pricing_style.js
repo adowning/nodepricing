@@ -28,9 +28,9 @@ $(document).ready(function() {
 	$("#pricearea").css({
 		"backgroundColor": "white"
 	});
-	$("#background").css({
-		"backgroundColor": "71C1FE"
-	});
+	// $("#background").css({
+	// 	"backgroundColor": "71C1FE"
+	// });
 	//fixme
 		$("accordian-toggle:hover").css({
 		"backgroundColor": "C1FE71"

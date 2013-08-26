@@ -90,14 +90,8 @@ exports.changeavailability = function (req, res, next) {
                 console.log('saved with slots: ' + opsuc.bookedslots);
                 return res.redirect('updateavailability');
             });
-
-
         });
-
-
     });
-
-
 }
 
 exports.getonlinepricing = function (req, res, next) {
@@ -196,8 +190,10 @@ exports.createorder = function (req, res, next) {
             ////console.log('on '+ordernumber);
             newOrder.companyid = req.params.id;
             
-            newOrder.ordernumber = parseInt(tcomp.ordertotal) + 1;
-            tcomp.ordertotal = parseInt(tcomp.ordertotal) + 1;
+            //newOrder.ordernumber = parseInt(tcomp.ordertotal) + 1;
+            var newnumber = parseInt(tcomp.ordertotal) + 1;
+            newOrder.ordernumber = pad(newnumber, 4);
+            tcomp.ordertotal = newnumber;
             tcomp.save(function (err, csuc) {
                 if (err) console.log('error saving company')
                 console.log('saved ' + csuc.name);
@@ -219,7 +215,7 @@ exports.createorder = function (req, res, next) {
                 order.services = result;
                 var result2 = JSON.parse(order.services_totals);
                 order.services_totals = result2;
-                order.showNumber = parseInt(order.ordernumber) + 3000;
+                order.showNumber = newOrder.ordernumber;
                 console.log(moment(order.scheduledate).format("YYYY-MM-DD"));
                 try {
                     order.formateddate = moment(order.scheduledate).format("YYYY-MM-DD");
@@ -403,3 +399,5 @@ exports.updateAvailability = function (req, res, next) {
         return res.redirect('/onlinepricing/settings');
     });
 }
+
+function pad(a,b){return(1e15+a+"").slice(-b)};
