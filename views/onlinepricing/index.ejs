@@ -67,7 +67,7 @@
                             <h4 id="zipModalLabel">Enter Your Zipcode</h4>
                             <form onsubmit="return false;">
                                 <fieldset>
-                                    <input id="zipcodetext" name="zipcodetext" value="75701"
+                                    <input id="zipcodetext" name="zipcodetext" value=""
                                     placeholder="" required="" type="text">
                                 </fieldset>
                             </form>
@@ -406,27 +406,27 @@
       <div id="contact-formx" class="clearfix">
 <form action="/createonlineprice/<%= pricing.key %>" method="post">
           <div class="row">
-            <div class="span5">
+            <div class="span6">
               <label>
                 Name
               </label>
-              <input name="name" value="asdf" id="name" type="text" class="span5" placeholder="John Galt" required>
+              <input name="name" value="" id="name" type="text" class="span6" placeholder="John Galt" required>
               <label>
                 Email Address
               </label>
-              <input input type="email" value="asdf@asdf.com" type="text" class="span5" name="email" id="email" placeholder="jg@email.com" required>
+              <input input type="email" value="" type="text" class="span6" name="email" id="email" placeholder="jg@email.com" required>
               
               <label>
                 Telephone
               </label>
-              <input type='telephone' value='9999999999' pattern="^\D?(\d{3})\D?\D?(\d{3})\D?(\d{4})$"    name="telephone" id="telephone"  class="span5" placeholder="903 555 1234" required>
+              <input type='telephone' value='' pattern="^\D?(\d{3})\D?\D?(\d{3})\D?(\d{4})$"    name="telephone" id="telephone"  class="span6" placeholder="903 555 1234" required>
               <label>
                 Address
               </label>
-              <input input type="address" value='123 asdf' name="address" id="address" type="text" class="span5" placeholder="4242 Easy St." required>
+              <input input type="address" value='' name="address" id="address" type="text" class="span6" placeholder="4242 Easy St." required>
      
     </div>
-    <div class="span7">
+    <div class="span6">
       <label>
         Special Instructions for your technician:
       </label>
@@ -465,6 +465,7 @@
 </body>
 
   <script type="text/javascript" src="/js/jquery-1.9.1.js"></script> 
+
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"></script>
 <!-- <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/js/bootstrap.min.js"></script> -->
 
@@ -473,5 +474,5 @@
     <script type="text/javascript" src="/js/jquery.json-2.4.min.js"></script>    
   <script type="text/javascript" src="/js/jquery.client.js"></script> 
   <script type="text/javascript" src="/js/browser_fix.js"></script>
-
+  <script type="text/javascript" src="/js/json2.js"></script>  
   <script type="text/javascript" src="/js/onlinepricing/pricing_data.js"></script>       

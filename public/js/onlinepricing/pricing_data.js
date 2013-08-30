@@ -45,6 +45,7 @@ $(document).ready(function() {
         data: JSON.stringify(companykey),
         contentType: "application/json",
         cache: false,
+        multiple: true,
         timeout: 5000,
         complete: function(some) {
             //console.log('comp starting');
@@ -97,7 +98,7 @@ $(document).ready(function() {
         },
         error: function() {
             //console.log('process error');
-        },
+        }
     });
 
 

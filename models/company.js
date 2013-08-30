@@ -18,7 +18,7 @@ var CompanySchema = new Schema({
     radius : { type: String, default: 30, required: false, index: { unique: false } },    
     ownername : { type: String, required: true, index: { unique: true } },
     ordertotal : { type: String, required: true, default: 0, index: {unique: false}},
-    slogan : { type: String, default: "Cleaning America's homes one at a time starting with yours", required: false, index: { unique: false } }   
+    slogan : { type: String, default: "It's not just clean, it's Andrews Clean", required: false, index: { unique: false } }   
 
 });
 

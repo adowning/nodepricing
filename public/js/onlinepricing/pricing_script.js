@@ -62,7 +62,7 @@ $(document).ready(function() {
         $(this).parent().find('a').removeClass('open'); //remove active state to button on close
     });
 
-    $(rotateAds);
+    //$(rotateAds);
     checkBrowserChangeBookModal();
 
 });
@@ -477,6 +477,7 @@ function addWeek(delta) {
 }
 
 function fillSchedule() {
+    console.log(browser);
     if (browser == 'old') {
         console.log('old browser found, building diff schedule');
         $(".open").each(function() {
@@ -630,9 +631,11 @@ String.prototype.replaceAll = function(str1, str2, ignore) {
 }
 
 function checkBrowserChangeBookModal() {
-    if ($.client.browser == "Explorer" && $.client.browserversion < 8) {
+    if ($.client.browser == "Explorer" && $.client.browserversion < 10) {
         //console.log($.client.browser +" "+$.client.browserversion);
-        alert('Your broswer is very out of date and may not work correctly with our pricing calculator.')
+        alert('Your broswer is out of date and may not work correctly with our pricing calculator. Redirecting you to Microsoft\'s Internet Explorer update page.')
+        var url = "http://windows.microsoft.com/en-us/internet-explorer/ie-10-worldwide-languages"
+        $(location).attr('href', url);
     }
 }
 
