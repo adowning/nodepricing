@@ -11,7 +11,7 @@ try {
 }
 
 exports.fetch = function (req, res) {
-    var key = req.params.id;
+    var key = req.params.id.substring(0,16);
     //setGVars(key, res);
     OnlinePrice.findOne({
         key: key
@@ -260,8 +260,8 @@ function mailOrder(res, order, tcomp, next) {
 // Validations for user objects upon user update or create
 exports.onlinePricingValidations = function (req, res, next) {
     //console.log('pricingvalidations hit 34 ');
-    console.log('q' + req.body);
-    console.log('s' + res.body);
+    console.log('q' + req.body.scheduledate);
+    
     var creatingorder = req.url == "/onlinepricing";
     //var updatingUser = !creatingUser; // only to improve readability
     req.assert('name', 'Name is required.').notEmpty();

@@ -29,15 +29,14 @@ function getParameters() {
      st = searchString.toString();
     var parm = st.split('/');
     var p = parm[4];
-    console.log(p);
-    companykey.push(p);
+    var p2 = p.substring(0,16);
+    companykey.push(p2);
 };
 
 
 $(document).ready(function() {
     getParameters();
 
-    console.log(st);
     $.ajax({
         url: "/onlinepricing",
         type: "POST",
@@ -48,56 +47,29 @@ $(document).ready(function() {
         multiple: true,
         timeout: 5000,
         complete: function(some) {
-            //console.log('comp starting');
-            //setDataVars();
             $.ajax({
   url: "/js/onlinepricing/pricing_style.js",
   dataType: 'script',
-  success: console.log('got ps1'),
   async: false
 });            $.ajax({
   url: "/js/onlinepricing/pricing_location.js",
   dataType: 'script',
-  success: console.log('got ps2'),
   async: false
 });
             $.ajax({
   url: "/js/onlinepricing/pricing_script.js",
   dataType: 'script',
-  success: console.log('got ps3'),
   async: false
 });
-//             if(st.indexOf("updateavailability") != -1){
-//             $.ajax({
-//   url: "/js/onlinepricing/availablity.js",
-//   dataType: 'script',
-//   success: console.log('got ps4'),
-//   async: false
-// });
-// }
-            // $.getScript("/js/onlinepricing/pricing_style.js", function() {
-            //     console.log('pricing_style loaded');
-            // });
-            // $.getScript("/js/onlinepricing/pricing_location.js", function() {
-            //     console.log('pricing_location loaded');
-            // });
-            // $.getScript("/js/onlinepricing/pricing_script.js", function() {
-            //     console.log('pricing_script loaded');
-            //});
-            console.log('scripts loaded');
         },
         success: function(some) {
-            console.log('suc '+some.toString());
             $.each(some, function(index, element) {
-                console.log('>>> el ' + element.key);
                 price = element;
 
             });
             setDataVars();
-            //console.log('suc comp');
         },
         error: function() {
-            //console.log('process error');
         }
     });
 
@@ -109,7 +81,6 @@ function setDataVars() {
     //TODO this sucks redo
     companyzipcode = price.companyzipcode;
     stylesettings = price.stylesettings[0];
-    console.log(stylesettings['primary_color']);
     $.each(price.carpetprices, function(index, element) {
         carpetprices = element;
     });
@@ -146,9 +117,6 @@ function setDataVars() {
     $.each(price.rugdeodorizeprices, function(index, element) {
         hashRugDeod = element;
     });
-    console.log('setdatavars'+stylesettings.length);
-
-    //console.log('got vars');
 }
 
 // var zipList = new Array("1", "75701", "75703", "75707","75771", "75704",
