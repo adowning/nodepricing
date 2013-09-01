@@ -91,7 +91,7 @@ if ('development' == app.get('env')) {
 } else {
   //mongodb:draive:blue42@mongo.onmodulus.net:27017/Revusi2b
   //mongoose.connect('mongodb://draive:blue42@mongo.onmodulus.net:27017/Revusi2b');
-  mongoose.connect('mongodb://draive:sugarlips42@ds043348.mongolab.com:43348/heroku_app17863296');
+  mongoose.connect('mongodb://heroku_app17863296:sugarlips42@ds043348.mongolab.com:43348/heroku_app17863296');
 }
 
 // Authentication
