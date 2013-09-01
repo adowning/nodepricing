@@ -90,7 +90,8 @@ if ('development' == app.get('env')) {
   mongoose.connect('mongodb://localhost/bubblepop');
 } else {
   //mongodb:draive:blue42@mongo.onmodulus.net:27017/Revusi2b
-  mongoose.connect('mongodb://draive:blue42@mongo.onmodulus.net:27017/Revusi2b');
+  //mongoose.connect('mongodb://draive:blue42@mongo.onmodulus.net:27017/Revusi2b');
+  mongoose.connect('mongodb://ashdowning@gmail.com:sugarlips42@ds043348.mongolab.com:43348/heroku_app17863296');
 }
 
 // Authentication
