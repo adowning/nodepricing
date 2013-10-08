@@ -7,6 +7,7 @@ $('#zipcodetext').keyup(function(e) {
 });
 
 function zipCheck(zip) {
+    console.log('zip'+zip);
     var ziparray = getValidZipcodes(zip);
     var i = 0;
     var sortedtripcharges = getTripChargePoints().tripcharges.sort(function(obj1, obj2) {
@@ -26,7 +27,7 @@ function zipCheck(zip) {
     });
 
     var tcprice;
-
+    
     if (distance) {
         $.each(sortedtripcharges, function(index, element) {
             console.log('>' + distance + ' > ' + element.distance);
@@ -44,6 +45,7 @@ function zipCheck(zip) {
         getCityState(zip);
         $('#zipcodearea').hide();
         $('#pricecalculator').show();
+        exitpage.push('zipcode');
     } else {
         $('#nozip').show();
 
@@ -360,13 +362,19 @@ function getValidZipcodes(zip) {
 }
 
 function getCityState(zip) {
+
     $.ajax({
         url: "http://zip.elevenbasetwo.com/v2/US/"+zip,
         context: document.body
     }).complete(function(data) {
-        $('#city').val(data.city);
-        $('#state').val(data.state);
-        debugger;
+        var ar = JSON.parse(data.responseText);
+        $('#city').val(ar.city);
+        $('#state').val(ar.state);
+       
+        if(!$('#city').val() || !$('#state').val()){
+        alert('Error: your city is not found');
+    }
     });
+    
 
 };

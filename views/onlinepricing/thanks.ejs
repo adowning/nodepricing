@@ -92,7 +92,7 @@
 				
 				<div class="adr">
 					<div class="street-address"><%= comp.address %></div>
-					<span class="locality"><%= comp.city %>,<%= comp.state %><%= comp.zipcode %></span>
+					<span class="locality"><%= comp.city %>, <%= comp.state %> <%= comp.zipcode %></span>
 				<!-- 	<span class="country-name"><%= comp.state %></span> -->
 				</div>
 
@@ -128,6 +128,7 @@
 						<th>Quantity</th>
 						<th>Protect</th>
 						<th>Deodorize</th>
+						<th>Amount</th>
 						<!-- <th>Price</th> -->
 					</tr>
 				</thead>
@@ -138,7 +139,7 @@
 						<td><%= order.services[i].quantity %></td>
 						<td><%= order.services[i].protection %></td>
 						<td><%= order.services[i].deodorize %></td>
-						<!-- <td><%= order.services[i].totalcost %></td> -->
+						 <td><%= order.services[i].total %></td>
 					</tr>
 					<% } %>
 				</tbody>

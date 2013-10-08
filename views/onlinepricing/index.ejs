@@ -281,7 +281,7 @@
                                         <div class="col-md-8"></div>
                                         <div class="col-md-4">
                                             <div class="pull-right">
-                                                <button class="btn btn-default" data-dismiss="modal" onclick="$('#nozip').hide(); $('#pricecalculator').hide(); $('#zipcodearea').show(); return false;"> <em class="icon-arrow-left"></em>Back</button>
+                                                <button class="btn btn-default" data-dismiss="modal" onclick="$('#nozip').hide(); $('#pricecalculator').hide(); $('#zipcodearea').show(); setExitPage('zipcode'); return false;"> <em class="icon-arrow-left"></em>Back</button>
                                                 <button class="btn btn-primary"
                                                 id="priceNext" name="priceNext" onclick="$('#pricecalculator').hide(); $('#scheduleform').show(); setServices(); return false;">Next <em class="icon-arrow-right icon-white"></em>
                                                 </button>
@@ -318,17 +318,13 @@
 
                   </i>
  <a class="lastweek" href="#">
-
                     last week
-
                   </a>
                                                 </th>
                                                 <th name="prestable-date" id="prestable-date">asdf</th>
                                                 <th class="nextweekhead"> <a class="nextweek" href="#">
 
                     next week
-
-
 
                   </a>
  <i class="glyphicon glyphicon-arrow-right">
@@ -359,12 +355,19 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="pull-right">
-                                <button class="btn btn-default" onclick="$('#nozip').hide(); $('#scheduleform').hide(); $('#pricecalculator').show(); return false;"> <em class="icon-arrow-left"></em>Back</button>
+                                <button class="btn btn-default" onclick="$('#nozip').hide(); $('#scheduleform').hide(); $('#pricecalculator').show(); setExitPage('pricingtable'); return false;"> <em class="icon-arrow-left"></em>Back</button>
                                 <button class="btn btn-primary"
-                                id="scheduleNext" name="scheduleNext" onclick="$('#scheduleform').hide(); $('#contactform').show();
+                                id="scheduleNext" name="scheduleNext" onclick="$('#scheduleform').hide(); $('#contactform').show(); setExitPage('contactform');
 
                                          return false;">Next <em class="icon-arrow-right icon-white"></em>
                                 </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="alert alert-info" id="early_call">
+                                <h4>If you need service earlier call 903-566-3081 for availablity</h4>
                             </div>
                         </div>
                     </div>
@@ -435,7 +438,7 @@
         </div>
                </div>     
 
-                   <input type="hidden" id="city" name="city"  required/>
+    <input type="hidden" id="city" name="city"  required/>
     <input type="hidden" id="state" name="state"  required/>
     <input type="hidden" id="scheduledate" value='laskdjf' name="scheduledate" required/>
     <input type="hidden" id="scheduletime" value='asdf' name="scheduletime"  required/>
@@ -445,7 +448,8 @@
         <input type="hidden" id="services_totals" name="services_totals"  required/>   
          <div id="success"> </div> <!-- For success/fail messages -->
          <button type="submit" class="btn btn-primary pull-right">Schedule</button>
-         <button type="button" value="Cancel" class="btn btn-default pull-right" aria-hidden="true" onclick="$('#contactform').hide(); $('#scheduleform').show(); return false;">
+         <button type="button" value="Cancel" class="btn btn-default pull-right" aria-hidden="true" 
+         onclick="$('#contactform').hide(); setExitPage('schedule'); $('#scheduleform').show(); return false;">
       <i class="icon-arrow-left ">
       </i>
       Back
@@ -474,6 +478,7 @@
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"></script>
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 
+   <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/async/0.2.7/async.min.js"></script>
   <!-- <script type="text/javascript" src="/js/bootstrap.min.js"></script> -->
   <script type="text/javascript" src="/js/date2.js"></script> 
     <script type="text/javascript" src="/js/jquery.json-2.4.min.js"></script>    

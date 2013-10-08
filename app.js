@@ -6,10 +6,12 @@ var express = require('express')
   , OnlinePriceModel = require('./models/onlineprice')
   , CompanyModel = require('./models/company')
   , OrderModel = require('./models/order')
+  , AbandonmentModel = require('./models/abandonment')
   , User = mongoose.model('User')
   , OnlinePrice = mongoose.model('OnlinePrice')
   , Company = mongoose.model('Company')
   , Order = mongoose.model('Order')
+  , Abandonment = mongoose.model('Abandonment')
   , welcome = require('./controllers/welcome')
   , program = require('./controllers/program')
   , companies = require('./controllers/companies')
@@ -26,7 +28,9 @@ var express = require('express')
   , expressValidator = require('express-validator')
   , mailer = require('express-mailer')
   , config = require('./config')
+  , async = require('async')
   , app = express();
+
 
 app.engine('ejs', engine);
 app.set('port', process.env.PORT || 3000);
@@ -41,6 +45,7 @@ app.use(express.cookieParser('your secret here'));
 app.use(express.session());
 app.use(flash());
 app.use(moment());
+app.use(async);
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -58,7 +63,7 @@ app.use(function(req, res, next){
 // Mailer Setup
 
 mailer.extend(app, {
-  from: 'no-reply@example.com',
+  from: 'info@andrewscarpetcleaning.com',
   host: 'smtp.mandrillapp.com', // hostname
   // secureConnection: true, // use SSL
   port: 587, // port for Mandrill
@@ -90,8 +95,8 @@ if ('development' == app.get('env')) {
   mongoose.connect('mongodb://localhost/bubblepop');
 } else {
   //mongodb:draive:blue42@mongo.onmodulus.net:27017/Revusi2b
-  //mongoose.connect('mongodb://draive:blue42@mongo.onmodulus.net:27017/Revusi2b');
-  mongoose.connect('mongodb://heroku_app17863296:sugarlips42@ds043348.mongolab.com:43348/heroku_app17863296');
+  mongoose.connect('mongodb://draive:blue42@mongo.onmodulus.net:27017/Revusi2b');
+  //mongoose.connect('mongodb://heroku_app17863296:sugarlips42@ds043348.mongolab.com:43348/heroku_app17863296');
 }
 
 // Authentication
@@ -137,10 +142,13 @@ function redirectAuthenticated(req, res, next){
 
 app.get('/', welcome.index);
 app.get('/onlinepricing/:id', onlinepricing.fetch);
+
 app.get('/showorder/:id/:num', onlinepricing.show_order);
 //app.get('onlinepricing/thanks', onlinepricing.thanks);
 app.post('/onlinepricing', onlinepricing.getonlinepricing);
 app.post('/changeavailability', onlinepricing.changeavailability);
+app.post('/onlinepricing_saveAbandonment', onlinepricing.saveAbandonment);
+app.post('/changebasicsettings', onlinepricing.changebasicsettings);
 app.get('/updateavailability', ensureAuthenticated, onlinepricing.fetchSettings);
 app.post('/updateavailability', onlinepricing.getonlinepricing);
 app.post('/createonlineprice/:id', onlinepricing.onlinePricingValidations, onlinepricing.createorder);
@@ -187,13 +195,18 @@ Company.find(function(err, companies) {
 })
 
 
-
-// app.use(function (req, res, next){
-//    res.locals.scripts = ['/js/onlinepricing/pricing_script.js', '/js/date2.js']
-//    next();
-// });
-
-//Time formating thing
-//var moment = require('moment');
-//console.log(moment("05-06-1995", ["MM-DD-YYYY", "DD-MM-YYYY"]));
-
+async.series({
+    one: function(callback){
+        setTimeout(function(){
+            callback(null, 1);
+        }, 200);
+    },
+    two: function(callback){
+        setTimeout(function(){
+            callback(null, 2);
+        }, 100);
+    }
+},
+function(err, results) {
+    console.log(results);
+});

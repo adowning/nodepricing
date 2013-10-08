@@ -2,12 +2,26 @@
 //by ash downing 
 //andrewscarpetcleaning.com
 
-// if your reading through this shit, good for you because I'm no longer a professional programmer and when I was I wrote
-// C for a>d converters for interface boards, this is my first real forray into writing code that actually
-// does more than math.
-// so if you think its shit, well it probably is
+
 
 $(document).ready(function() {
+    console.log('doc rdy');
+setExitPage('zipcode');
+
+//     $(window).on('unload', function(){
+//         //saveExitPage();
+//         alert("Are you sure?1");
+//     });
+// $(window).unload(function () {
+//      alert("Are you sure?2");
+// });
+   
+window.onbeforeunload = function () {
+    console.log(exitpage);
+    saveExitPage();
+
+};
+
     $('#timeholder').prop('disabled', 'disabled');
     $(".settime").click(function(e) {
         $('#scheduletime').val($(this).data('time'));
@@ -18,8 +32,8 @@ $(document).ready(function() {
     buildItems();
     addAction();
     buildStable();
-
-
+    // exitpage = "zipcode";
+    // console.log(exitpage);
     Number.prototype.formatMoney = function(c, d, t) {
         var n = this,
             c = isNaN(c = Math.abs(c)) ? 2 : c,
@@ -27,7 +41,7 @@ $(document).ready(function() {
             t = t == undefined ? "," : t,
             s = n < 0 ? "-" : "",
             i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "",
-            j = (j = i.length) > 3 ? j % 3 : 0;
+            j = (j = i.length)  > 3 ? j % 3 : 0;
         return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
     };
 
@@ -75,8 +89,6 @@ $(document).ready(function() {
     checkBrowserChangeBookModal();
 
 
-    $('#zipnextbutton').attr("disabled", false);
-    $('#scheduleNext').attr("disabled", true);
 
 });
 
@@ -101,6 +113,7 @@ $('#coupon').keyup(function(e) {
     }
 
 });
+
 
 function checkValidity(item) {
     //seems verbose but allows for high variabilty in activegroup
@@ -325,7 +338,6 @@ function clearOut(aVal, myArr) {
 
 
 function updateTotal() {
-    debugger;
     var runningcleaningtotal = 0;
     var r = 0;
 
@@ -386,7 +398,6 @@ function updateTotal() {
         runningcleaningtotal -= discountvalue;
 
 
-        debugger;
         var tax = runningcleaningtotal * .0825;
         var ftax = parseFloat(tax.toFixed(2));
         tot = parseFloat((ftax + runningcleaningtotal).toFixed(2));
@@ -418,8 +429,7 @@ $('#myTab a').click(function(e) {
 
 function setCouponCode(key) {
     var value = couponCodes[key];
-    if (value == undefined) {
-    } else {
+    if (value == undefined) {} else {
         discountvalue = value;
         $('#discountamount').text(value);
         $('#discountrow').show();
@@ -475,8 +485,7 @@ function fillSchedule() {
     if (browser == 'old') {
         $(".open").each(function() {
             adate = $(this).prop('name');
-            if (!adate || adate == null || adate == 'undefined') {
-            } else {
+            if (!adate || adate == null || adate == 'undefined') {} else {
                 $(this).children('img').prop('src', "/img/Closed.gif");
                 $(this).prop('class', 'closed');
             }
@@ -495,10 +504,9 @@ function fillSchedule() {
 
     $(".open").each(function() {
         adate = $(this).attr('name');
-        if (!adate || adate == null || adate == 'undefined') {
-        } else {
+        if (!adate || adate == null || adate == 'undefined') {} else {
             if (parseDate(adate) != 'closed') {
-                if (parseDate(adate).isBefore(Date.today().addDays(1))) {
+                if (parseDate(adate).isBefore(Date.today().addDays(3))) {
 
                     $(this).children('img').attr('src', "/img/Closed.gif");
                     $(this).prop('class', 'closed');
@@ -510,8 +518,7 @@ function fillSchedule() {
                         }
                     }
                 }
-            } else {
-            }
+            } else {}
         }
         // see what is booked
         //alert('this prop name = '+ adate);
@@ -579,6 +586,7 @@ function rotateAds() {
 
 
 function buildItems() {
+    console.log('buildintitmes');
     var items = [];
     $.each(carpetprices, function(key, value) {
         var linkhtml = "<li><a class='action-addroom' href='#' data-type='carpet_furn' data-price='" + value + "'>" + key + "</a></li>";
@@ -653,6 +661,7 @@ function SortByValue(a, b) {
 function setServices() {
     var obj = new Array();
     var original = false;
+   
     $('#carpetrooms > tbody  > tr').each(function() {
         var row_array = {};
         var currentgroup = ($this).prop('class');
@@ -677,9 +686,15 @@ function setServices() {
             row_array.protectpricetotal = carpetprotectionprices[thistype] * row_array.protection;
             if ($(this).find("td:eq(5)").find("select option:selected").val() > 0) {
                 row_array.deodorizepricetotal = carpetdeodorizeprices[thistype] * row_array.deodorize;
+                // console.log('dp ' + carpetdeodorizeprices[thistype]);
+                // console.log('dq ' + row_array.deodorize);
+                // console.log('dt ' + row_array.deodorizepricetotal);
             } else {
                 row_array.deodorizepricetotal = 0;
             }
+            //figure total for the row
+            row_array.total = ((parseFloat(row_array.cost) * parseFloat(row_array.quantity)) + (parseFloat(row_array.protectpricetotal)) + (parseFloat(row_array.deodorizepricetotal)));
+            debugger;
             obj.push(row_array);
         }
     });
@@ -691,4 +706,43 @@ function setServices() {
     $('#services').val(encodedobj);
     var encodedtots = $.toJSON(tots);
     $('#services_totals').val(encodedtots);
+    setExitPage('schedule');
+    console.log(exitpage);
+}
+
+
+
+function setExitPage(str){
+    exitpage = [];
+    console.log('sep1 '+ companykey[0]);
+    exitpage.push(companykey[0]);
+    exitpage.push(str);
+    console.log('sep > '+exitpage);
+};
+
+function saveExitPage(){
+    
+        if(companyrep != "none"){
+            //not saving its just a company rep getting price not a real customer
+            return false;
+        }
+        console.log('/////////////////////////////////////'+ exitpage);
+        console.log(exitpage[0]);
+        console.log(exitpage[1]);
+        $.ajax({
+        url: "/onlinepricing_saveAbandonment",
+        type: "POST",
+        dataType: "json",
+        data: JSON.stringify(exitpage),
+        contentType: "application/json",
+        cache: false,
+        multiple: true,
+        timeout: 5000,
+        complete: function(some) {
+ console.log(' set saveAbandonment');
+
+        },
+        error: function() {
+        }
+    }); 
 }

@@ -23,8 +23,10 @@ var companyzipcode;
 var stylesettings;
 var companykey = [];
 var st;
+var exitpage = [];
+var companyrep = "none";
 
-function getParameters() {
+function setParameters() {
     var searchString = window.location;
      st = searchString.toString();
     var parm = st.split('/');
@@ -35,9 +37,17 @@ function getParameters() {
 
 
 $(document).ready(function() {
-    getParameters();
 
-    $.ajax({
+    async.series({
+    one: function(callback){
+        setParameters();
+        console.log('1');
+        callback(null, 1);
+        
+    },
+    two: function(callback){
+      
+            $.ajax({
         url: "/onlinepricing",
         type: "POST",
         dataType: "json",
@@ -47,31 +57,95 @@ $(document).ready(function() {
         multiple: true,
         timeout: 5000,
         complete: function(some) {
-            $.ajax({
-  url: "/js/onlinepricing/pricing_style.js",
-  dataType: 'script',
-  async: false
-});            $.ajax({
-  url: "/js/onlinepricing/pricing_location.js",
-  dataType: 'script',
-  async: false
-});
-            $.ajax({
-  url: "/js/onlinepricing/pricing_script.js",
-  dataType: 'script',
-  async: false
-});
+ console.log('2');
+callback(null, 1);
         },
         success: function(some) {
             $.each(some, function(index, element) {
                 price = element;
 
             });
-            setDataVars();
+            
+              
         },
         error: function() {
         }
-    });
+    }); 
+            
+            
+
+    },
+    three: function(callback){
+        setDataVars();
+        console.log('3');
+        callback(null, 1);
+    },
+    four: function(callback){
+        $.ajax({
+  url: "/js/onlinepricing/pricing_style.js",
+  dataType: 'script',
+  async: false
+}); console.log('4');
+        callback(null, 1);
+    },
+    five: function(callback){
+                        $.ajax({
+  url: "/js/onlinepricing/pricing_location.js",
+  dataType: 'script',
+  async: false
+});
+                console.log('5');         callback(null, 1);
+    },
+    six: function(callback){
+            $.ajax({
+  url: "/js/onlinepricing/pricing_script.js",
+  dataType: 'script',
+  async: false
+}); console.log('6');
+            callback(null, 1);
+    }
+},
+function(err, results) {
+     $('#zipnextbutton').attr("disabled", false);
+    $('#scheduleNext').attr("disabled", true);
+});
+//    getParameters();
+
+//     $.ajax({
+//         url: "/onlinepricing",
+//         type: "POST",
+//         dataType: "json",
+//         data: JSON.stringify(companykey),
+//         contentType: "application/json",
+//         cache: false,
+//         multiple: true,
+//         timeout: 5000,
+//         complete: function(some) {
+//             $.ajax({
+//   url: "/js/onlinepricing/pricing_style.js",
+//   dataType: 'script',
+//   async: false
+// });            $.ajax({
+//   url: "/js/onlinepricing/pricing_location.js",
+//   dataType: 'script',
+//   async: false
+// });
+//             $.ajax({
+//   url: "/js/onlinepricing/pricing_script.js",
+//   dataType: 'script',
+//   async: false
+// });
+//         },
+//         success: function(some) {
+//             $.each(some, function(index, element) {
+//                 price = element;
+
+//             });
+//             setDataVars();
+//         },
+//         error: function() {
+//         }
+//     });
 
 
 });

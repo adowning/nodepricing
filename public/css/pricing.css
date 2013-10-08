@@ -73,10 +73,10 @@ padding: 1px 1px;
     font-size: 14;
     margin-top: auto;
     width: 99%;
-    min-height: 200px;
-    max-height: 200px;
-    height:200px;
-    overflow:scroll;
+    /*min-height: 200px;*/
+    max-height: 50px; !important
+    /*height:200px;*/
+    overflow: scroll;
     overflow-x:hidden;
 }
 
