@@ -49,6 +49,7 @@ app.use(async);
 app.use(passport.initialize());
 app.use(passport.session());
 
+
 // Helpers
 
 app.use(function(req, res, next){
@@ -152,6 +153,7 @@ app.post('/changebasicsettings', onlinepricing.changebasicsettings);
 app.get('/updateavailability', ensureAuthenticated, onlinepricing.fetchSettings);
 app.post('/updateavailability', onlinepricing.getonlinepricing);
 app.post('/createonlineprice/:id', onlinepricing.onlinePricingValidations, onlinepricing.createorder);
+app.get('/onlinepricing_gettotals', ensureAuthenticated, onlinepricing.getTotals);
 app.get('/login', redirectAuthenticated, users.login);
 app.get('/reset_password', redirectAuthenticated, users.reset_password);
 app.post('/reset_password', redirectAuthenticated, users.generate_password_reset);

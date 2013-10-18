@@ -6,8 +6,40 @@ $('#zipcodetext').keyup(function(e) {
 
 });
 
+$(document).ready(function() {
+    // try {
+    //     $.get("http://zipcodedistanceapi.redline13.com/rest/js-qtef5ioDN2d4NGSFdXv93EUWyQXxIsr9WFo1XNELPSQCzIiNGOWJsRG0IDyr6ZA2/radius.json/75701/30/mile", function(data) {
+    //         //$.get("http:zipcodedistanceapi.redline13.com/rest/8MDTcVrv9d5qdbDtNaSHYtF3yF4j87WgTAa5vBBFPG53SIxFTpnST2VsI0MQ7I71/radius.json/75701/30/mile", function(data) {
+    //         // $.get("https://www.zipwise.com/webservices/radius.php?key=f1r2xqazuwf0os6g&zip=92626&radius=2", function (data){
+    //             validzipcodelist = data;
+    //             validzipcodelist = "data";
+    //     });
+    // } catch (err) {
+    //     validzipcodelist = "error";
+    //     console.log('error caught --- ' + err);
+    // }
+    //validzipcodelist = 'hmmm';
+    validzipcodelist = "before";
+    $.ajax({
+        url: "http://zipcodedistanceapi.redline13.com/rest/js-qtef5ioDN2d4NGSFdXv93EUWyQXxIsr9WFo1XNELPSQCzIiNGOWJsRG0IDyr6ZA2/radius.json/75701/30/mile",
+        success: function(some) {
+            $.each(some, function (index, element) {
+                validzipcodelist = element;
+            });
+        },
+        complete: function(some) {
+            validzipcodelist = "comp";
+        }
+         error: function(err) {
+            validzipcodelist = "err";
+        },
+        dataType: "json"
+    });
+    //validzipcodelist = "asdf";
+});
+
 function zipCheck(zip) {
-    console.log('zip'+zip);
+
     var ziparray = getValidZipcodes(zip);
     var i = 0;
     var sortedtripcharges = getTripChargePoints().tripcharges.sort(function(obj1, obj2) {
@@ -19,21 +51,17 @@ function zipCheck(zip) {
     $.each(ziparray.zip_codes, function(index, element) {
         ts = element;
         if (ts.zip_code == zip) {
-            console.log('gotcha');
             distance = ts.distance;
-            console.log(ts.distance);
         }
         i++;
     });
 
     var tcprice;
-    
+
     if (distance) {
         $.each(sortedtripcharges, function(index, element) {
-            console.log('>' + distance + ' > ' + element.distance);
             if (distance < element.distance) {
                 tcprice = element.price;
-                console.log('trip charge is ' + element.price);
                 return false;
             }
         });
@@ -45,7 +73,8 @@ function zipCheck(zip) {
         getCityState(zip);
         $('#zipcodearea').hide();
         $('#pricecalculator').show();
-        exitpage.push('zipcode');
+        //exitpage.push('zipcode');
+        setExitPage('pricing');
     } else {
         $('#nozip').show();
 
@@ -71,13 +100,15 @@ function getValidZipcodes(zip) {
     //js-eWLI7VA9L3Sinm5VEl6IwoImCqPSsGPGCApJw0Th3Lzr8EmMZsuwRdStEHm7obN1
     //http:zipcodedistanceapi.redline13.com/rest/<api_key>/radius.<format>/<zip_code>/<distance>/<units>.
     //P7ojgTr5FJkIbrbF9h9LYk9JehUk6rXVylfPfHUVqeDCGPhP6qB5LKPZ1Jk8ai4J
+
     try {
         $.get("http://zipcodedistanceapi.redline13.com/rest/js-qtef5ioDN2d4NGSFdXv93EUWyQXxIsr9WFo1XNELPSQCzIiNGOWJsRG0IDyr6ZA2/radius.json/75701/30/mile", function(data) {
             //$.get("http:zipcodedistanceapi.redline13.com/rest/8MDTcVrv9d5qdbDtNaSHYtF3yF4j87WgTAa5vBBFPG53SIxFTpnST2VsI0MQ7I71/radius.json/75701/30/mile", function(data) {
             // $.get("https://www.zipwise.com/webservices/radius.php?key=f1r2xqazuwf0os6g&zip=92626&radius=2", function (data){
-
+            validzipcodelist = data;
         });
     } catch (err) {
+        validzipcodelist = "error";
         console.log('error caught --- ' + err);
     }
     // TODO this is a big ass hack until we get alive addy and feel like dealing with it
@@ -364,17 +395,17 @@ function getValidZipcodes(zip) {
 function getCityState(zip) {
 
     $.ajax({
-        url: "http://zip.elevenbasetwo.com/v2/US/"+zip,
+        url: "http://zip.elevenbasetwo.com/v2/US/" + zip,
         context: document.body
     }).complete(function(data) {
         var ar = JSON.parse(data.responseText);
         $('#city').val(ar.city);
         $('#state').val(ar.state);
-       
-        if(!$('#city').val() || !$('#state').val()){
-        alert('Error: your city is not found');
-    }
+
+        if (!$('#city').val() || !$('#state').val()) {
+            alert('Error: your city is not found');
+        }
     });
-    
+
 
 };

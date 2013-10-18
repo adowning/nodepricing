@@ -17,11 +17,10 @@ setExitPage('zipcode');
 // });
    
 window.onbeforeunload = function () {
-    console.log(exitpage);
     saveExitPage();
 
 };
-
+    console.log(validzipcodelist);
     $('#timeholder').prop('disabled', 'disabled');
     $(".settime").click(function(e) {
         $('#scheduletime').val($(this).data('time'));
@@ -32,8 +31,6 @@ window.onbeforeunload = function () {
     buildItems();
     addAction();
     buildStable();
-    // exitpage = "zipcode";
-    // console.log(exitpage);
     Number.prototype.formatMoney = function(c, d, t) {
         var n = this,
             c = isNaN(c = Math.abs(c)) ? 2 : c,
@@ -586,7 +583,6 @@ function rotateAds() {
 
 
 function buildItems() {
-    console.log('buildintitmes');
     var items = [];
     $.each(carpetprices, function(key, value) {
         var linkhtml = "<li><a class='action-addroom' href='#' data-type='carpet_furn' data-price='" + value + "'>" + key + "</a></li>";
@@ -686,15 +682,12 @@ function setServices() {
             row_array.protectpricetotal = carpetprotectionprices[thistype] * row_array.protection;
             if ($(this).find("td:eq(5)").find("select option:selected").val() > 0) {
                 row_array.deodorizepricetotal = carpetdeodorizeprices[thistype] * row_array.deodorize;
-                // console.log('dp ' + carpetdeodorizeprices[thistype]);
-                // console.log('dq ' + row_array.deodorize);
-                // console.log('dt ' + row_array.deodorizepricetotal);
             } else {
                 row_array.deodorizepricetotal = 0;
             }
             //figure total for the row
             row_array.total = ((parseFloat(row_array.cost) * parseFloat(row_array.quantity)) + (parseFloat(row_array.protectpricetotal)) + (parseFloat(row_array.deodorizepricetotal)));
-            debugger;
+            
             obj.push(row_array);
         }
     });
@@ -707,17 +700,14 @@ function setServices() {
     var encodedtots = $.toJSON(tots);
     $('#services_totals').val(encodedtots);
     setExitPage('schedule');
-    console.log(exitpage);
 }
 
 
 
 function setExitPage(str){
     exitpage = [];
-    console.log('sep1 '+ companykey[0]);
     exitpage.push(companykey[0]);
     exitpage.push(str);
-    console.log('sep > '+exitpage);
 };
 
 function saveExitPage(){
@@ -726,9 +716,7 @@ function saveExitPage(){
             //not saving its just a company rep getting price not a real customer
             return false;
         }
-        console.log('/////////////////////////////////////'+ exitpage);
-        console.log(exitpage[0]);
-        console.log(exitpage[1]);
+
         $.ajax({
         url: "/onlinepricing_saveAbandonment",
         type: "POST",
@@ -739,7 +727,6 @@ function saveExitPage(){
         multiple: true,
         timeout: 5000,
         complete: function(some) {
- console.log(' set saveAbandonment');
 
         },
         error: function() {

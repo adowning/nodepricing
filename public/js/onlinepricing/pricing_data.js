@@ -8,6 +8,7 @@ var sat = Date.saturday();
 var sunday = Date.sunday();
 var companykey = "";
 var zipList;
+var validzipcodelist = "start";
 var carpetprices;
 var carpetprotectionprices;
 var carpetdeodorizeprices;
@@ -28,10 +29,10 @@ var companyrep = "none";
 
 function setParameters() {
     var searchString = window.location;
-     st = searchString.toString();
+    st = searchString.toString();
     var parm = st.split('/');
     var p = parm[4];
-    var p2 = p.substring(0,16);
+    var p2 = p.substring(0, 16);
     companykey.push(p2);
 };
 
@@ -39,115 +40,96 @@ function setParameters() {
 $(document).ready(function() {
 
     async.series({
-    one: function(callback){
-        setParameters();
-        console.log('1');
-        callback(null, 1);
-        
-    },
-    two: function(callback){
-      
-            $.ajax({
-        url: "/onlinepricing",
-        type: "POST",
-        dataType: "json",
-        data: JSON.stringify(companykey),
-        contentType: "application/json",
-        cache: false,
-        multiple: true,
-        timeout: 5000,
-        complete: function(some) {
- console.log('2');
-callback(null, 1);
+            one: function(callback) {
+                setParameters();
+                callback(null, 1);
+
+            },
+            two: function(callback) {
+
+                $.ajax({
+                    url: "/onlinepricing",
+                    type: "POST",
+                    dataType: "json",
+                    data: JSON.stringify(companykey),
+                    contentType: "application/json",
+                    cache: false,
+                    multiple: true,
+                    timeout: 5000,
+                    complete: function(some) {
+
+                        callback(null, 1);
+                    },
+                    success: function(some) {
+                        $.each(some, function(index, element) {
+                            price = element;
+
+                        });
+
+
+                    },
+                    error: function() {}
+                });
+
+
+
+            },
+            three: function(callback) {
+                setDataVars();
+                callback(null, 1);
+            },
+            four: function(callback) {
+                $.ajax({
+                    url: "/js/onlinepricing/pricing_style.js",
+                    dataType: 'script',
+                    async: false
+                });
+
+                $.ajax({
+                    url: "http://zipcodedistanceapi.redline13.com/rest/js-TxGYdH8rWGzmMCcUp5CR0rICKGeEQC3KaKInsRPoyoLk0Yeq4Qh4i0H3GVHxyLhI/radius.json/75701/30/mile",
+                    success: function(some) {
+                        $.each(some, function(index, element) {
+                            validzipcodelist = element;
+                        });
+                    },
+                    complete: function(some) {
+                        //validzipcodelist = "comp";
+                    },
+                    error: function(err) {
+                        validzipcodelist = "err";
+                    },
+                    dataType: "json",
+                    async: false
+                });
+
+                callback(null, 1);
+            },
+            five: function(callback) {
+
+
+                $.ajax({
+                    url: "/js/onlinepricing/pricing_location.js",
+                    dataType: 'script',
+                    async: false
+                });
+
+
+
+                callback(null, 1);
+            },
+            six: function(callback) {
+                $.ajax({
+                    url: "/js/onlinepricing/pricing_script.js",
+                    dataType: 'script',
+                    async: false
+                });
+                callback(null, 1);
+            }
         },
-        success: function(some) {
-            $.each(some, function(index, element) {
-                price = element;
-
-            });
-            
-              
-        },
-        error: function() {
-        }
-    }); 
-            
-            
-
-    },
-    three: function(callback){
-        setDataVars();
-        console.log('3');
-        callback(null, 1);
-    },
-    four: function(callback){
-        $.ajax({
-  url: "/js/onlinepricing/pricing_style.js",
-  dataType: 'script',
-  async: false
-}); console.log('4');
-        callback(null, 1);
-    },
-    five: function(callback){
-                        $.ajax({
-  url: "/js/onlinepricing/pricing_location.js",
-  dataType: 'script',
-  async: false
-});
-                console.log('5');         callback(null, 1);
-    },
-    six: function(callback){
-            $.ajax({
-  url: "/js/onlinepricing/pricing_script.js",
-  dataType: 'script',
-  async: false
-}); console.log('6');
-            callback(null, 1);
-    }
-},
-function(err, results) {
-     $('#zipnextbutton').attr("disabled", false);
-    $('#scheduleNext').attr("disabled", true);
-});
-//    getParameters();
-
-//     $.ajax({
-//         url: "/onlinepricing",
-//         type: "POST",
-//         dataType: "json",
-//         data: JSON.stringify(companykey),
-//         contentType: "application/json",
-//         cache: false,
-//         multiple: true,
-//         timeout: 5000,
-//         complete: function(some) {
-//             $.ajax({
-//   url: "/js/onlinepricing/pricing_style.js",
-//   dataType: 'script',
-//   async: false
-// });            $.ajax({
-//   url: "/js/onlinepricing/pricing_location.js",
-//   dataType: 'script',
-//   async: false
-// });
-//             $.ajax({
-//   url: "/js/onlinepricing/pricing_script.js",
-//   dataType: 'script',
-//   async: false
-// });
-//         },
-//         success: function(some) {
-//             $.each(some, function(index, element) {
-//                 price = element;
-
-//             });
-//             setDataVars();
-//         },
-//         error: function() {
-//         }
-//     });
-
-
+        function(err, results) {
+            $('#zipnextbutton').attr("disabled", false);
+            $('#scheduleNext').attr("disabled", true);
+        });
 });
 
 
@@ -193,28 +175,15 @@ function setDataVars() {
     });
 }
 
-// var zipList = new Array("1", "75701", "75703", "75707","75771", "75704",
-//     "75706","75792","75708","75702","75709","75707", "75701",
-//     "75705","75703","75762","75750","75791","75789");
-
-//var tripcharges = {'75701':'25', 
-//                    '75703':'200'};
 var tripcharge = 0;
 var selecteddate = "";
-
-
 var couponCodes = {
     '111': '10',
     '112': '20'
 };
-// var timeslots = new Array("9:00 am", "11:00 am", "1:00 pm", "3:00 pm");
 var activecarpetrooms = new Array();
 var tot = 0;
 var activegroup = "";
-// var advertisments = ["Half off tile protector",
-//         "%20 off carpet protector", "$10 off upholstery cleaning"
-// ];
 var base = 0;
-// var bookedslots = new Array("slot 1 day Fri Apr 05 2013 00:00:00 GMT-0500 (Central Daylight Time)");
 var discountvalue = 0;
 var browser = "";

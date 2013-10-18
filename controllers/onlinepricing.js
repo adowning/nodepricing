@@ -11,15 +11,72 @@ try {
     console.log(err);
 }
 
-exports.saveAbandonment = function(req, res){
-    var tester = "tester";
+exports.getTotals = function(req, res) {
+    console.log('getting totals');
+    var user = req.user;
+    var op;
+    var ab;
+    var od;
+    console.log(user.username);
+    Company.findOne({
+        ownername: user.username
+    }, function(err, company) {
+        if (err) console.log(err);
+        if (!company) {
+            console.log('comp not found');
+            req.flash('error', "Cannot find your company");
+            return res.redirect('onlinepricing/settings');
+        }
+        OnlinePrice.findOne({
+            key: company.key
+        }, function(err, opr) {
+            if (!opr) {
+                console.log('bad onlineprice key '+company.key);
+                req.flash('error', "Cannot find your pricing model");
+                return res.redirect('/badkey');
+            }
+            op = opr;
+
+            Abandonment.find({
+                key: company.key
+            }, function(err, abr) {
+                if (!abr) {
+                    console.log('bad abandonement key '+company.key);
+                    req.flash('error', "Cannot find your abandonemnt model");
+                    return res.redirect('/badkey');
+                }
+                ab = abr;
+
+                Order.find({
+                    companyid: company.key
+                }, function(err, odr) {
+                    if (!odr) {
+                        console.log('bad order key '+company.key);
+                        req.flash('error', "Cannot find your order model");
+                        return res.redirect('/badkey');
+                    }
+                    od = odr;
+                    res.render('onlinepricing/totals', {
+                        pricing: op,
+                        comp: company,
+                        orders: od,
+                        abandonments: ab
+                    });
+
+                });
+            });
+        });
+    });
+}
+
+exports.saveAbandonment = function(req, res) {
+
     var exitpage_key = req.body;
     var exitpage = exitpage_key[1];
     var key = exitpage_key[0];
-    //var key = req.params.id.substring(0, 16);
-
     var thiscompany = "hai2u";
-        Company.findOne({
+
+    Company.findOne({
         key: key
     }, function(err, company) {
         if (err) console.log(err);
@@ -27,46 +84,44 @@ exports.saveAbandonment = function(req, res){
             console.log('comp not found');
             //req.flash('error', "Cannot find your company");
             //return res.redirect('onlinepricing/fuck');
-            var testery = "testery";
-           
             return false;
         }
 
         thiscompany = company;
     });
-    if(thiscompany){
+    if (thiscompany) {
 
-    var newAbandonment = new Abandonment();
-   newAbandonment.exitpage = exitpage;
-   newAbandonment.key = key;
+        var newAbandonment = new Abandonment();
+        newAbandonment.exitpage = exitpage;
+        newAbandonment.key = key;
 
-   newAbandonment.save(function(err, aban) {
+        newAbandonment.save(function(err, aban) {
 
-     // Uniqueness and save validations
-     debugger;
-     if (err && err.code == 11000) {
-       var duplicatedAttribute = err.err.split("$")[1].split("_")[0];
-       req.flash('error', "That " + duplicatedAttribute + " is already in use.");
-       debugger;
-        return  {
-         aban: newAbandonment,
-         errorMessages: req.flash('error')
-       };
-       // return res.render('companies/new', {
-       //   aban: newAbandonment,
-       //   errorMessages: req.flash('error')
-       // });
-     //}
-    // if (err) return next(err);
-     //return res.redirect('/program');
-   };
+            // Uniqueness and save validations
+            debugger;
+            if (err && err.code == 11000) {
+                var duplicatedAttribute = err.err.split("$")[1].split("_")[0];
+                req.flash('error', "That " + duplicatedAttribute + " is already in use.");
+                debugger;
+                return {
+                    aban: newAbandonment,
+                    errorMessages: req.flash('error')
+                };
+                // return res.render('companies/new', {
+                //   aban: newAbandonment,
+                //   errorMessages: req.flash('error')
+                // });
+                //}
+                // if (err) return next(err);
+                //return res.redirect('/program');
+            };
 
-    // }else{
-    //     console.log('companynotfound');
-    // }
+            // }else{
+            //     console.log('companynotfound');
+            // }
 
-});
-}
+        });
+    }
 };
 exports.fetch = function(req, res) {
     var key = req.params.id.substring(0, 16);
@@ -118,7 +173,6 @@ exports.fetchSettings = function(req, res) {
             });
         });
     });
-
 }
 
 exports.changebasicsettings = function(req, res, next) {

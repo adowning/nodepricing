@@ -1,0 +1,53 @@
+<head>
+
+<style media="screen">
+body {
+    background: #333;
+    color: #fff;
+    font: 300 100.1% "Helvetica Neue", Helvetica, "Arial Unicode MS", Arial, sans-serif;
+}
+
+#copy {
+    bottom: 0;
+    font: 300 .7em "Helvetica Neue", Helvetica, "Arial Unicode MS", Arial, sans-serif;
+    position: absolute;
+    right: 1em;
+    text-align: right;
+}
+#copy a {
+    color: #fff;
+}
+</style>
+<script type="text/javascript" src="/js/jquery-1.9.1.js"></script>
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/graphael/0.5.1/g.raphael-min.js"></script>
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/graphael/0.5.1/g.bar-min.js"></script>
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/graphael/0.5.1/g.pie-min.js"></script>
+</head>
+<body>
+
+<div id="pie"></div>
+
+<script>
+ var paper = Raphael("pie");
+ var values = [18.373, 18.686, 2.867, 23.991, 9.592, 9.213];
+ var legend = ["Windows/Windows Live", "Server/Tools", "Online Services", "Business", "Entertainment/Devices", "Unallocated/Other"];
+
+ paper.piechart(
+   100, // pie center x coordinate
+   100, // pie center y coordinate
+   90,  // pie radius
+    //[18.373, 18.686, 2.867, 23.991, 9.592, 9.213] // values
+    values,
+       {
+   legend: legend
+   }
+  );
+</script>
+
+<p id="copy">
+	Demo of
+	<a href="http://raphaeljs.com/">Raphaël</a>
+	—JavaScript Vector Library
+</p>
+</body>
