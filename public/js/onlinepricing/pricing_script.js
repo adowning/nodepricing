@@ -5,28 +5,22 @@
 
 
 $(document).ready(function() {
+
     console.log('doc rdy');
-setExitPage('zipcode');
+    console.log(distance);
+    setExitPage('zipcode');
 
-//     $(window).on('unload', function(){
-//         //saveExitPage();
-//         alert("Are you sure?1");
-//     });
-// $(window).unload(function () {
-//      alert("Are you sure?2");
-// });
-   
-window.onbeforeunload = function () {
-    saveExitPage();
+    window.onbeforeunload = function() {
+        saveExitPage();
+    };
 
-};
-    console.log(validzipcodelist);
     $('#timeholder').prop('disabled', 'disabled');
     $(".settime").click(function(e) {
         $('#scheduletime').val($(this).data('time'));
         $('#timeholder').prop('placeholder', ($(this).data('time')));
         e.preventDefault();
     });
+
     var zip = "none";
     buildItems();
     addAction();
@@ -38,7 +32,7 @@ window.onbeforeunload = function () {
             t = t == undefined ? "," : t,
             s = n < 0 ? "-" : "",
             i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "",
-            j = (j = i.length)  > 3 ? j % 3 : 0;
+            j = (j = i.length) > 3 ? j % 3 : 0;
         return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
     };
 
@@ -88,8 +82,6 @@ window.onbeforeunload = function () {
 
 
 });
-
-
 
 $('#couponBut').click(function(e) {
     e.preventDefault();
@@ -364,9 +356,12 @@ function updateTotal() {
             }
             if (currentgroup == "Tile") {
                 var roomcleaningcost = hashTilePrices[thistype];
-
                 var protectprice = hashTilePricesProt[thistype];
             }
+            //trip charge added here
+            roomcleaningcost = roomcleaningcost * tripchargevalue;
+            protectprice = protectprice *  tripchargevalue;
+            deodorizeprice = deodorizeprice * tripchargevalue;
 
             var selectValue = $(this).find("td:eq(1)").find("select option:selected").val();
             var protection = $(this).find("td:eq(3)").find("select option:selected").val() * protectprice;
@@ -375,6 +370,7 @@ function updateTotal() {
             if (!deodorize || deodorize == 'undefined') {
                 deodorize = 0;
             }
+            //tripcharge additions
             runningcleaningtotal = (runningcleaningtotal + (selectValue * roomcleaningcost)) + protection + deodorize;
         }
         r++;
@@ -382,25 +378,27 @@ function updateTotal() {
 
     if (runningcleaningtotal !== 0 && runningcleaningtotal) {
 
-        if (tripcharge != 0) {
-            runningcleaningtotal = parseInt(runningcleaningtotal) + parseInt(tripcharge);
+        // if (tripcharge != 0) {
+        //     runningcleaningtotal = parseInt(runningcleaningtotal) + parseInt(tripcharge);
 
-        }
+        // }
         if (runningcleaningtotal < 99.50) {
             runningcleaningtotal = 99.50;
+            $('.mincharge-span').css('background','#8ec252');
             $('.mincharge-span').html("<div class='alert'>* Minimum charge.</div>");
+
         } else {
             $('.mincharge-span').text("");
         }
         runningcleaningtotal -= discountvalue;
-
-
+        //alert(runningcleaningtotal);
+        //runningcleaningtotal = runningcleaningtotal * tripchargevalue;
+        //alert(runningcleaningtotal.toFixed(2));
         var tax = runningcleaningtotal * .0825;
         var ftax = parseFloat(tax.toFixed(2));
         tot = parseFloat((ftax + runningcleaningtotal).toFixed(2));
         $('.totalspan').text((runningcleaningtotal).formatMoney(2, '.', ','));
         $('.taxspan').text((ftax).formatMoney(2, '.', ','));
-        //add trip charge
         $('.totspan').text('$' + (tot).formatMoney(2, '.', ','));
         $('#priceNext').prop("disabled", false);
         $('#noservice').hide();
@@ -581,32 +579,38 @@ function rotateAds() {
 }
 
 
-
+function addTripCharge (value){
+    return value * tripchargevalue;
+}
 function buildItems() {
     var items = [];
     $.each(carpetprices, function(key, value) {
-        var linkhtml = "<li><a class='action-addroom' href='#' data-type='carpet_furn' data-price='" + value + "'>" + key + "</a></li>";
+        valueWTC = addTripCharge(value);
+        var linkhtml = "<li><a class='action-addroom' href='#' data-type='carpet_furn' data-price='" + valueWTC + "'>" + key + "</a></li>";
         items.push(linkhtml);
     });
     $('#carpet-nav-list').append(items.join(''));
     linkhtml = "";
     items = [];
     $.each(hashUp, function(key, value) {
-        linkhtml = "<li><a class='action-addroom' href='#' data-type='carpet_furn' data-price='" + value + "'>" + key + "</a></li>";
+        valueWTC = addTripCharge(value);
+        linkhtml = "<li><a class='action-addroom' href='#' data-type='carpet_furn' data-price='" + valueWTC + "'>" + key + "</a></li>";
         items.push(linkhtml);
     });
     $('#upnavlist').append(items.join(''));
     linkhtml = "";
     items = [];
     $.each(hashRugPrices, function(key, value) {
-        linkhtml = "<li><a class='action-addroom' href='#' data-type='carpet_furn' data-price='" + value + "'>" + key + "</a></li>";
+        valueWTC = addTripCharge(value);
+        linkhtml = "<li><a class='action-addroom' href='#' data-type='carpet_furn' data-price='" + valueWTC + "'>" + key + "</a></li>";
         items.push(linkhtml);
     });
     $('#upruglist').append(items.join(''));
     linkhtml = "";
     items = [];
     $.each(hashTilePrices, function(key, value) {
-        linkhtml = "<li><a class='action-addroom' href='#' data-type='carpet_furn' data-price='" + value + "'>" + key + "</a></li>";
+        valueWTC = addTripCharge(value);
+        linkhtml = "<li><a class='action-addroom' href='#' data-type='carpet_furn' data-price='" + valueWTC + "'>" + key + "</a></li>";
         items.push(linkhtml);
     });
     $('#tile-nav-list').append(items.join(''));
@@ -657,17 +661,17 @@ function SortByValue(a, b) {
 function setServices() {
     var obj = new Array();
     var original = false;
-   
+
     $('#carpetrooms > tbody  > tr').each(function() {
         var row_array = {};
         var currentgroup = ($this).prop('class');
         if ($(this).attr('class')) {
 
             row_array.roomname = $(this).find('td:first').html();
-            row_array.cost = $(this).attr('value');
+            row_array.cost = $(this).attr('value') ;
             row_array.group = $(this).attr('class');
-            row_array.cost = $(this).attr('value');
-            row_array.group = $(this).attr('class');
+            // row_array.cost = $(this).attr('value');
+            // row_array.group = $(this).attr('class');
             row_array.quantity = $(this).find("td:eq(1)").find("select option:selected").val();
             row_array.protection = $(this).find("td:eq(3)").find("select option:selected").val();
             if ($(this).find("td:eq(5)").find("select option:selected").val() > 0) {
@@ -679,15 +683,19 @@ function setServices() {
             var tt = thistype.split(" - ");
             thistype = tt[1];
             thistype = thistype.replace('_', ' ');
-            row_array.protectpricetotal = carpetprotectionprices[thistype] * row_array.protection;
+            row_array.protectpricetotal = ((carpetprotectionprices[thistype] * tripchargevalue).toFixed(2) ) * row_array.protection;
             if ($(this).find("td:eq(5)").find("select option:selected").val() > 0) {
-                row_array.deodorizepricetotal = carpetdeodorizeprices[thistype] * row_array.deodorize;
+                row_array.deodorizepricetotal = ((carpetdeodorizeprices[thistype] * tripchargevalue).toFixed(2)) * row_array.deodorize;
             } else {
                 row_array.deodorizepricetotal = 0;
             }
             //figure total for the row
-            row_array.total = ((parseFloat(row_array.cost) * parseFloat(row_array.quantity)) + (parseFloat(row_array.protectpricetotal)) + (parseFloat(row_array.deodorizepricetotal)));
-            
+            cleaningtotal = (((parseFloat(row_array.cost) * parseFloat(row_array.quantity)* tripchargevalue)).toFixed(2));
+            console.log('cl total '+cleaningtotal);
+            console.log(parseFloat(row_array.deodorizepricetotal));
+            console.log(parseFloat(row_array.protectpricetotal));     
+            row_array.total = parseFloat(( parseFloat(cleaningtotal) + (parseFloat(row_array.protectpricetotal)) + (parseFloat(row_array.deodorizepricetotal)))).toFixed(2);
+            console.log(row_array.total);
             obj.push(row_array);
         }
     });
@@ -704,20 +712,20 @@ function setServices() {
 
 
 
-function setExitPage(str){
+function setExitPage(str) {
     exitpage = [];
     exitpage.push(companykey[0]);
     exitpage.push(str);
 };
 
-function saveExitPage(){
-    
-        if(companyrep != "none"){
-            //not saving its just a company rep getting price not a real customer
-            return false;
-        }
+function saveExitPage() {
 
-        $.ajax({
+    if (companyrep != "none") {
+        //not saving its just a company rep getting price not a real customer
+        return false;
+    }
+
+    $.ajax({
         url: "/onlinepricing_saveAbandonment",
         type: "POST",
         dataType: "json",
@@ -729,7 +737,6 @@ function saveExitPage(){
         complete: function(some) {
 
         },
-        error: function() {
-        }
-    }); 
+        error: function() {}
+    });
 }

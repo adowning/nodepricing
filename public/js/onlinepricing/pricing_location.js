@@ -6,52 +6,27 @@ $('#zipcodetext').keyup(function(e) {
 
 });
 
-$(document).ready(function() {
-    // try {
-    //     $.get("http://zipcodedistanceapi.redline13.com/rest/js-qtef5ioDN2d4NGSFdXv93EUWyQXxIsr9WFo1XNELPSQCzIiNGOWJsRG0IDyr6ZA2/radius.json/75701/30/mile", function(data) {
-    //         //$.get("http:zipcodedistanceapi.redline13.com/rest/8MDTcVrv9d5qdbDtNaSHYtF3yF4j87WgTAa5vBBFPG53SIxFTpnST2VsI0MQ7I71/radius.json/75701/30/mile", function(data) {
-    //         // $.get("https://www.zipwise.com/webservices/radius.php?key=f1r2xqazuwf0os6g&zip=92626&radius=2", function (data){
-    //             validzipcodelist = data;
-    //             validzipcodelist = "data";
-    //     });
-    // } catch (err) {
-    //     validzipcodelist = "error";
-    //     console.log('error caught --- ' + err);
-    // }
-    //validzipcodelist = 'hmmm';
-    validzipcodelist = "before";
-    $.ajax({
-        url: "http://zipcodedistanceapi.redline13.com/rest/js-qtef5ioDN2d4NGSFdXv93EUWyQXxIsr9WFo1XNELPSQCzIiNGOWJsRG0IDyr6ZA2/radius.json/75701/30/mile",
-        success: function(some) {
-            $.each(some, function (index, element) {
-                validzipcodelist = element;
-            });
-        },
-        complete: function(some) {
-            validzipcodelist = "comp";
-        }
-         error: function(err) {
-            validzipcodelist = "err";
-        },
-        dataType: "json"
-    });
-    //validzipcodelist = "asdf";
-});
+// $(document).ready(function() {
+//     //setupZipCodes(validzipcodelist);
+// });
+
 
 function zipCheck(zip) {
-
-    var ziparray = getValidZipcodes(zip);
+    if (zip == "test") {
+        zip = '75882';
+        ziparray = getTestZipcodes(zip);
+    } else {
+        ziparray = validzipcodelist;
+    }
     var i = 0;
     var sortedtripcharges = getTripChargePoints().tripcharges.sort(function(obj1, obj2) {
-        return obj1.distance - obj2.distance;
+        return obj2.distance - obj1.distance;
     });
 
-    var distance;
-
     $.each(ziparray.zip_codes, function(index, element) {
-        ts = element;
-        if (ts.zip_code == zip) {
-            distance = ts.distance;
+
+        if (element.zip_code == zip) {
+            distance = element.distance;
         }
         i++;
     });
@@ -60,20 +35,22 @@ function zipCheck(zip) {
 
     if (distance) {
         $.each(sortedtripcharges, function(index, element) {
-            if (distance < element.distance) {
+            if (distance >= element.distance) {
                 tcprice = element.price;
                 return false;
+            }else{
+
             }
         });
         if (!tcprice) {
-            tcprice = 0
+            tcprice = 1;
         };
+        tripchargevalue = tcprice;
         $('#nozip').hide();
         $('#zipcode').val(zip);
         getCityState(zip);
         $('#zipcodearea').hide();
         $('#pricecalculator').show();
-        //exitpage.push('zipcode');
         setExitPage('pricing');
     } else {
         $('#nozip').show();
@@ -82,36 +59,26 @@ function zipCheck(zip) {
 
 }
 
+//TODO pull from db
 function getTripChargePoints() {
-    var someobject = {
+    var charges = {
         "tripcharges": [{
-            "distance": 5,
-            "price": 5
+            "distance": 15,
+            "price": 1.05
         }, {
-            "distance": 19,
-            "price": 19
+            "distance": 20,
+            "price": 1.08
+        }, {
+            "distance": 30,
+            "price": 1.17
         }]
     };
-    return someobject;
+    return charges;
 
 }
 
-function getValidZipcodes(zip) {
-    //js-eWLI7VA9L3Sinm5VEl6IwoImCqPSsGPGCApJw0Th3Lzr8EmMZsuwRdStEHm7obN1
-    //http:zipcodedistanceapi.redline13.com/rest/<api_key>/radius.<format>/<zip_code>/<distance>/<units>.
-    //P7ojgTr5FJkIbrbF9h9LYk9JehUk6rXVylfPfHUVqeDCGPhP6qB5LKPZ1Jk8ai4J
+function getTestZipcodes(zip) {
 
-    try {
-        $.get("http://zipcodedistanceapi.redline13.com/rest/js-qtef5ioDN2d4NGSFdXv93EUWyQXxIsr9WFo1XNELPSQCzIiNGOWJsRG0IDyr6ZA2/radius.json/75701/30/mile", function(data) {
-            //$.get("http:zipcodedistanceapi.redline13.com/rest/8MDTcVrv9d5qdbDtNaSHYtF3yF4j87WgTAa5vBBFPG53SIxFTpnST2VsI0MQ7I71/radius.json/75701/30/mile", function(data) {
-            // $.get("https://www.zipwise.com/webservices/radius.php?key=f1r2xqazuwf0os6g&zip=92626&radius=2", function (data){
-            validzipcodelist = data;
-        });
-    } catch (err) {
-        validzipcodelist = "error";
-        console.log('error caught --- ' + err);
-    }
-    // TODO this is a big ass hack until we get alive addy and feel like dealing with it
 
     var somejsonobject = {
         "zip_codes": [{
@@ -394,6 +361,11 @@ function getValidZipcodes(zip) {
 
 function getCityState(zip) {
 
+    if (zip == "test") {
+        $('#city').val("Tyler");
+        $('#state').val("TX");
+        return;
+    }
     $.ajax({
         url: "http://zip.elevenbasetwo.com/v2/US/" + zip,
         context: document.body

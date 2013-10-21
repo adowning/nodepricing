@@ -8,6 +8,7 @@ var sat = Date.saturday();
 var sunday = Date.sunday();
 var companykey = "";
 var zipList;
+var tripchargevalue = "1";
 var validzipcodelist = "start";
 var carpetprices;
 var carpetprotectionprices;
@@ -26,6 +27,7 @@ var companykey = [];
 var st;
 var exitpage = [];
 var companyrep = "none";
+var distance;
 
 function setParameters() {
     var searchString = window.location;
@@ -88,9 +90,10 @@ $(document).ready(function() {
                 $.ajax({
                     url: "http://zipcodedistanceapi.redline13.com/rest/js-TxGYdH8rWGzmMCcUp5CR0rICKGeEQC3KaKInsRPoyoLk0Yeq4Qh4i0H3GVHxyLhI/radius.json/75701/30/mile",
                     success: function(some) {
-                        $.each(some, function(index, element) {
-                            validzipcodelist = element;
-                        });
+                        // $.each(some, function(index, element) {
+                        //     validzipcodelist = element;
+                        // });
+                validzipcodelist = some;
                     },
                     complete: function(some) {
                         //validzipcodelist = "comp";
