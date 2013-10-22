@@ -8,7 +8,7 @@ var sat = Date.saturday();
 var sunday = Date.sunday();
 var companykey = "";
 var zipList;
-var tripchargevalue = "1";
+var tripchargearray = new Array();
 var validzipcodelist = "start";
 var carpetprices;
 var carpetprotectionprices;
@@ -93,7 +93,7 @@ $(document).ready(function() {
                         // $.each(some, function(index, element) {
                         //     validzipcodelist = element;
                         // });
-                validzipcodelist = some;
+                        validzipcodelist = some;
                     },
                     complete: function(some) {
                         //validzipcodelist = "comp";
@@ -176,6 +176,17 @@ function setDataVars() {
     $.each(price.rugdeodorizeprices, function(index, element) {
         hashRugDeod = element;
     });
+    var tcs;
+    $.each(price.tripcharges, function(index, element) {
+        tcs = element;
+    });
+
+    for (var k in tcs) {
+        if (typeof tcs[k] !== 'function') {
+            tripchargearray.push(tcs[k]);
+        }
+    }
+
 }
 
 var tripcharge = 0;

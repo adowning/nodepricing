@@ -8,6 +8,11 @@ $('#zipcodetext').keyup(function(e) {
 
 });
 
+// $(document).ready(function() {
+//     //setupZipCodes(validzipcodelist);
+// });
+
+
 function zipCheck(zip) {
     if (zip == "test") {
         zip = '75882';
@@ -15,15 +20,21 @@ function zipCheck(zip) {
     } else {
         ziparray = validzipcodelist;
     }
-
+    
+    var i = 0;
     var sortedtripcharges = getTripChargePoints().sort(function(obj1, obj2) {
         return obj2.distance - obj1.distance;
     });
+
+    for ( var k in sortedtripcharges){
+        alert(tripchargearray[k]);
+    };
 
     $.each(ziparray.zip_codes, function(index, element) {
         if (element.zip_code == zip) {
             distance = element.distance;
         }
+        i++;
     });
 
     var tcprice;
@@ -55,16 +66,33 @@ function zipCheck(zip) {
 
 }
 
+//TODO pull from db
 function getTripChargePoints() {
     var newTripchargearray = [];
-    var newTripcharge = new Object();
+    var newTripcharge = "";
 
     for ( var k in tripchargearray){
+        var newTripcharge;
         newTripcharge.distance = k;
         newTripcharge.price = tripchargearray[k];
         newTripchargearray.push(newTripcharge);
     };
     return newTripchargearray;
+
+    // var charges = {
+    //     "tripcharges": [{
+    //         "distance": 15,
+    //         "price": 1.05
+    //     }, {
+    //         "distance": 20,
+    //         "price": 1.08
+    //     }, {
+    //         "distance": 30,
+    //         "price": 1.17
+    //     }]
+    // };
+    // return charges;
+
 }
 
 function getTestZipcodes(zip) {

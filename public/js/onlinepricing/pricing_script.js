@@ -7,7 +7,7 @@
 $(document).ready(function() {
 
     console.log('doc rdy');
-    console.log(distance);
+    //alert(tripchargearray);
     setExitPage('zipcode');
 
     window.onbeforeunload = function() {
