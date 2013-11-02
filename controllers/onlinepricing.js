@@ -494,36 +494,6 @@ exports.onlinePricingValidations = function(req, res, next) {
     next();
 }
 
-// function setGVars(key, res) {
-
-//   console.log('setting gvars');
-//   Company.findOne({
-//     key: key
-//   }, function(err, company) {
-//     if (err) return next(err);
-//     //if(!comp) return next(err);
-//     if (!company) {
-//       return res.redirect('/badorder');
-//     } else {
-//       console.log('comp -= comp name ' + company.name);
-//       comp = company;
-//     }
-//   });
-
-//   OnlinePrice.findOne({
-//     key: key
-//   }, function(err, onlineprice) {
-//     if (err) return next(err);
-//     //if(!comp) return next(err);
-//     if (!onlineprice) {
-//       return res.redirect('/badorder');
-//     } else {
-//       //console.log('onlieprice -= onlieprice name ' + onlieprice.name);
-//       op = onlineprice;
-//     }
-//   });
-// }
-
 exports.show_order = function(req, res, next) {
 
     var tcomp;
@@ -670,8 +640,8 @@ function saveCompany(company) {
             return res.redirect('/updateavailability');
         }
         if (err) return next(err);
-        req.flash('success', "Availibity updated successfully.");
-        console.log('successs');
-        return res.redirect('/updateavailability');
+        //req.flash('success', "Availibity updated successfully.");
+        console.log('successs saving company');
+        //return res.redirect('/updateavailability');
     });
 }
