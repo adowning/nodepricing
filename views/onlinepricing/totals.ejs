@@ -29,21 +29,16 @@ body {
 <div id="pie"></div>
 
 <script>
- var paper = Raphael("pie");
- var values = [18.373, 18.686, 2.867, 23.991, 9.592, 9.213];
- var legend = ["Windows/Windows Live", "Server/Tools", "Online Services", "Business", "Entertainment/Devices", "Unallocated/Other"];
 
- paper.piechart(
-   100, // pie center x coordinate
-   100, // pie center y coordinate
-   90,  // pie radius
-    //[18.373, 18.686, 2.867, 23.991, 9.592, 9.213] // values
-    values,
-       {
-   legend: legend
-   }
-  );
 </script>
+<!-- asdf
+<%= abandonments.length %>
+
+<ul>
+<% for(var i=0; i<abandonments.length; i++) {%>
+   <li><%= abandonments[i].exitpage %></li>
+<% } %>
+</ul> -->
 
 <p id="copy">
 	Demo of
@@ -51,3 +46,14 @@ body {
 	—JavaScript Vector Library
 </p>
 </body>
+
+
+  <script type="text/javascript" src="/js/jquery-1.9.1.js"></script> 
+
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+
+   <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/async/0.2.7/async.min.js"></script>
+
+     <script type="text/javascript" src="/js/json2.js"></script>  
+<script type="text/javascript" src="/js/onlinepricing/totals_data.js"></script>  

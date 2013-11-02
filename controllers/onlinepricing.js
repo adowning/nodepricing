@@ -11,6 +11,42 @@ try {
     console.log(err);
 }
 
+
+exports.getTotalsGetData = function(req, res) {
+    var user = req.user;
+    //var comp;
+    console.log(user.username);
+    Company.findOne({
+        ownername: user.username
+    }, function(err, company) {
+        if (err) console.log(err);
+        if (!company) {
+            console.log('comp not found');
+            req.flash('error', "Cannot find your company");
+            return res.redirect('onlinepricing/settings');
+        }
+        Abandonment.find({
+            key: company.key
+        }, function(err, ab) {
+            if (!ab) {
+                req.flash('error', "Cannot find your pricing model");
+                return res.redirect('/badkey');
+            }
+
+                    console.log('hit with '+ab);
+                    res.contentType('json');
+                    res.send({
+                        data: ab
+                        //comp: comp
+                    });
+
+            // res.render('onlinepricing/settings', {
+            //     pricing: op,
+            //     comp: company
+            // });
+        });
+    });
+}
 exports.getTotals = function(req, res) {
     console.log('getting totals');
     var user = req.user;
@@ -379,6 +415,25 @@ exports.createorder = function(req, res, next) {
 }
 
 function mailOrder(res, order, tcomp, next) {
+    var email;
+    var thiskey = tcomp.key;
+    console.log('1'+ thiskey);
+        OnlinePrice.findOne({
+            key: thiskey
+        }, function (err, op) {
+            console.log('err'+err);
+            //console.log(thiskey);
+            if (!op) {
+                console.error('error getting online price email array');
+            }
+            //console.log('e'+op.email);
+            email = op.email;
+            if(!email){
+                console.error('error getting online price email array');
+            }
+
+                console.log('company email >>>>' + email);
+
     res.mailer.send('mailer/order_sent', {
         from: tcomp.publicemail,
         to: order.email,
@@ -388,15 +443,23 @@ function mailOrder(res, order, tcomp, next) {
     }, function(err) {
         if (err) return next(err);
     });
+ for (var i = 0; i < email.length; i++) {
+    
     res.mailer.send('mailer/order_sent_company', {
         from: order.email,
-        to: tcomp.publicemail,
-        subject: 'New Order Received !!',
+        to: email[i],
+        subject: 'New Order Received !! for '+order.name,
         order: order,
         comp: tcomp
     }, function(err) {
         if (err) return next(err);
     });
+ }
+
+
+
+
+        });
 
 }
 

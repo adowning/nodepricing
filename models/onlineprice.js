@@ -5,7 +5,7 @@ var OnlinePriceSchema = new Schema({
 	createdAt : { type: Date, default: Date.now },
   	//activemodules : { type: String, required: true, index: { unique: false } },
   	address : { type: String, default: "address" },
-  	email : { type: String, default: "email" },
+  	email : { type: Array, default: ['email1', 'email2'] },
     key : { type: String, required: true }, 
   	name : { type: String, default: "name" },
   	activeservices : { type: Array, default: ["Carpet", "Tile", "Rugs"] },

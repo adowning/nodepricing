@@ -10,7 +10,7 @@ $('#zipcodetext').keyup(function(e) {
 
 function zipCheck(zip) {
     if (zip == "test") {
-        zip = '75882';
+        zip = '75853';
         ziparray = getTestZipcodes(zip);
     } else {
         ziparray = validzipcodelist;

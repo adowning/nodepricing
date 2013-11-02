@@ -154,6 +154,7 @@ app.get('/updateavailability', ensureAuthenticated, onlinepricing.fetchSettings)
 app.post('/updateavailability', onlinepricing.getonlinepricing);
 app.post('/createonlineprice/:id', onlinepricing.onlinePricingValidations, onlinepricing.createorder);
 app.get('/onlinepricing_gettotals', ensureAuthenticated, onlinepricing.getTotals);
+app.get('/onlinepricing_gettotalsdata', ensureAuthenticated, onlinepricing.getTotalsGetData);
 app.get('/login', redirectAuthenticated, users.login);
 app.get('/reset_password', redirectAuthenticated, users.reset_password);
 app.post('/reset_password', redirectAuthenticated, users.generate_password_reset);
