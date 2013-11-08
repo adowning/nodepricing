@@ -9,10 +9,12 @@ exports.login = function(req, res){
 
 // Get dashboard
 exports.dashboard = function(req, res){
+  var thisuser = req.user;
+  console.log('user -'+thisuser);
     User.find(function(err,users){
     if(err) return next(err);
     res.render('users/dashboard',{
-      users:users
+      user: thisuser
     });
   });
 

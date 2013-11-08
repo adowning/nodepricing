@@ -14,6 +14,7 @@
  // Account page
  exports.account = function(req, res) {
    var user = req.user;
+   console.log(user.username);
    Company.findOne({
      ownername: user.username
    }, function(err, comp) {

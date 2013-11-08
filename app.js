@@ -58,6 +58,8 @@ app.use(function(req, res, next){
   app.locals.errorMessages = req.flash('error'); // make error alert messages available in all views
   app.locals.successMessages = req.flash('success'); // make success messages available in all views
   app.locals.layoutPath = "../shared/layout";
+
+  app.set('username', req.user);
   next();
 });
 
@@ -140,7 +142,52 @@ function redirectAuthenticated(req, res, next){
 }
 
 // Routing
+app.configure('development', function(){
+app.get('/', welcome.index);
+app.get('/onlinepricing/:id', onlinepricing.fetch);
 
+app.get('/showorder/:id/:num', onlinepricing.show_order);
+//app.get('onlinepricing/thanks', onlinepricing.thanks);
+app.post('/onlinepricing', onlinepricing.getonlinepricing);
+app.post('/changeavailability', onlinepricing.changeavailability);
+app.post('/onlinepricing_saveAbandonment', onlinepricing.saveAbandonment);
+app.post('/changebasicsettings', onlinepricing.changebasicsettings);
+app.get('/updateavailability', ensureAuthenticated, onlinepricing.fetchSettings);
+app.post('/updateavailability', onlinepricing.getonlinepricing);
+app.post('/createonlineprice/:id', onlinepricing.onlinePricingValidations, onlinepricing.createorder);
+app.get('/onlinepricing_gettotals', ensureAuthenticated, onlinepricing.getTotals);
+app.get('/onlinepricing_gettotalsdata', ensureAuthenticated, onlinepricing.getTotalsGetData);
+app.get('/login', redirectAuthenticated, users.login);
+app.get('/reset_password', redirectAuthenticated, users.reset_password);
+app.post('/reset_password', redirectAuthenticated, users.generate_password_reset);
+app.get('/password_reset', redirectAuthenticated, users.password_reset);
+app.post('/password_reset', redirectAuthenticated, users.process_password_reset);
+app.post('/login', redirectAuthenticated, users.authenticate);
+app.get('/register', redirectAuthenticated, users.register);
+app.post('/register', redirectAuthenticated, users.userValidations, users.create);
+app.get('/account', ensureAuthenticated, users.account);
+app.post('/account', ensureAuthenticated, users.userValidations, users.update);
+app.get('/dashboard', ensureAuthenticated, users.dashboard);
+app.get('/logout', users.logout);
+app.get('/users', ensureAuthenticated, users.list); // for illustrative purposes only
+
+app.get('/cregister', ensureAuthenticated, companies.register);
+app.post('/cregister', ensureAuthenticated, companies.companyValidations, companies.create);
+app.get('/editcompany', ensureAuthenticated, companies.account);
+app.post('/editcompany', ensureAuthenticated, companies.companyValidations, companies.update);
+
+//testing shit
+app.get('/program', ensureAuthenticated, program.getmycompany);
+app.get('/tables', program.gettables);
+app.get('/widgets', program.getwidgets);
+app.get('/testerbody', program.gettesterbody);
+app.get('/invoice', program.getinvoice);
+
+app.all('*', welcome.not_found);
+});
+
+
+app.configure('production', function(){
 app.get('/', welcome.index);
 app.get('/onlinepricing/:id', onlinepricing.fetch);
 
@@ -169,14 +216,14 @@ app.get('/dashboard', ensureAuthenticated, users.dashboard);
 app.get('/logout', users.logout);
 app.get('/users', ensureAuthenticated, users.list); // for illustrative purposes only
 app.get('/program', ensureAuthenticated, program.getmycompany);
+app.get('/tables', ensureAuthenticated, program.gettables);
 app.get('/cregister', ensureAuthenticated, companies.register);
 app.post('/cregister', ensureAuthenticated, companies.companyValidations, companies.create);
 app.get('/editcompany', ensureAuthenticated, companies.account);
 app.post('/editcompany', ensureAuthenticated, companies.companyValidations, companies.update);
 //app.get('/pricesettings', ensureAuthenticated, companies.pricesetting);
 app.all('*', welcome.not_found);
-
-
+});
 
 
 // Start Server w/ DB Connection
@@ -198,18 +245,3 @@ Company.find(function(err, companies) {
 })
 
 
-async.series({
-    one: function(callback){
-        setTimeout(function(){
-            callback(null, 1);
-        }, 200);
-    },
-    two: function(callback){
-        setTimeout(function(){
-            callback(null, 2);
-        }, 100);
-    }
-},
-function(err, results) {
-    console.log(results);
-});

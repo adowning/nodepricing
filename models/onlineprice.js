@@ -1,6 +1,7 @@
 var mongoose = require('mongoose')
   , Schema = mongoose.Schema;
- 
+
+
 var OnlinePriceSchema = new Schema({
 	createdAt : { type: Date, default: Date.now },
   	//activemodules : { type: String, required: true, index: { unique: false } },
@@ -102,6 +103,7 @@ var OnlinePriceSchema = new Schema({
     'secondary_color': 'blue'
     }] },
 });
+
 
 
 module.exports = mongoose.model('OnlinePrice', OnlinePriceSchema);

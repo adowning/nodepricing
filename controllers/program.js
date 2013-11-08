@@ -22,3 +22,37 @@ exports.getmycompany = function(req, res, next){
 
   }
 
+exports.gettables = function(req, res, next){
+
+      res.render('program/tables',{
+     
+    });
+
+
+  }
+
+exports.getinvoice = function(req, res, next){
+
+      res.render('program/invoice',{
+     
+    });
+
+
+  }
+
+exports.getwidgets = function(req, res, next){
+
+      res.render('program/widgets',{
+     
+    });
+
+
+  }
+  exports.gettesterbody = function(req, res, next){
+
+      res.render('program/testerbody',{
+     
+    });
+
+
+  }

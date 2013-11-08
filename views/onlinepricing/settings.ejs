@@ -1,152 +1,125 @@
-<head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
-    <!-- <link href='/css/bootstrap.min.css' rel='stylesheet'>
-
-    <link href='/css/bootstrap-responsive.min.css' rel='stylesheet'>
-
- -->
-    <!-- Latest compiled and minified CSS -->
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"
+<!-- <head>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"
     rel="stylesheet" />
     <link href="/css/pricing.css" rel="stylesheet" />
-        <link href="/css/basic_settings.css" rel="stylesheet" />
+    <link href="/css/basic_settings.css" rel="stylesheet" />
     <title></title>
-</head>
-                    <div class="row">
-                        <div class="col-md-2" class="col-xs-1"></div>
-                        <div class="col-md-7">
-                          <div class="col-md-4">
-                            <h5>Something <b>Dashboard</b></h5>
-                          </div>
-                                                    <div class="col-md-4">
-                            <a href="/updateavailability">Settings</a>
-                          </div>
-                        </div>
-
-                        <div class="col-md-2"></div>
-                    </div>
-                     <div class="row">
-                                              <div class="col-md-2" class="col-xs-1"></div>
-                        <div class="col-md-7">
-                          <h2> Settings</h2>
-                        </div>
-
-                        <div class="col-md-2"></div>
-                     </div>
-                      <div class="row" class="col-md-7"></row>
-    <div class="row">
-        <div class="col-md-2"></div>
-        <div class="col-md-7">
-                <ul class="nav nav-tabs" id="myTab">
-  <li class="active"><a href="#home" data-toggle="tab"><h4>Company Settings</h4></a></li>
-  <li><a href="#availability" data-toggle="tab"><h4>Availability</h4></a></li>
-  <li><a href="#messages" data-toggle="tab"><h4>Prices</h4></a></li>
-<!--   <li><a href="#settings" data-toggle="tab"><h4>Settings</h4></a></li> -->
-</ul>
-
-<div class="tab-content">
-  <div class="tab-pane active" id="home">
-<table id="basic_settings" class="table table-striped">
-
-<tr class="heading" bgcolor="#ccc">
-
-</tr>
-
-</table>
-  </div>
-  <div class="tab-pane" id="availability">
-<div class="container" id="scheduleform">
-        <div class="col-md-2"></div>
-    
-    <div class="row">
-        <div class="col-md-2"></div>
-        <div class="col-md-8">
-            <div class="row">
-                <div class="col-md-12">
-                    <div id="schedule-div">
-                        <div name="newtimetest" id="newtimetest">
-                            <table name="prestable" id="prestable" class="table table-condensed">
-                                <thead>
-                                    <tr>
-                                        <th class="lastweekhead"> <i class="glyphicon glyphicon-arrow-left">
-
-                  </i>
- <a class="lastweek" href="#">
-
-                    last week
-
-                  </a>
-                                        </th>
-                                        <th name="prestable-date" id="prestable-date">asdf</th>
-                                        <th class="nextweekhead"> <a class="nextweek" href="#">
-
-                    next week
-
-
-
-                  </a>
- <i class="glyphicon glyphicon-arrow-right">
-
-                  </i>
-                                        </th>
-                                    </tr>
-                                </thead>
-                            </table>
-                            <table name="stable" id="stable" class="table">
-                                <thead>
-                                    <tr>
-                                        <th></th>
-                                        <th class="mondayhead">Mon</th>
-                                        <th class="tuesdayhead">Tues</th>
-                                        <th class="wendhead">Wend</th>
-                                        <th class="thurshead">Thurs</th>
-                                        <th class="frihead">Fri</th>
-                                        <th class="sathead">Sat</th>
-                                    </tr>
-                                </thead>
-                                <tbody></tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="pull-right">
-                        <!-- <button class="btn btn-default" onclick=" removebooking();">
-
-                                        <em class=
-
-                                        "icon-minus"></em>Remove</button> -->
-                        <button class="btn btn-primary" id="priceNext" name="priceNext" onclick="changeStatus();"><em class="icon-edit"></em>
-Change</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-2"></div>
+  </head> -->
+<% layout(layoutPath) -%>
+  <div class="row">
+    <div class="col-md-2" class="col-xs-1"></div>
+    <div class="col-md-7">
+      <div class="col-md-4">
+        <h5>Something <b>Dashboard</b></h5>
+      </div>
+      <div class="col-md-4">
+        <a href="/updateavailability">Settings</a>
+      </div>
     </div>
-</div>
+    <div class="col-md-2"></div>
   </div>
-  <div class="tab-pane" id="messages">...</div>
-  <div class="tab-pane" id="settings">...</div>
-</div>
-</div>
-</div>
-
-
-
-  <script type="text/javascript" src="/js/jquery-1.9.1.js"></script> 
-
-    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"></script>
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-
-   <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/async/0.2.7/async.min.js"></script>
-
-  <script type="text/javascript" src="/js/date2.js"></script> 
-    <script type="text/javascript" src="/js/jquery.json-2.4.min.js"></script>    
-  <script type="text/javascript" src="/js/jquery.client.js"></script> 
+  <div class="row">
+    <div class="col-md-2" class="col-xs-1"></div>
+    <div class="col-md-7">
+      <h2> Settings</h2>
+    </div>
+    <div class="col-md-2"></div>
+  </div>
+  <div class="row" class="col-md-7"></row>
+    <div class="row">
+      <div class="col-md-2"></div>
+      <div class="col-md-7">
+        <ul class="nav nav-tabs" id="myTab">
+          <li class="active"><a href="#home" data-toggle="tab"><h4>Company Settings</h4></a></li>
+          <li><a href="#availability" data-toggle="tab"><h4>Availability</h4></a></li>
+          <li><a href="#messages" data-toggle="tab"><h4>Prices</h4></a></li>
+          <!--   <li><a href="#settings" data-toggle="tab"><h4>Settings</h4></a></li> -->
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane active" id="home">
+            <table id="basic_settings" class="table table-striped">
+              <tr class="heading" bgcolor="#ccc">
+              </tr>
+            </table>
+          </div>
+          <div class="tab-pane" id="availability">
+            <div class="container" id="scheduleform">
+              <div class="col-md-2"></div>
+              
+              <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div id="schedule-div">
+                        <div name="newtimetest" id="newtimetest">
+                          <table name="prestable" id="prestable" class="table table-condensed">
+                            <thead>
+                              <tr>
+                                <th class="lastweekhead"> <i class="glyphicon glyphicon-arrow-left">
+                                  </i>
+                                  <a class="lastweek" href="#">
+                                  last week
+                                  </a>
+                                </th>
+                                <th name="prestable-date" id="prestable-date">asdf</th>
+                                <th class="nextweekhead"> <a class="nextweek" href="#">
+                                  next week
+                                  </a>
+                                  <i class="glyphicon glyphicon-arrow-right">
+                                  </i>
+                                </th>
+                              </tr>
+                            </thead>
+                          </table>
+                          <table name="stable" id="stable" class="table">
+                            <thead>
+                              <tr>
+                                <th></th>
+                                <th class="mondayhead">Mon</th>
+                                <th class="tuesdayhead">Tues</th>
+                                <th class="wendhead">Wend</th>
+                                <th class="thurshead">Thurs</th>
+                                <th class="frihead">Fri</th>
+                                <th class="sathead">Sat</th>
+                              </tr>
+                            </thead>
+                          <tbody></tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="pull-right">
+                      <!-- <button class="btn btn-default" onclick=" removebooking();">
+                      <em class=
+                      "icon-minus"></em>Remove</button> -->
+                      <button class="btn btn-primary" id="priceNext" name="priceNext" onclick="changeStatus();"><em class="icon-edit"></em>
+                      Change</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-2"></div>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane" id="messages">...</div>
+        <div class="tab-pane" id="settings">...</div>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript" src="/js/jquery-1.9.1.js"></script>
+  <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"></script>
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/async/0.2.7/async.min.js"></script>
+  <script type="text/javascript" src="/js/date2.js"></script>
+  <script type="text/javascript" src="/js/jquery.json-2.4.min.js"></script>
+  <script type="text/javascript" src="/js/jquery.client.js"></script>
   <script type="text/javascript" src="/js/browser_fix.js"></script>
-  <script type="text/javascript" src="/js/json2.js"></script>  
-  <script type="text/javascript" src="/js/onlinepricing/availability.js"></script>      
-  <script type="text/javascript" src="/js/onlinepricing/basic_settings.js"></script>      
+  <script type="text/javascript" src="/js/json2.js"></script>
+  <script type="text/javascript" src="/js/onlinepricing/availability.js"></script>
+  <script type="text/javascript" src="/js/onlinepricing/basic_settings.js"></script>

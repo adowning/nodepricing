@@ -1,10 +1,9 @@
 var abandonmentlist = new Array();
 var exitpagelist = new Array();
 var temp;
+var monthlytotals;
 
 $(document).ready(function() {
-	console.log('start');
-	var companykey = "test";
 	async.series({
 			one: function(callback) {
 				// setParameters();
@@ -23,14 +22,16 @@ $(document).ready(function() {
 					cache: false,
 					multiple: true,
 					timeout: 5000,
-					complete: function(data) {
+					complete: function(data, data2) {
 						callback(null, 1);
 					},
 					success: function(data) {
+						console.log('s' + data.data2);
 						for (var i = 0; i < data.data.length; i++) {
 							var object = data.data[i];
 							abandonmentlist.push(object);
 						}
+						monthlytotals = data.data2;
 					},
 					error: function() {
 						console.log('er');
@@ -39,7 +40,8 @@ $(document).ready(function() {
 
 			},
 			three: function(callback) {
-				createCharts();
+				createAbandonChart();
+				createTotalsChart();
 			},
 			four: function(callback) {
 				// $.ajax({
@@ -96,7 +98,7 @@ $(document).ready(function() {
 		});
 });
 
-function createCharts() {
+function createAbandonChart() {
 	var paper = Raphael("pie");
 	var zipcodetotal = 0;
 	var completedtotal = 0;
@@ -106,24 +108,24 @@ function createCharts() {
 
 	for (var i = 0; i < abandonmentlist.length; i++) {
 		var object = abandonmentlist[i];
-			if(object.exitpage == "zipcode"){
-				zipcodetotal++;
-			}
-			if(object.exitpage == "completed"){
-				completedtotal++;
-			}
-						if(object.exitpage == "pricing"){
-				pricingtotal++;
-			}
-			if(object.exitpage == "scheduleform"){
-				scheduleformtotal++;
-			}
-						if(object.exitpage == "contactform"){
-				contactformtotal++;
-			}
+		if (object.exitpage == "zipcode") {
+			zipcodetotal++;
+		}
+		if (object.exitpage == "completed") {
+			completedtotal++;
+		}
+		if (object.exitpage == "pricing") {
+			pricingtotal++;
+		}
+		if (object.exitpage == "scheduleform") {
+			scheduleformtotal++;
+		}
+		if (object.exitpage == "contactform") {
+			contactformtotal++;
+		}
 	}
 	var values = [zipcodetotal, pricingtotal, scheduleformtotal, contactformtotal, completedtotal];
-	var legend = [zipcodetotal +" Zipcode", pricingtotal + " Pricing", scheduleformtotal + " Schedule Form", contactformtotal + " Contact Form", completedtotal +" Completed"];
+	var legend = [zipcodetotal + " Zipcode", pricingtotal + " Pricing", scheduleformtotal + " Schedule Form", contactformtotal + " Contact Form", completedtotal + " Completed"];
 
 	paper.piechart(
 		100, // pie center x coordinate
@@ -133,4 +135,59 @@ function createCharts() {
 			legend: legend
 		}
 	);
+}
+
+function createTotalsChart() {
+	var bars = new Charts.BarChart('barchartx', {
+		x_label_color: "#333333",
+			bar_width: 	20,
+			bar_spacing: 20,
+		rounding: 10,
+	});
+	console.log('xx'+monthlytotals);
+	    var months = new Array();
+months[0]="Jan";
+months[1]="Feb";
+months[2]="Mar";
+months[3]="Apr";
+months[4]="May";
+months[5]="Jun";
+months[6]="Jul";
+months[7]="Aug";
+months[8]="Sep";
+months[9]="Oct";
+months[10]="Nov";
+months[11]="Dec";
+	for(var i = 0; i < monthlytotals.length; i++){
+		if( (i % 2 == 0)){
+			var color = "#53ba03"
+		}else{
+			var color = "#2f69bf"
+		}
+console.log(color);		
+				bars.add({
+		label: months[i],
+		
+		value: monthlytotals[i],
+		options: {
+			bar_color: color
+		}
+	});
+	}
+
+
+	// bars.add({
+	// 	label: "moo",
+	// 	value: 800,
+	// 	options: {
+	// 		bar_color: "#53ba03"
+	// 	}
+	// // });
+
+	// bars.add({
+	// 	label: "doo",
+	// 	value: 300
+	// });
+
+	bars.draw();
 }

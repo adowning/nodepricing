@@ -2,6 +2,8 @@ var mongoose = require('mongoose')
   , Company = mongoose.model('Company')
   , Schema = mongoose.Schema
 
+var moment = require('moment');
+
 var OrderSchema = new Schema({
 	createdAt : { type: Date, default: Date.now },
   	email : { type: String, required: true, index: { unique: false } },
@@ -21,6 +23,10 @@ var OrderSchema = new Schema({
 
 });
 
+// function getMonthlyReports(key){
+//     var now = moment();
+//     console.log(now.month());
+// }
 
 // OrderSchema.methods.findOrderCountForCompany = function(keyid) {
 //     var count = 0;
