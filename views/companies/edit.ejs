@@ -1,13 +1,85 @@
 <% layout(layoutPath) -%>
-<h1>Edit Company Settings</h1>
-<form action="/editcompany" method="post">
-  <fieldset>
-    <label>Company Name:</label>
-    <input type="text" name="name" value="<%= comp.name || "" %>"/>
-    <label>Website:</label>
-    <input type="text" name="website" value="<%= comp.url "" %>"/>
-    <label>Company Email:</label>
-    <input type="email" name="email" value="<%= comp.email %>"/>   
-    <button class="btn">Update</button>
-  </fieldset>
-</form>
+<div class="page-header">
+	<h1>
+	Company Profile
+	<small>
+	<i class="icon-double-angle-right"></i>
+	edit your companies contact information
+	</small>
+	</h1>
+	</div><!-- /.page-header -->
+
+	<div class="row">
+
+	</div>
+	<div class="col-xs-12 col-sm-4">
+		<div class="widget-box">
+				<div class="widget-header">
+					<h4>Contact Information</h4>
+				</div>
+			<div class="widget-body">
+				<div class="widget-main">
+					<form action="/editcompany" method="post">
+						<fieldset>
+							<div>
+								<label for="form-field-mask-2">
+									Phone
+									<small class="text-info">(999) 999-9999</small>
+								</label>
+								<div class="input-group">
+									<span class="input-group-addon">
+									<i class="icon-phone"></i>
+									</span>
+									<input class="form-control input-mask-phone" type="text" id="form-field-mask-2" value="<%= comp.name || "" %>" />
+								</div>
+							</div>
+							
+							<div>
+								<label for="form-field-mask-2">
+									Web Address
+									<small class="text-info">www.mywebsitename.com</small>
+								</label>
+								<div class="input-group">
+									<span class="input-group-addon">
+									<i class="icon-pencil"></i>
+									</span>
+									<input class="form-control input-mask-phone" type="text" id="form-field-mask-2" value="<%= comp.url || "" %>"/>
+								</div>
+							</div>
+							
+							<div>
+								<label for="form-field-mask-2">
+									Public Email
+									<small class="text-info">info@mywebsitename.com</small>
+								</label>
+								<div class="input-group">
+									<span class="input-group-addon">
+									<i class="icon-envelope"></i>
+									</span>
+									<input class="form-control input-mask-phone" type="text" id="form-field-mask-2" value="<%= comp.publicemail || "" %>"/>
+								</div>
+							</div>
+							<div>
+								<label for="form-field-mask-2">
+									Address
+									<small class="text-info">123 Awesome Ave.</small>
+								</label>
+								<div class="input-group">
+									<span class="input-group-addon">
+									<i class="icon-map-marker"></i>
+									</span>
+									<input class="form-control input-mask-phone" type="text" id="form-field-mask-2" value="<%= comp.address || "" %>"/>
+								</div>
+							</div>
+						</fieldset>
+						<div class="form-actions center">
+								<button type="button" class="btn btn-sm btn-success">
+								Submit
+								<i class="icon-arrow-right icon-on-right bigger-110"></i>
+								</button>
+							</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>

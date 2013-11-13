@@ -183,6 +183,9 @@ app.get('/widgets', program.getwidgets);
 app.get('/testerbody', program.gettesterbody);
 app.get('/invoice', program.getinvoice);
 
+app.get('/onlinepricing_editservicecategories', ensureAuthenticated, onlinepricing.getservicecategories);
+app.get('/onlinepricing_edittripcharges', ensureAuthenticated, onlinepricing.gettripcharges);
+
 app.all('*', welcome.not_found);
 });
 
@@ -222,6 +225,7 @@ app.post('/cregister', ensureAuthenticated, companies.companyValidations, compan
 app.get('/editcompany', ensureAuthenticated, companies.account);
 app.post('/editcompany', ensureAuthenticated, companies.companyValidations, companies.update);
 //app.get('/pricesettings', ensureAuthenticated, companies.pricesetting);
+
 app.all('*', welcome.not_found);
 });
 

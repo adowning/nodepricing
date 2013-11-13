@@ -1,49 +1,27 @@
-<!-- <head>
-  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
-  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"
-    rel="stylesheet" />
-    <link href="/css/pricing.css" rel="stylesheet" />
-    <link href="/css/basic_settings.css" rel="stylesheet" />
-    <title></title>
-  </head> -->
-<% layout(layoutPath) -%>
+
+
+  <% layout(layoutPath) -%>
+<div class="page-header">
+  <h1>
+  Update Availability
+  <small>
+  <i class="icon-double-angle-right"></i>
+  manually block out time
+  </small>
+  </h1>
+  </div><!-- /.page-header -->
+
   <div class="row">
-    <div class="col-md-2" class="col-xs-1"></div>
-    <div class="col-md-7">
-      <div class="col-md-4">
-        <h5>Something <b>Dashboard</b></h5>
-      </div>
-      <div class="col-md-4">
-        <a href="/updateavailability">Settings</a>
-      </div>
-    </div>
-    <div class="col-md-2"></div>
+
   </div>
-  <div class="row">
-    <div class="col-md-2" class="col-xs-1"></div>
-    <div class="col-md-7">
-      <h2> Settings</h2>
-    </div>
-    <div class="col-md-2"></div>
-  </div>
-  <div class="row" class="col-md-7"></row>
-    <div class="row">
-      <div class="col-md-2"></div>
-      <div class="col-md-7">
-        <ul class="nav nav-tabs" id="myTab">
-          <li class="active"><a href="#home" data-toggle="tab"><h4>Company Settings</h4></a></li>
-          <li><a href="#availability" data-toggle="tab"><h4>Availability</h4></a></li>
-          <li><a href="#messages" data-toggle="tab"><h4>Prices</h4></a></li>
-          <!--   <li><a href="#settings" data-toggle="tab"><h4>Settings</h4></a></li> -->
-        </ul>
-        <div class="tab-content">
-          <div class="tab-pane active" id="home">
-            <table id="basic_settings" class="table table-striped">
-              <tr class="heading" bgcolor="#ccc">
-              </tr>
-            </table>
-          </div>
-          <div class="tab-pane" id="availability">
+  <div class="col-xs-12 col-sm-4" >
+    <div class="widget-box" >
+        <div class="widget-header" >
+          <h4>Availability</h4>
+        </div>
+      <div class="widget-body">
+        <div class="widget-main">
+            <div class="tab-pane" id="availability">
             <div class="container" id="scheduleform">
               <div class="col-md-2"></div>
               
@@ -107,8 +85,7 @@
             </div>
           </div>
         </div>
-        <div class="tab-pane" id="messages">...</div>
-        <div class="tab-pane" id="settings">...</div>
+        </div>
       </div>
     </div>
   </div>

@@ -23,6 +23,7 @@
      if (!comp) {
        return res.redirect('/cregister');
      } else {
+      console.log(comp.key);
        res.render('companies/edit', {
          comp: comp
        });
