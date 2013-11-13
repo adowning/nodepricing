@@ -7,14 +7,7 @@ var mongoose = require('mongoose'),
     async = require("async"),
     moment = require('moment');
 
-//todo fix me for production
-// try {
-//     var moment = require('moment');
-// } catch (err) {
-//     console.log(err);
-// }
-
-exports.getservicecategories = function(req, res) {
+exports.gettripcharges = function(req, res) {
     console.log('>>>>>>>>>>>>>>>>sup homie');
     var user = req.user;
     //var ab2 = ["Half off tile protector", "%20 off carpet protector", "%15 off upholstery cleaning"];
@@ -38,11 +31,42 @@ exports.getservicecategories = function(req, res) {
                             req.flash('error', "Cannot find your pricing model");
                             return res.redirect('/badkey');
                         }
+                        var tcs = opr.tripcharges;
+                        res.render('onlinepricing/edit_tripcharges', {
+                            tripcharges: tcs
+                        });
+                         
+                    });
+                });
+
+
+   
+};
+
+exports.getservicecategories = function(req, res) {
+    console.log('>>>>>>>>>>>>>>>>sup homie');
+    var user = req.user;
+    var opr;
+    var thiskey;
+    var monthlytotals = new Object();
+
+                Company.findOne({
+                    ownername: user.username
+                }, function(err, company) {
+                    if (err) console.log(err);
+                    if (!company) {
+                        console.log('comp not found');
+                        req.flash('error', "Cannot find your company");
+                        return res.redirect('onlinepricing/settings');
+                    }
+                    OnlinePrice.find({
+                        key: company.key
+                    }, function(err, opr) {
+                        if (!opr) {
+                            req.flash('error', "Cannot find your pricing model");
+                            return res.redirect('/badkey');
+                        }
                         var srs = opr.services;
-                        console.log('1.5');
-                        // res.send({
-                        //     services: srs
-                        // });
                         res.render('onlinepricing/edit_servicecategories', {
                             services: srs
                         });

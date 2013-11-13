@@ -1,0 +1,74 @@
+<% layout(layoutPath) -%>
+<div class="page-header">
+	<h1>
+	Edit Trip Charges
+	<small>
+	<i class="icon-double-angle-right"></i>
+	set your trip charge amounts
+	</small>
+	</h1>
+	</div><!-- /.page-header -->
+	<style type="text/css">
+	.section-holder {
+	min-height: 100px;
+	}
+	</style>
+	<div class="row">
+	</div>
+	<div class="col-xs-12 col-sm-4">
+		<div class="widget-box">
+			<div class="widget-header">
+				<h4>Trip Charge Settings</h4>
+			</div>
+			<div class="widget-body">
+				<div class="widget-main">
+					<form action="/editcompany" method="post">
+						<fieldset>
+									<div class="form-group">
+										<label class="control-label col-xs-12 col-sm-3">On/Off Switches</label>
+
+										<div class="controls col-xs-12 col-sm-9">
+											<div class="row">
+												<div class="col-xs-3">
+													<label>
+														<input name="switch-field-1" class="ace ace-switch" type="checkbox" />
+														<span class="lbl"></span>
+													</label>
+												</div>
+
+<!-- 												<div class="col-xs-3">
+													<label>
+														<input name="switch-field-1" class="ace ace-switch ace-switch-2" type="checkbox" />
+														<span class="lbl"></span>
+													</label>
+												</div>
+
+												<div class="col-xs-3">
+													<label>
+														<input name="switch-field-1" class="ace ace-switch ace-switch-3" type="checkbox" />
+														<span class="lbl"></span>
+													</label>
+												</div> -->
+											</div>
+										</div>
+						</fieldset>
+						<div class="form-actions center">
+								<button type="button" class="btn btn-sm btn-success">
+								Submit
+								<i class="icon-arrow-right icon-on-right bigger-110"></i>
+								</button>
+							</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="/js/jquery-1.9.1.js"></script>
+	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/graphael/0.5.1/g.raphael-min.js"></script>
+	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/graphael/0.5.1/g.pie-min.js"></script>
+</head>
+<script type="text/javascript" src="/js/jquery-1.9.1.js"></script>
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/js/onlinepricing/edit_servicecategories.js"></script>
