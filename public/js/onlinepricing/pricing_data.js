@@ -28,6 +28,9 @@ var st;
 var exitpage = [];
 var companyrep = "none";
 var distance;
+var servicemonster;
+var timeslots = new Array();
+
 
 function setParameters() {
     var searchString = window.location;
@@ -138,8 +141,10 @@ $(document).ready(function() {
 
 function setDataVars() {
     //TODO this sucks redo
+    servicemonster = price.servicemonster;
     companyzipcode = price.companyzipcode;
     stylesettings = price.stylesettings[0];
+    timeslots = price.timeslots;
     $.each(price.carpetprices, function(index, element) {
         carpetprices = element;
     });

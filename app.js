@@ -185,6 +185,11 @@ app.get('/invoice', program.getinvoice);
 
 app.get('/onlinepricing_editservicecategories', ensureAuthenticated, onlinepricing.getservicecategories);
 app.get('/onlinepricing_edittripcharges', ensureAuthenticated, onlinepricing.gettripcharges);
+app.get('/onlinepricing_editbasicsettings', ensureAuthenticated, onlinepricing.getbasicsettings);
+app.get('/onlinepricing_editpricetables', ensureAuthenticated, onlinepricing.getpricetables);
+app.get('/onlinepricing_editvisuallook', ensureAuthenticated, onlinepricing.getvisuallook);
+app.get('/onlinepricing_reports', ensureAuthenticated, onlinepricing.getreports);
+// app.get('/ssnews', ensureAuthenticated, program.getssnews);
 
 app.all('*', welcome.not_found);
 });

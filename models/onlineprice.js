@@ -5,6 +5,7 @@ var mongoose = require('mongoose')
 var OnlinePriceSchema = new Schema({
 	createdAt : { type: Date, default: Date.now },
   	//activemodules : { type: String, required: true, index: { unique: false } },
+    servicemonster : { type: String, required: true, default: "false"},
   	address : { type: String, default: "address" },
   	email : { type: Array, default: ['email1', 'email2'] },
     key : { type: String, required: true }, 
@@ -12,7 +13,7 @@ var OnlinePriceSchema = new Schema({
   	activeservices : { type: Array, default: ["Carpet", "Tile", "Rugs"] },
     zipcode : { type: Array, default: ["0"] },
     tripcharges : { type: Array, default: [{'0': "13"}] },
-    timeslots : { type: Array, default: ["9:00 am", "11:00 am", "1:00 pm", "3:00 pm"] },
+    timeslots : { type: Array, default: ["9:00:00", "11:00:00", "13:00:00", "15:00:00"] },
     advertisements : { type: Array, default: ["Half off tile protector", "%20 off carpet protector", "%15 off upholstery cleaning"] },
     bookedslots : { type: Array, default: [] },
     carpetprices : { type: Array, default: [{

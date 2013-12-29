@@ -1,12 +1,17 @@
 //Pricing calc 
 //by ash downing 
 //andrewscarpetcleaning.com
-
+var openslots = new Array();
 
 
 $(document).ready(function() {
-
-    console.log('doc rdy');
+    // $(".order-confirmation").click(function(e) {
+    //     bootbox.alert("Hello world!", function() {
+    //         console.log("Alert Callback");
+    //     });
+    // });
+    // console.log(servicemonster);
+    // console.log('doc rdy');
     setExitPage('zipcode');
 
     window.onbeforeunload = function() {
@@ -359,7 +364,7 @@ function updateTotal() {
             }
             //trip charge added here
             roomcleaningcost = roomcleaningcost * tripchargevalue;
-            protectprice = protectprice *  tripchargevalue;
+            protectprice = protectprice * tripchargevalue;
             deodorizeprice = deodorizeprice * tripchargevalue;
 
             var selectValue = $(this).find("td:eq(1)").find("select option:selected").val();
@@ -383,7 +388,7 @@ function updateTotal() {
         // }
         if (runningcleaningtotal < 99.50) {
             runningcleaningtotal = 99.50;
-            $('.mincharge-span').css('background','#8ec252');
+            $('.mincharge-span').css('background', '#8ec252');
             $('.mincharge-span').html("<div class='alert'>* Minimum charge.</div>");
 
         } else {
@@ -475,6 +480,103 @@ function addWeek(delta) {
     buildStable();
 }
 
+function checkSlotsSM() {
+    var SMBooks = new Array();
+    var busyDates = new Array();
+    async.series({
+            one: function(callback) {
+                //TODO enter dates being checked here!!!!
+                console.log('today '+Date.today().toString("dd-MM-yyyy"))
+                console.log('week from now '+Date.today().addDays(7).toString("dd-MM-yyyy"))
+
+                var startdate = Date.today().toString("dd-MM-yyyy")
+                var enddate = Date.today().addDays(7).toString("dd-MM-yyyy")
+                $.support.cors = true;
+                $.ajax({
+                    type: "GET",
+                    url: "https://api.servicemonster.net/v1/scheduleItems?startDate=" + startdate + "&endDate=" + enddate + "",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    beforeSend: function(xhr) {
+                        xhr.setRequestHeader("Authorization", "Basic ZTZleGc0Nkw6bUM0RHM5MXFnZXdPUzFv");
+                    },
+                    complete: function() {
+                        callback(null, 1);
+                    },
+                    success: function(json) {
+                        for (var i = 0; i < json.items.length; i++) {
+                            // var option = document.createElement("option                            
+                            var sdate = json.items[i].StartDateTime.substring(0, 10);
+                            var stime = json.items[i].StartDateTime.substring(11, 22);
+                            var tempstartstring = sdate + " " + stime;
+                            var edate = json.items[i].EndDateTime.substring(0, 10);
+                            var etime = json.items[i].EndDateTime.substring(11, 22);
+                            var tempendstring = edate + " " + etime;
+                            var tdate = new Object();
+                            tdate.startdate = Date.parse(tempstartstring);
+                            tdate.enddate = Date.parse(tempendstring);
+                            SMBooks.push(tdate);
+
+                        };
+                        //callback(null, 1);
+                    },
+                    error: function(msg, url, line) {
+                        alert(msg);
+                    }
+                });
+            },
+            two: function(callback) {
+                for (var x = 0; x < SMBooks.length; x++) {
+                    for (var i = 0; i < openslots.length; i++) {
+                        // console.log(timeslots[openslots[i].slot]+SMBooks[x].startdate.toString().substring(16, 24))
+                        if (SMBooks[x].startdate.toString().substring(0, 15) ==
+                            openslots[i].date.substring(0, 15)) {
+
+                            if (timeslots[openslots[i].slot] >=
+                                SMBooks[x].startdate.toString().substring(16, 24) &&
+                                timeslots[openslots[i].slot] <
+                                SMBooks[x].enddate.toString().substring(16, 24)) {
+                                var bdate = new Object();
+
+                                bdate.slot = openslots[i].slot;
+                                bdate.date = openslots[i].date.substring(0, 15);
+                                busyDates.push(bdate);
+                            }
+                        }
+                    }
+                }
+
+                $(".open").each(function() {
+                    openslot = $(this).attr('name');
+                    for (var i = 0; i < busyDates.length; i++) {
+                        if (openslot.substring(5, 6) == busyDates[i].slot && openslot.substring(11, 26) == busyDates[i].date /*!!!check date here*/ ) {
+                            $(this).children('img').prop('src', "/img/Closed.gif");
+                            $(this).prop('class', 'closed');
+                        }
+                    }
+                });
+
+
+                callback(null, 1);
+            }
+        },
+        function(err, results) {
+            $('#zipnextbutton').attr("disabled", false);
+            $('#scheduleNext').attr("disabled", true);
+        });
+}
+
+function addOpenToSMChecklist(slotstring) {
+
+    var slotanddate = new Object();
+    slotanddate.slot = slotstring.substring(5, 6);
+    slotanddate.date = slotstring.substring(11, 50);
+    openslots.push(slotanddate);
+    //console.log('added to os with time '+slotanddate.slot)
+    return false;
+}
+
+
 function fillSchedule() {
     if (browser == 'old') {
         $(".open").each(function() {
@@ -493,6 +595,7 @@ function fillSchedule() {
             selecteddate = $(this).prop('name');
             setJobDateTime(selecteddate);
         });
+        checkSlotsSM();
         return;
     }
 
@@ -500,7 +603,7 @@ function fillSchedule() {
         adate = $(this).attr('name');
         if (!adate || adate == null || adate == 'undefined') {} else {
             if (parseDate(adate) != 'closed') {
-                if (parseDate(adate).isBefore(Date.today().addDays(3))) {
+                if (parseDate(adate).isBefore(Date.today().addDays(1))) {
 
                     $(this).children('img').attr('src', "/img/Closed.gif");
                     $(this).prop('class', 'closed');
@@ -512,13 +615,15 @@ function fillSchedule() {
                         }
                     }
                 }
+
+                if ($(this).prop('class') == 'open' && servicemonster == "true") {
+                    addOpenToSMChecklist(adate);
+                } else {}
+
             } else {}
         }
-        // see what is booked
-        //alert('this prop name = '+ adate);
+    });
 
-
-    })
     $('.open').click(function(event) {
         $(this).children('img').attr('src', "/img/Selected.jpg");
         $(this).prop('class', 'selected');
@@ -527,8 +632,10 @@ function fillSchedule() {
         selecteddate = $(this).attr('name');
         setJobDateTime(selecteddate);
     });
-
+    console.log('checkign SM!');
+    checkSlotsSM();
 }
+
 
 function parseDate(daystring) {
     var day = daystring.split(' day ');
@@ -578,16 +685,20 @@ function rotateAds() {
 }
 
 
-function addTripCharge (value){
+function addTripCharge(value) {
     return value * tripchargevalue;
 }
+
 function buildItems() {
     var items = [];
+    // console.log('start');
     $.each(carpetprices, function(key, value) {
         valueWTC = addTripCharge(value);
+        // console.log(key);
         var linkhtml = "<li><a class='action-addroom' href='#' data-type='carpet_furn' data-price='" + valueWTC + "'>" + key + "</a></li>";
         items.push(linkhtml);
     });
+    // console.log('adding to cpt now');
     $('#carpet-nav-list').append(items.join(''));
     linkhtml = "";
     items = [];
@@ -596,6 +707,7 @@ function buildItems() {
         linkhtml = "<li><a class='action-addroom' href='#' data-type='carpet_furn' data-price='" + valueWTC + "'>" + key + "</a></li>";
         items.push(linkhtml);
     });
+    // console.log('dont adding to cpt now');
     $('#upnavlist').append(items.join(''));
     linkhtml = "";
     items = [];
@@ -667,7 +779,7 @@ function setServices() {
         if ($(this).attr('class')) {
 
             row_array.roomname = $(this).find('td:first').html();
-            row_array.cost = $(this).attr('value') ;
+            row_array.cost = $(this).attr('value');
             row_array.group = $(this).attr('class');
             // row_array.cost = $(this).attr('value');
             // row_array.group = $(this).attr('class');
@@ -682,19 +794,19 @@ function setServices() {
             var tt = thistype.split(" - ");
             thistype = tt[1];
             thistype = thistype.replace('_', ' ');
-            row_array.protectpricetotal = ((carpetprotectionprices[thistype] * tripchargevalue).toFixed(2) ) * row_array.protection;
+            row_array.protectpricetotal = ((carpetprotectionprices[thistype] * tripchargevalue).toFixed(2)) * row_array.protection;
             if ($(this).find("td:eq(5)").find("select option:selected").val() > 0) {
                 row_array.deodorizepricetotal = ((carpetdeodorizeprices[thistype] * tripchargevalue).toFixed(2)) * row_array.deodorize;
             } else {
                 row_array.deodorizepricetotal = 0;
             }
             //figure total for the row
-            cleaningtotal = (((parseFloat(row_array.cost) * parseFloat(row_array.quantity)* tripchargevalue)).toFixed(2));
-            console.log('cl total '+cleaningtotal);
-            console.log(parseFloat(row_array.deodorizepricetotal));
-            console.log(parseFloat(row_array.protectpricetotal));     
-            row_array.total = parseFloat(( parseFloat(cleaningtotal) + (parseFloat(row_array.protectpricetotal)) + (parseFloat(row_array.deodorizepricetotal)))).toFixed(2);
-            console.log(row_array.total);
+            cleaningtotal = (((parseFloat(row_array.cost) * parseFloat(row_array.quantity) * tripchargevalue)).toFixed(2));
+            // console.log('cl total ' + cleaningtotal);
+            // console.log(parseFloat(row_array.deodorizepricetotal));
+            // console.log(parseFloat(row_array.protectpricetotal));
+            row_array.total = parseFloat((parseFloat(cleaningtotal) + (parseFloat(row_array.protectpricetotal)) + (parseFloat(row_array.deodorizepricetotal)))).toFixed(2);
+            // console.log(row_array.total);
             obj.push(row_array);
         }
     });
@@ -714,6 +826,11 @@ function setServices() {
 function setExitPage(str) {
     exitpage = [];
     exitpage.push(companykey[0]);
+     //TODO fix me later to use ip address vs. test right now it will save zipcode
+     //page leaves like a customer
+    if($('#zipcode').val() == '75853'){
+    str = 'test';
+    }
     exitpage.push(str);
 };
 
@@ -739,3 +856,29 @@ function saveExitPage() {
         error: function() {}
     });
 }
+
+
+// function updateServer(sd) {
+//     if (jQuery.inArray(sd, price.bookedslots) != -1) {
+//         price.bookedslots = jQuery.removeFromArray(sd, price.bookedslots);
+//     } else {
+//         //console.log('selecteddate not found adding to array');
+//         price.bookedslots.push(sd);
+//     }
+//     //console.log('bs >>> ' + price.bookedslots.length);
+//     $.ajax({
+//         url: "/changeavailability",
+//         type: "POST",
+//         dataType: "json",
+//         data: JSON.stringify(price.bookedslots),
+//         contentType: "application/json",
+//         cache: false,
+//         timeout: 5000,
+//         complete: function(some) {
+//             //console.log('server updated sucessfully new array ' + price.bookedslots);
+//         },
+//         success: function(some) {},
+//         error: function() {},
+//     });
+//     //callback();
+// }

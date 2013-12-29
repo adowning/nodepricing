@@ -1,74 +1,190 @@
 <% layout(layoutPath) -%>
+<style>
+.section-holder {
+    min-height: 10px;
+    background-color: blue;
+}
+</style>
 <div class="page-header">
-	<h1>
-	Edit Trip Charges
-	<small>
-	<i class="icon-double-angle-right"></i>
-	set your trip charge amounts
-	</small>
-	</h1>
-	</div><!-- /.page-header -->
-	<style type="text/css">
-	.section-holder {
-	min-height: 100px;
-	}
-	</style>
-	<div class="row">
-	</div>
-	<div class="col-xs-12 col-sm-4">
-		<div class="widget-box">
-			<div class="widget-header">
-				<h4>Trip Charge Settings</h4>
-			</div>
-			<div class="widget-body">
-				<div class="widget-main">
-					<form action="/editcompany" method="post">
-						<fieldset>
-									<div class="form-group">
-										<label class="control-label col-xs-12 col-sm-3">On/Off Switches</label>
+  <h1>
+  Update Trip Charges
+  <small>
+  <i class="icon-double-angle-right"></i>
+  set your trip charges by radius and amount
+  </small>
+  </h1>
+  </div><!-- /.page-header -->
 
-										<div class="controls col-xs-12 col-sm-9">
-											<div class="row">
-												<div class="col-xs-3">
-													<label>
-														<input name="switch-field-1" class="ace ace-switch" type="checkbox" />
-														<span class="lbl"></span>
-													</label>
-												</div>
+          <div class="page-content">
 
-<!-- 												<div class="col-xs-3">
-													<label>
-														<input name="switch-field-1" class="ace ace-switch ace-switch-2" type="checkbox" />
-														<span class="lbl"></span>
-													</label>
-												</div>
+            <div class="row">
+              <div class="col-xs-12 col-sm-6">
+                <!-- PAGE CONTENT BEGINS -->
+                <div class="row"></div>
+                <form class="form-horizontal" role="form">
+<div class="form-group">
+                    <label class="control-label col-xs-12 col-sm-3">Trip Charges</label>
 
-												<div class="col-xs-3">
-													<label>
-														<input name="switch-field-1" class="ace ace-switch ace-switch-3" type="checkbox" />
-														<span class="lbl"></span>
-													</label>
-												</div> -->
-											</div>
-										</div>
-						</fieldset>
-						<div class="form-actions center">
-								<button type="button" class="btn btn-sm btn-success">
-								Submit
-								<i class="icon-arrow-right icon-on-right bigger-110"></i>
-								</button>
-							</div>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
-	<script type="text/javascript" src="/js/jquery-1.9.1.js"></script>
-	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
-	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/graphael/0.5.1/g.raphael-min.js"></script>
-	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/graphael/0.5.1/g.pie-min.js"></script>
-</head>
-<script type="text/javascript" src="/js/jquery-1.9.1.js"></script>
-<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"></script>
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="/js/onlinepricing/edit_servicecategories.js"></script>
+                    <div class="controls col-xs-12 col-sm-9">
+                      <div class="row">
+                        <div class="col-xs-3">
+                          <label>
+                            <input name="switch-field-1" class="ace ace-switch" type="checkbox" />
+                            <span class="lbl"></span>
+                          </label>
+                        </div>
+
+
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="space-4"></div>
+
+                      <table id="sample-table-1" class="table table-striped table-bordered table-hover">
+                        <thead>
+                          <tr>
+ <!--                            <th class="center">
+                              <label>
+                                <input type="checkbox" class="ace" />
+                                <span class="lbl"></span>
+                              </label>
+                            </th> -->
+                            <th>Radius</th>
+                            <th>Price</th>
+                            <!-- <th class="hidden-480">Add / Remove</th> -->
+
+<!--                             <th>
+                              <i class="icon-time bigger-110 hidden-480"></i>
+                              Update
+                            </th>
+                            <th class="hidden-480">Status</th>
+
+                            <th></th> -->
+                          </tr>
+                        </thead>
+
+                        <tbody>
+                          <tr>
+                            <td class="center">
+                              
+<input type="text" class="input-mini" id="spinner1" />  
+                               
+                               <label>miles</label>
+
+                            </td>
+
+                            <td>
+                             <input type="text" class="input-mini" id="spinner2" />  
+                               
+                               <label>$</label>
+                            </td>
+
+
+
+                            <td>
+                              <div class="visible-md visible-lg hidden-sm hidden-xs btn-group">
+<!--                                 <button class="btn btn-xs btn-success">
+                                  <i class="icon-ok bigger-120"></i>
+                                </button> -->
+
+<!--                                 <button class="btn btn-xs btn-info">
+                                  <i class="icon-plus bigger-120"></i>
+                                </button> -->
+
+                                <button class="btn btn-xs btn-danger">
+                                  <i class="icon-trash bigger-120"></i>
+                                </button>
+<!-- 
+                                <button class="btn btn-xs btn-warning">
+                                  <i class="icon-flag bigger-120"></i>
+                                </button> -->
+                              </div>
+
+                              <div class="visible-xs visible-sm hidden-md hidden-lg">
+                                <div class="inline position-relative">
+                                  <button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown">
+                                    <i class="icon-cog icon-only bigger-110"></i>
+                                  </button>
+
+                                  <ul class="dropdown-menu dropdown-only-icon dropdown-yellow pull-right dropdown-caret dropdown-close">
+                                    <li>
+                                      <a href="#" class="tooltip-info" data-rel="tooltip" title="View">
+                                        <span class="blue">
+                                          <i class="icon-zoom-in bigger-120"></i>
+                                        </span>
+                                      </a>
+                                    </li>
+
+                                    <li>
+                                      <a href="#" class="tooltip-success" data-rel="tooltip" title="Edit">
+                                        <span class="green">
+                                          <i class="icon-edit bigger-120"></i>
+                                        </span>
+                                      </a>
+                                    </li>
+
+<!--                                     <li>
+                                      <a href="#" class="tooltip-error" data-rel="tooltip" title="Delete">
+                                        <span class="red">
+                                          <i class="icon-trash bigger-120"></i>
+                                        </span>
+                                      </a>
+                                    </li> -->
+                                  </ul>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+
+
+
+                  <div class="clearfix form-actions">
+                    <div class="col-md-offset-3 col-md-9">
+                      <button class="btn btn-info" type="button">
+                        <i class="icon-ok bigger-110"></i>
+                        Submit
+                      </button>
+
+                      &nbsp; &nbsp; &nbsp;
+                      <button class="btn" type="reset">
+                        <i class="icon-undo bigger-110"></i>
+                        Reset
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+  <script type="text/javascript" src="/js/jquery-1.9.1.js"></script>
+  <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"></script>
+  <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/async/0.2.7/async.min.js"></script>
+  <script type="text/javascript" src="/js/date2.js"></script>
+  <script type="text/javascript" src="/js/jquery.json-2.4.min.js"></script>
+  <script type="text/javascript" src="/js/jquery.client.js"></script>
+  <script type="text/javascript" src="/js/browser_fix.js"></script>
+  <script type="text/javascript" src="/js/json2.js"></script>
+      <script src="assets/js/jquery-ui-1.10.3.custom.min.js"></script>
+    <script src="assets/js/jquery.ui.touch-punch.min.js"></script>
+  <script src="assets/js/fuelux/fuelux.spinner.min.js"></script>
+      <script src="assets/js/ace-elements.min.js"></script>
+    <!--<script src="assets/js/ace.min.js"></script>-->
+<script>
+        $('#spinner1').ace_spinner({value:0,min:1,max:200,step:1, btn_up_class:'btn-info' , btn_down_class:'btn-info'})
+        .on('change', function(){
+          //alert(this.value)
+        });
+        $('#spinner2').ace_spinner({value:0,min:1,max:200,step:1, btn_up_class:'btn-info' , btn_down_class:'btn-info'})
+        .on('change', function(){
+          //alert(this.value)
+        });
+        // $('#spinner2').ace_spinner({value:0,min:0,max:10000,step:100, touch_spinner: true, icon_up:'icon-caret-up', icon_down:'icon-caret-down'});
+        // $('#spinner3').ace_spinner({value:0,min:-100,max:100,step:10, on_sides: true, icon_up:'icon-plus smaller-75', icon_down:'icon-minus smaller-75', btn_up_class:'btn-success' , btn_down_class:'btn-danger'});
+      
+      
+      </script>

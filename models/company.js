@@ -18,8 +18,7 @@ var CompanySchema = new Schema({
     radius : { type: String, default: 30, required: false, index: { unique: false } },    
     ownername : { type: String, required: true, index: { unique: true } },
     ordertotal : { type: String, required: true, default: 0, index: {unique: false}},
-    slogan : { type: String, default: "It's not just clean, it's Andrews Clean", required: false, index: { unique: false } }   
-
+    slogan : { type: String, default: "It's not just clean, it's Andrews Clean", required: false, index: { unique: false } }
 });
 
  CompanySchema.methods.generateBaseOnlinePrice = function(key, req, res, zip) {
