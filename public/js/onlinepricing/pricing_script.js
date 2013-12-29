@@ -489,8 +489,8 @@ function checkSlotsSM() {
                 console.log('today '+Date.today().toString("dd-MM-yyyy"))
                 console.log('week from now '+Date.today().addDays(7).toString("dd-MM-yyyy"))
 
-                var startdate = Date.today().toString("dd-MM-yyyy")
-                var enddate = Date.today().addDays(7).toString("dd-MM-yyyy")
+                var startdate = Date.today().toString("MM-dd-yyyy")
+                var enddate = Date.today().addDays(7).toString("MM-dd-yyyy")
                 $.support.cors = true;
                 $.ajax({
                     type: "GET",
@@ -515,6 +515,7 @@ function checkSlotsSM() {
                             var tdate = new Object();
                             tdate.startdate = Date.parse(tempstartstring);
                             tdate.enddate = Date.parse(tempendstring);
+                            console.log('pushing into books')
                             SMBooks.push(tdate);
 
                         };
@@ -526,20 +527,24 @@ function checkSlotsSM() {
                 });
             },
             two: function(callback) {
+                console.log('starting 2 with length '+SMBooks.length)
                 for (var x = 0; x < SMBooks.length; x++) {
+                    console.log('looping though books with open slot length '+openslots.length)
                     for (var i = 0; i < openslots.length; i++) {
-                        // console.log(timeslots[openslots[i].slot]+SMBooks[x].startdate.toString().substring(16, 24))
+                         console.log(timeslots[openslots[i].slot]+'---'+SMBooks[x].startdate.toString().substring(16, 24))
                         if (SMBooks[x].startdate.toString().substring(0, 15) ==
                             openslots[i].date.substring(0, 15)) {
-
+                            console.log('dates matched')
                             if (timeslots[openslots[i].slot] >=
                                 SMBooks[x].startdate.toString().substring(16, 24) &&
                                 timeslots[openslots[i].slot] <
                                 SMBooks[x].enddate.toString().substring(16, 24)) {
+                                console.log('times matched')
                                 var bdate = new Object();
 
                                 bdate.slot = openslots[i].slot;
                                 bdate.date = openslots[i].date.substring(0, 15);
+                                console.log('pushing in bdates')
                                 busyDates.push(bdate);
                             }
                         }
@@ -548,8 +553,10 @@ function checkSlotsSM() {
 
                 $(".open").each(function() {
                     openslot = $(this).attr('name');
+                    console.log('looping through opens')
                     for (var i = 0; i < busyDates.length; i++) {
                         if (openslot.substring(5, 6) == busyDates[i].slot && openslot.substring(11, 26) == busyDates[i].date /*!!!check date here*/ ) {
+                            console.log('closing slot')
                             $(this).children('img').prop('src', "/img/Closed.gif");
                             $(this).prop('class', 'closed');
                         }
@@ -567,7 +574,7 @@ function checkSlotsSM() {
 }
 
 function addOpenToSMChecklist(slotstring) {
-
+    console.log('called addopentosmcheck')
     var slotanddate = new Object();
     slotanddate.slot = slotstring.substring(5, 6);
     slotanddate.date = slotstring.substring(11, 50);
