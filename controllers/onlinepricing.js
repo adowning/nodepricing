@@ -749,6 +749,7 @@ exports.createorder = function(req, res, next) {
         if (err) return next(err);
         //if(!comp) return next(err);
         if (!company) {
+            console.log('no company found')
             return res.redirect('/badorder');
         } else {
             tcomp = company;
@@ -769,7 +770,7 @@ exports.createorder = function(req, res, next) {
 
             });
 
-
+            console.log(req.body)
 
             var newOrder = new Order(req.body);
             //var ordernumber = newOrder.findOrderCountForCompany(req.params.id);
@@ -797,9 +798,12 @@ exports.createorder = function(req, res, next) {
                 if (err) return next(err);
                 req.flash('success', "Order created successfully!");
                 var result = JSON.parse(order.services);
+                //var result = (order.services.toString());
+                console.log(result)
                 ////console.log(result.plugin);
                 order.services = result;
                 var result2 = JSON.parse(order.services_totals);
+                //var result2 = order.services_totals;
                 order.services_totals = result2;
                 order.showNumber = newOrder.ordernumber;
                 console.log(moment(order.scheduledate).format("YYYY-MM-DD"));
@@ -808,6 +812,7 @@ exports.createorder = function(req, res, next) {
                 } catch (err) {
                     order.formateddate = "error in prod";
                 }
+                //TODO turn me back on!!!!
                 mailOrder(res, order, tcomp, next);
                 return res.render('onlinepricing/thanks', {
                     order: order,
@@ -1053,6 +1058,6 @@ function saveCompany(company) {
     });
 }
 
-function getSMBookedSlots(company){
-        
+function getSMBookedSlots(company) {
+
 }

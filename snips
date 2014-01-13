@@ -1,0 +1,54 @@
+<div class="container" id="confirmation" style="display: none;">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <img src="/img/acc.gif" class="img-responsive" />
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+    <div class="row" id="spacerrow">
+        <div class="col-md-2" class="col-xs-1"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <div class="row">
+                <!--        <div class="col-md-1"></div>
+            -->
+            <div class="col-md-12">
+
+                <div id="contacts">
+                    <div class="row">
+                        <!-- Alignment -->
+                        <div class="col-sm-offset-3 col-sm-6">
+<div class="panel panel-danger">
+  <!-- Default panel contents -->
+  <div class="panel-heading">Panel heading</div>
+  <div class="panel-body">
+     <!-- Table -->
+  <table class="table">
+    ...
+  </table>
+
+                                  <button type="submit" class="btn btn-primary pull-right" onclick="">Schedule</button>
+                                <button type="button" value="Cancel" class="btn btn-default pull-right" aria-hidden="true" 
+         onclick="$('#contactform').hide(); setExitPage('schedule'); $('#scheduleform').show(); return false;">
+                                    <i class="icon-arrow-left "></i>
+                                    Back
+                                </button>
+
+                                
+  </div>
+
+
+</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-2"></div>
+        </div>
+    </div>
+</div>
+</div>

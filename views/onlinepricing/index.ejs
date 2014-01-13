@@ -1,502 +1,483 @@
 <head>
-<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
-<!-- <link href='/css/bootstrap.min.css' rel='stylesheet'>
-
-<link href='/css/bootstrap-responsive.min.css' rel='stylesheet'>
--->
-<!-- Latest compiled and minified CSS -->
-<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"
-    rel="stylesheet" />
-<link href="/css/pricing.css" rel="stylesheet" />
-<title></title>
-</head>
-<body>
-<div id="background">
-    <!-- <div class="container" id="zipcodearea">
-
-    <div class="row">
-
-        <div class="col-xs-12 col-md-2">.col-xs-12 col-md-8</div>
-
-        <div class="col-xs-6 col-md-8">
-            <img src="/img/acc.gif"></div>
-
-    </div>
-
-    <div class="row">
-
-        <div class="col-xs-12 col-md-2">.col-xs-12 col-md-8</div>
-
-        <div class="col-xs-6 col-md-8">
-
-            <div class="well" id="zipcodewell">
-
-                <h4 id="zipModalLabel">Enter Your Zipcode</h4>
-
-                <form onsubmit="return false;">
-
-                    <fieldset>
-
-                        <input id="zipcodetext" name="zipcodetext" value="75701"
-
-                                    placeholder="" required="" type="text"></fieldset>
-
-                </form>
-
-            </div>
-
-            <div class="alert" name="nozip" id="nozip">
-                Sorry but we do not service this area. If you feel
-
-                            this is an error please call 903 566-3081
-            </div>
-
-            <div class="pull-right">
-
-                <button class="btn btn-primary" onclick=
-
-                            "zipCheck($('#zipcodetext').val());">
-                    Next <em class=
-
-                            "icon-arrow-right icon-white"></em>
-                </button>
-
-            </div>
-        </div>
-
-    </div>
-    -->
-    <div class="container" id="zipcodearea">
-        <div class="row">
-            <div class="col-md-12" class="col-xs-6">
-                <div class="row">
-                    <div class="col-md-2" class="col-xs-1"></div>
-                    <div class="col-md-8">
-                        <img src="/img/acc.gif" class="img-responsive" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+    <!-- <link href='/css/bootstrap.min.css' rel='stylesheet'>
+        <link href='/css/bootstrap-responsive.min.css' rel='stylesheet'>
+            -->
+            <!-- Latest compiled and minified CSS -->
+            <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"
+                rel="stylesheet" />
+                <link href="/css/pricing.css" rel="stylesheet" />
+                <title></title>
+                <script type="text/javascript" src="/js/require.js" ></script>
+                <script type="text/javascript">
+                (function() {
+                var currentWindowOnload = window.onload;
+                window.onload = function() {
+                console.log('asdf')
+                if (currentWindowOnload) {
+                currentWindowOnload();
+                }
+                loadClasses();
+                };
+                function loadClasses()
+                {
+                requirejs.config({
+                // appDir: ".",
+                baseUrl: "js",
+                paths: {
+                /* Load jquery from google cdn. On fail, load local file. */
+                jquery: ['//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min', 'libs/jquery-min'],
+                /* Load bootstrap from cdn. On fail, load local file. */
+                bootstrap: ['//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min', 'libs/bootstrap-min'],
+                underscore: ['//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min'],
+                async: ['http://cdnjs.cloudflare.com/ajax/libs/async/0.2.7/async.min'],
+                date2: ['/js/date2'],
+                browser_fix: ['/js/browser_fix'],
+                json2: ['/js/json2'],
+                browser_fix: ['/js/browser_fix'],
+                pricing_data: ['/js/onlinepricing/pricing_data'],
+                pricing_location: ['/js/onlinepricing/pricing_location'],
+                pricing_script: ['/js/onlinepricing/pricing_script'],
+                build_pricing: ['/js/onlinepricing/build_pricing'],
+                build_schedule: ['/js/onlinepricing/build_schedule'],
+                servicemonster: ['/js/onlinepricing/servicemonster']
+                },
+                shim: {
+                /* Set bootstrap dependencies (just jQuery) */
+                bootstrap : {
+                deps: ['jquery']
+                },
+                // build_pricing: {
+                //     deps: ['pricing_data']
+                // },
+                json2 : {
+                exports: 'JSON'
+                },
+                pricing_script : {
+                deps: ['bootstrap',  'jquery', 'underscore']
+                },
+                build_schedule : {
+                deps: ['servicemonster']
+                },
+                servicemonster : {
+                deps: ['async']
+                },
+                pricing_location : {
+                deps: ['pricing_script']
+                },
+                underscore: {
+                exports: '_'
+                },
+                async: {
+                exports: 'async'
+                },
+                date2: {
+                exports: 'Date'
+                }
+                }
+                });
+                require(["pricing_data","require"],function(pd,req){
+                req([ "browser_fix", "servicemonster", "build_pricing", 'build_schedule', 'pricing_script', "pricing_location"],function(bp, ps){
+                //do anything with ModuleB
+                // pd.getOP();
+                });
+                });
+                // require(['pricing_data', 'build_pricing'], function (pd, bp {   // or, you could use these deps in a separate module using define
+                // console.log('initing')
+                //   pd.initialize();
+                //   bp.initialize(pd);
+                // });
+                }
+                })();
+                </script>
+            </head>
+            <body>
+                <div id="background">
+                        <div class="container" id="zipcodearea">
+                            <div class="row">
+                                <div class="col-md-12" class="col-xs-6">
+                                    <div class="row">
+                                        <div class="col-md-2" class="col-xs-1"></div>
+                                        <div class="col-md-8">
+                                            <img src="/img/acc.gif" class="img-responsive" />
+                                        </div>
+                                        <div class="col-md-2"></div>
+                                    </div>
+                                    <div class="row" id="spacerrow">
+                                        <div class="col-md-2" class="col-xs-1"></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12" class="col-xs-6"></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4" class="col-xs-1"></div>
+                                        <div class="col-md-4">
+                                            <div class="well" id="zipcodewell">
+                                                <h4 id="zipModalLabel">Enter Your Zipcode</h4>
+                                                <form onsubmit="return false;">
+                                                    <fieldset>
+                                                        <input id="zipcodetext" name="zipcodetext" value="" placeholder="" required=""
+                                                        type="text"/>
+                                                    </fieldset>
+                                                </form>
+                                            </div>
+                                            <div class="alert" name="nozip" id="nozip">
+                                                Sorry but we do not service this area. If you feel this is an error please
+                                                call 903 566-3081
+                                            </div>
+                                            <div class="pull-right">
+                                                <button class="btn btn-primary" id="zipnextbutton" onclick="" disabled>
+                                                <!--         <button class="btn btn-primary" id="zipnextbutton" onclick="zipCheck($('#zipcodetext').val()); //buildItems();" disabled> -->
+                                                Next <em class="icon-arrow-right icon-white"></em>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4" class="col-xs-1"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container" id="pricecalculator" style="display: none;">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-2"></div>
+                                        <div class="col-md-8">
+                                            <img src="/img/acc.gif" class="img-responsive" />
+                                        </div>
+                                        <div class="col-md-2"></div>
+                                    </div>
+                                    <div class="row" id="spacerrow">
+                                        <div class="col-md-2" class="col-xs-1"></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-2"></div>
+                                        <div class="col-md-8">
+                                            <div class="row" id="pricearea">
+                                                <div class="col-md-3">
+                                                    <div class="panel-group" id="accordion" name="accordion">
+                                                        <div class="panel panel-default">
+                                                            <div class="panel-heading">
+                                                                <h4 class="panel-title">
+                                                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Carpet</a>
+                                                                </h4>
+                                                            </div>
+                                                            <div id="collapseOne" class="panel-collapse collapse">
+                                                                <div class="panel-body">
+                                                                <ul class="nav " id="carpet-nav-list"></ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="panel panel-default">
+                                                        <div class="panel-heading">
+                                                            <h4 class="panel-title">
+                                                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">Tile</a>
+                                                            </h4>
+                                                        </div>
+                                                        <div id="collapseTwo" class="panel-collapse collapse">
+                                                            <div class="panel-body">
+                                                            <ul class="nav " id="tile-nav-list"></ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="panel panel-default">
+                                                    <div class="panel-heading">
+                                                        <h4 class="panel-title">
+                                                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">Oriental Rugs</a>
+                                                        </h4>
+                                                    </div>
+                                                    <div id="collapseThree" class="panel-collapse collapse">
+                                                        <div class="panel-body">
+                                                        <ul class="nav " id="upruglist"></ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <h4 class="panel-title">
+                                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseFour">Upholstery</a>
+                                                    </h4>
+                                                </div>
+                                                <div id="collapseFour" class="panel-collapse collapse">
+                                                    <div class="panel-body">
+                                                    <ul class="nav " id="upnavlist"></ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                </div>
+                <div class="col-md-9">
+                    <div class="tableContainer" id="tableContainer">
+                        <table class="table table-condensed" id="carpetrooms">
+                            <thead>
+                            <tr></tr>
+                        </thead>
+                        <tbody class="scrollContent" id="carpetroomstable">
+                            <tr>
+                                <td style="border-top: 0px;">
+                                    <div class="alert" id="noservice">Please select a service from the Menu on the Left</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row" id="min_totals_row">
+                    <div class="col-md-6"></div>
+                    <div class="col-md-3" id="minchargediv">
+                        <span class="mincharge-span"></span>
                     </div>
-
-                    <div class="col-md-2"></div>
+                    <div class="col-md-3" id="pricebox">
+                        <table id="totalstable" class="table table-condensed">
+                            <tbody>
+                                <tr>
+                                    <td>Sub Total</td>
+                                    <td id="dollar">
+                                        <span class="totalspan">0</span>
+                                    </td>
+                                </tr>
+                                <tr id="discountrow">
+                                    <td id="disclabel label-default">Discount</td>
+                                    <td id="discountamount"></td>
+                                </tr>
+                                <tr>
+                                    <td>Tax</td>
+                                    <td id="dollar">
+                                        <span class="taxspan">0</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Total</td>
+                                    <td id="dollar">
+                                        <span class="totspan">0</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-                <div class="row" id="spacerrow">
-                    <div class="col-md-2" class="col-xs-1"></div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12" class="col-xs-6"></div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4" class="col-xs-1"></div>
+                <div class="row" id="testrow">
+                    <div class="col-md-8"></div>
                     <div class="col-md-4">
-                        <div class="well" id="zipcodewell">
-                            <h4 id="zipModalLabel">Enter Your Zipcode</h4>
-                            <form onsubmit="return false;">
-                                <fieldset>
-                                    <input id="zipcodetext" name="zipcodetext" value="" placeholder="" required=""
-                                        type="text"/>
-                                </fieldset>
-                            </form>
-                        </div>
-                        <div class="alert" name="nozip" id="nozip">
-                            Sorry but we do not service this area. If you feel this is an error please
-                                call 903 566-3081
-                        </div>
                         <div class="pull-right">
-                            <button class="btn btn-primary" id="zipnextbutton" onclick="zipCheck($('#zipcodetext').val()); //buildItems();" disabled>
-                                Next <em class="icon-arrow-right icon-white"></em>
+                            <button id="priceBack" class="btn btn-default" data-dismiss="modal" onclick="">
+                            <em class="icon-arrow-left"></em>
+                            Back
+                            </button>
+                            <button class="btn btn-primary"
+                            id="priceNext" name="priceNext" onclick="">
+                            Next
+                            <em class="icon-arrow-right icon-white"></em>
                             </button>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4" class="col-xs-1"></div>
             </div>
         </div>
     </div>
-
-    <div class="container" id="pricecalculator" style="display: none;">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="row">
-                    <div class="col-md-2"></div>
-                    <div class="col-md-8">
-                        <img src="/img/acc.gif" class="img-responsive" />
-                    </div>
-                    <div class="col-md-2"></div>
-                </div>
-                <div class="row" id="spacerrow">
-                    <div class="col-md-2" class="col-xs-1"></div>
-                </div>
-                <div class="row">
-                    <div class="col-md-2"></div>
-                    <div class="col-md-8">
-                        <div class="row" id="pricearea">
-                            <div class="col-md-3">
-                                <div class="panel-group" id="accordion" name="accordion">
-                                    <div class="panel panel-default">
-                                        <div class="panel-heading">
-                                            <h4 class="panel-title">
-                                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Carpet</a>
-                                            </h4>
-                                        </div>
-                                        <div id="collapseOne" class="panel-collapse collapse">
-                                            <div class="panel-body">
-                                                <ul class="nav " id="carpet-nav-list"></ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="panel panel-default">
-                                        <div class="panel-heading">
-                                            <h4 class="panel-title">
-                                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">Tile</a>
-                                            </h4>
-                                        </div>
-                                        <div id="collapseTwo" class="panel-collapse collapse">
-                                            <div class="panel-body">
-                                                <ul class="nav " id="tile-nav-list"></ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="panel panel-default">
-                                        <div class="panel-heading">
-                                            <h4 class="panel-title">
-                                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">Oriental Rugs</a>
-                                            </h4>
-                                        </div>
-                                        <div id="collapseThree" class="panel-collapse collapse">
-                                            <div class="panel-body">
-                                                <ul class="nav " id="upruglist"></ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="panel panel-default">
-                                        <div class="panel-heading">
-                                            <h4 class="panel-title">
-                                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseFour">Upholstery</a>
-                                            </h4>
-                                        </div>
-                                        <div id="collapseFour" class="panel-collapse collapse">
-                                            <div class="panel-body">
-                                                <ul class="nav " id="upnavlist"></ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--                                     <div class="accordion" id="accordion2">
-                                <div class="accordion-group">
-                                    <div class="accordion-heading">
-                                        <a class="accordion-toggle" data-parent="#accordion2" data-toggle="collapse"
-                                                href="#collapseOne">Carpet</a>
-                                    </div>
-                                    <div class="accordion-body collapse" id="collapseOne" style="height: 0px;">
-                                        <div class="accordion-inner">
-
-                                            <ul class="nav " id="carpet-"></ul>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="accordion-group">
-                                    <div class="accordion-heading">
-                                        <a class="accordion-toggle" data-parent="#accordion2" data-toggle="collapse"
-                                                href="#collapseTwo">Tile</a>
-                                    </div>
-                                    <div class="accordion-body collapse" id="collapseTwo">
-                                        <div class="accordion-inner">
-                                            <ul class="nav " id="tile-"></ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="accordion-group">
-                                    <div class="accordion-heading">
-                                        <a class="accordion-toggle" data-parent="#accordion2" data-toggle="collapse"
-                                                href="#collapseThree">Oriental Rugs</a>
-                                    </div>
-                                    <div class="accordion-body collapse" id="collapseThree">
-                                        <div class="accordion-inner">
-                                            <ul class="nav " id="upruglist"></ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="accordion-group">
-                                    <div class="accordion-heading">
-                                        <a class="accordion-toggle" data-parent="#accordion2" data-toggle="collapse"
-                                                href="#collapseFour">Upholstery</a>
-                                    </div>
-                                    <div class="accordion-body collapse" id="collapseFour">
-                                        <div class="accordion-inner">
-                                            <ul class="nav " id="upnavlist"></ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            -->
-                        </div>
-                        <div class="col-md-9">
-                            <div class="tableContainer" id="tableContainer">
-                                <table class="table table-condensed" id="carpetrooms">
-                                    <thead>
-                                        <tr></tr>
-                                    </thead>
-                                    <tbody class="scrollContent" id="carpetroomstable">
-                                        <tr>
-                                            <td style="border-top: 0px;">
-                                                <div class="alert" id="noservice">Please select a service from the Menu on the Left</div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="row" id="min_totals_row">
-                                <div class="col-md-6"></div>
-                                <div class="col-md-3" id="minchargediv">
-                                    <span class="mincharge-span"></span>
-                                </div>
-                                <div class="col-md-3" id="pricebox">
-                                    <table id="totalstable" class="table table-condensed">
-                                        <tbody>
-                                            <tr>
-                                                <td>Sub Total</td>
-                                                <td id="dollar">
-                                                    <span class="totalspan">0</span>
-                                                </td>
-                                            </tr>
-                                            <tr id="discountrow">
-                                                <td id="disclabel label-default">Discount</td>
-                                                <td id="discountamount"></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Tax</td>
-                                                <td id="dollar">
-                                                    <span class="taxspan">0</span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Total</td>
-                                                <td id="dollar">
-                                                    <span class="totspan">0</span>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            <div class="row" id="testrow">
-                                <div class="col-md-8"></div>
-                                <div class="col-md-4">
-                                    <div class="pull-right">
-                                        <button class="btn btn-default" data-dismiss="modal" onclick="$('#nozip').hide(); $('#pricecalculator').hide(); $('#zipcodearea').show(); setExitPage('zipcode'); return false;">
-                                            <em class="icon-arrow-left"></em>
-                                            Back
-                                        </button>
-                                        <button class="btn btn-primary"
-                                                id="priceNext" name="priceNext" onclick="$('#pricecalculator').hide(); $('#scheduleform').show(); setServices(); setExitPage('schedule'); return false;">
-                                            Next
-                                            <em class="icon-arrow-right icon-white"></em>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+</div>
+</div>
+</div>
 </div>
 <div class="container" id="scheduleform" style="display: none;">
-    <div class="row">
-        <div class="col-md-2"></div>
-        <div class="col-md-8">
-            <img src="/img/acc.gif" class="img-responsive" />
+<div class="row">
+<div class="col-md-2"></div>
+<div class="col-md-8">
+<img src="/img/acc.gif" class="img-responsive" />
+</div>
+<div class="col-md-2"></div>
+</div>
+<div class="row" id="spacerrow">
+<div class="col-md-2" class="col-xs-1"></div>
+</div>
+<div class="row">
+<div class="col-md-2"></div>
+<div class="col-md-8">
+<div class="row">
+    <div class="col-md-12">
+        <div id="schedule-div">
+            <div name="newtimetest" id="newtimetest">
+                <table name="prestable" id="prestable" class="table table-condensed">
+                    <thead>
+                        <tr>
+                            <th class="lastweekhead"> <i class="glyphicon glyphicon-arrow-left"></i>
+                                <a class="lastweek" href="#">last week</a>
+                            </th>
+                            <th name="prestable-date" id="prestable-date">asdf</th>
+                            <th class="nextweekhead">
+                                <a class="nextweek" href="#">next week</a> <i class="glyphicon glyphicon-arrow-right"></i>
+                            </th>
+                        </tr>
+                    </thead>
+                </table>
+                <table name="stable" id="stable" class="table">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th class="mondayhead">Mon</th>
+                            <th class="tuesdayhead">Tues</th>
+                            <th class="wendhead">Wed</th>
+                            <th class="thurshead">Thurs</th>
+                            <th class="frihead">Fri</th>
+                            <th class="sathead">Sat</th>
+                        </tr>
+                    </thead>
+                <tbody></tbody>
+            </table>
         </div>
-        <div class="col-md-2"></div>
     </div>
-    <div class="row" id="spacerrow">
-        <div class="col-md-2" class="col-xs-1"></div>
+</div>
+</div>
+<div class="row">
+<div class="col-md-12">
+    <div class="pull-right">
+        <button id="scheduleBack" class="btn btn-default" onclick="">
+        <em class="icon-arrow-left"></em>
+        Back
+        </button>
+        <button class="btn btn-primary"
+        id="scheduleNext" name="scheduleNext" onclick="">
+        Next
+        <em class="icon-arrow-right icon-white"></em>
+        </button>
     </div>
-    <div class="row">
-        <div class="col-md-2"></div>
-        <div class="col-md-8">
-            <div class="row">
-                <div class="col-md-12">
-                    <div id="schedule-div">
-                        <div name="newtimetest" id="newtimetest">
-                            <table name="prestable" id="prestable" class="table table-condensed">
-                                <thead>
-                                    <tr>
-                                        <th class="lastweekhead"> <i class="glyphicon glyphicon-arrow-left"></i>
-                                            <a class="lastweek" href="#">last week</a>
-                                        </th>
-                                        <th name="prestable-date" id="prestable-date">asdf</th>
-                                        <th class="nextweekhead">
-                                            <a class="nextweek" href="#">next week</a> <i class="glyphicon glyphicon-arrow-right"></i>
-                                        </th>
-                                    </tr>
-                                </thead>
-                            </table>
-                            <table name="stable" id="stable" class="table">
-                                <thead>
-                                    <tr>
-                                        <th></th>
-                                        <th class="mondayhead">Mon</th>
-                                        <th class="tuesdayhead">Tues</th>
-                                        <th class="wendhead">Wend</th>
-                                        <th class="thurshead">Thurs</th>
-                                        <th class="frihead">Fri</th>
-                                        <th class="sathead">Sat</th>
-                                    </tr>
-                                </thead>
-                                <tbody></tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="pull-right">
-                        <button class="btn btn-default" onclick="$('#nozip').hide(); $('#scheduleform').hide(); $('#pricecalculator').show(); setExitPage('pricing'); return false;">
-                            <em class="icon-arrow-left"></em>
-                            Back
-                        </button>
-                        <button class="btn btn-primary"
-                                id="scheduleNext" name="scheduleNext" onclick="$('#scheduleform').hide(); $('#contactform').show(); setExitPage('contactform');
-
-                                         return false;">
-                            Next
-                            <em class="icon-arrow-right icon-white"></em>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="alert alert-info" id="early_call">
-                        <h4>
-                            If you need service earlier call 903-566-3081 for availablity
-                        </h4>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-2"></div>
+</div>
+</div>
+<div class="row">
+<div class="col-md-12">
+    <div class="alert alert-info" id="early_call">
+        <h4>
+        If you need service earlier call 903-566-3081 for availablity
+        </h4>
     </div>
+</div>
+</div>
+</div>
+<div class="col-md-2"></div>
+</div>
 </div>
 <div class="container" id="contactform" style="display: none;">
-    <div class="row">
-        <div class="col-md-2"></div>
-        <div class="col-md-8">
-            <img src="/img/acc.gif" class="img-responsive" />
-        </div>
-        <div class="col-md-2"></div>
-    </div>
-    <div class="row" id="spacerrow">
-        <div class="col-md-2" class="col-xs-1"></div>
-    </div>
-    <div class="row">
-        <div class="col-md-2"></div>
-        <div class="col-md-8">
-            <div class="row">
-                <!--        <div class="col-md-1"></div>
-            -->
-            <div class="col-md-12">
+<div class="row">
+<div class="col-md-2"></div>
+<div class="col-md-8">
+<img src="/img/acc.gif" class="img-responsive" />
+</div>
+<div class="col-md-2"></div>
+</div>
+<div class="row" id="spacerrow">
+<div class="col-md-2" class="col-xs-1"></div>
+</div>
+<div class="row">
+<div class="col-md-2"></div>
+<div class="col-md-8">
+<div class="row">
+<!--        <div class="col-md-1"></div>
+-->
+<div class="col-md-12">
+    <div id="contacts">
+        <div class="row">
+            <!-- Alignment -->
+            <div class="col-sm-offset-3 col-sm-6">
+                <!-- Form itself -->
+                <!--  <form name="sentMessage" class="well" id="contactForm"  novalidate>
+                    -->
+                    <form action="/createonlineprice/<%= pricing.key %>
+                        " class="well" method="post">
+                        <legend>Enter Contact Information</legend>
+                        <div class="control-group">
+                            <div class="controls">
+                                <input type="text" class="form-control"
+                                placeholder="Full Name" id="name" name="name" required
+                                data-validation-required-message="Please enter your name" />
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <div class="controls">
+                                <input type="email" class="form-control" placeholder="Email"
+                                id="email" name="email" required
+                                data-validation-required-message="Please enter your email" />
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <div class="controls">
+                                <input type="telephone" pattern="^\D?(\d{3})\D?\D?(\d{3})\D?(\d{4})$"  class="form-control" placeholder="Phone Number"
+                                id="telephone" name="telephone" required
+                                data-validation-required-message="Please enter your phone number" />
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <div class="controls">
+                                <input type="address" class="form-control" placeholder="Street Address"
+                                id="address" name="address" required
+                                data-validation-required-message="Please enter your street address" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-5">
+                                <input id="cityph" type="text" readonly="readonly" class="form-control" placeholder="">
+                            </div>
+                            <div class="col-lg-5">
+                                <input id="stateph" type="text" readonly="readonly" class="form-control" placeholder="">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <div class="controls">
+                                <textarea rows="10" cols="100" class="form-control"
+                                placeholder="Special instructions for your technician" id="instructions" name="instructions"
+                                data-validation-required-message="Please enter your message" minlength="5"
+                                data-validation-minlength-message="Min 5 characters"
+                                maxlength="999" style="resize:none"></textarea>
+                            </div>
+                        </div>
+                        <input type="hidden" id="city" name="city"  required/>
+                        <input type="hidden" id="state" name="state"  required/>
+                        <input type="hidden" id="scheduledate" value='laskdjf' name="scheduledate" required/>
+                        <input type="hidden" id="scheduletime" value='asdf' name="scheduletime"  required/>
+                        <input type="hidden" id="dt" value='' name="dt"  required/>
+                        <input type="hidden" id="zipcode" name="zipcode"  required/>
+                        <input type="hidden" id="services" name="services"  required/>
+                        <input type="hidden" id="services_totals" name="services_totals"  required/>
+                        <div id="success"></div>
+                        <!-- For success/fail messages -->
+                        <button id="contactSubmit"  class="btn btn-primary pull-right" onclick="">Continue</button>
+                        <button id="contactBack" type="button" value="Cancel" class="btn btn-default pull-right" aria-hidden="true"
+                        onclick="">
+                        <i class="icon-arrow-left "></i>
+                        Back
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-offset-3 col-sm-6">
+                <div id="confirmation" class="panel panel-danger" style="display: none;">
+                    <!-- Default panel contents -->
+                    <div class="panel-heading">Please Confirm Your Order</div>
+                    <div class="panel-body">
+                        By pressing <i>schedule</i> you will create a work order with our company.
 
-                <div id="contacts">
-                    <div class="row">
-                        <!-- Alignment -->
-                        <div class="col-sm-offset-3 col-sm-6">
-                            <!-- Form itself -->
-                            <!--  <form name="sentMessage" class="well" id="contactForm"  novalidate>
-                            -->
-                            <form action="/createonlineprice/<%= pricing.key %>
-                                " class="well" method="post">
-                                <legend>Enter Contact Information</legend>
-                                <div class="control-group">
-                                    <div class="controls">
-                                        <input type="text" class="form-control" 
-                   placeholder="Full Name" id="name" name="name" required
-                       data-validation-required-message="Please enter your name" />
-                                        <p class="help-block"></p>
-                                    </div>
-                                </div>
-                                <div class="control-group">
-                                    <div class="controls">
-                                        <input type="email" class="form-control" placeholder="Email" 
-                            id="email" name="email" required
-                       data-validation-required-message="Please enter your email" />
-                                    </div>
-                                </div>
-                                <div class="control-group">
-                                    <div class="controls">
-                                        <input type="telephone" pattern="^\D?(\d{3})\D?\D?(\d{3})\D?(\d{4})$"  class="form-control" placeholder="Phone Number" 
-                            id="telephone" name="telephone" required
-                       data-validation-required-message="Please enter your phone number" />
-                                    </div>
-                                </div>
-                                <div class="control-group">
-                                    <div class="controls">
-                                        <input type="address" class="form-control" placeholder="Address" 
-                            id="address" name="address" required
-                       data-validation-required-message="Please enter your address" />
-                                    </div>
-                                </div>
-                                <div class="control-group">
-                                    <div class="controls">
-                                        <textarea rows="10" cols="100" class="form-control" 
-                       placeholder="Special instructions for your technician" id="instructions" name="instructions"
-               data-validation-required-message="Please enter your message" minlength="5" 
-                       data-validation-minlength-message="Min 5 characters" 
-                        maxlength="999" style="resize:none"></textarea>
-                                    </div>
-                                </div>
-
-                                <input type="hidden" id="city" name="city"  required/>
-                                <input type="hidden" id="state" name="state"  required/>
-                                <input type="hidden" id="scheduledate" value='laskdjf' name="scheduledate" required/>
-                                <input type="hidden" id="scheduletime" value='asdf' name="scheduletime"  required/>
-                                <input type="hidden" id="dt" value='' name="dt"  required/>
-                                <input type="hidden" id="zipcode" name="zipcode"  required/>
-                                <input type="hidden" id="services" name="services"  required/>
-                                <input type="hidden" id="services_totals" name="services_totals"  required/>
-                                <div id="success"></div>
-                                <!-- For success/fail messages -->
-                                <button type="submit" class="btn btn-primary pull-right" onclick="setExitPage('completed');">Schedule</button>
-                                <button type="button" value="Cancel" class="btn btn-default pull-right" aria-hidden="true" 
-         onclick="$('#contactform').hide(); setExitPage('schedule'); $('#scheduleform').show(); return false;">
-                                    <i class="icon-arrow-left "></i>
-                                    Back
-                                </button>
-
-                            </form>
+                        This will schedule your appointment for <span id="scheduletimespan"></span> on 
+                        <span id="scheduledatespan"></span>.
+                    </div>
+                       <!--  <table class="table">
+                            ...
+                        </table> -->
+                        <div class="panel-footer">
+                        <button type="submit" class="btn btn-primary pull-right" onclick="">Schedule</button>
+                        <button id="confirmationCancel" type="button" value="Cancel" class="btn btn-default pull-right" aria-hidden="true"
+                        onclick="">
+                        <i class="icon-arrow-left "></i>
+                        Cancel
+                        </button>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <div class="col-md-2"></div>
-        </div>
+        </form>
     </div>
+    <div class="col-md-2"></div>
 </div>
 </div>
-
-<div class="order-confirmation-box">
-<!-- <p>Content here. <a class="order-confirmation" href=#>Alert!</a></p> -->
-</div>
-
 </div>
 </div>
-</body>
-<!-- <script type="text/javascript" src="/js/bootstrap.min.js"></script>
--->
-<script type="text/javascript" src="/js/jquery-1.9.1.js"></script>
-
-<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"></script>
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-
-<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/async/0.2.7/async.min.js"></script>
-
-<script src="/js/bootbox.min.js"></script>
-<script type="text/javascript" src="/js/date2.js"></script>
-<script type="text/javascript" src="/js/jquery.json-2.4.min.js"></script>
-<script type="text/javascript" src="/js/jquery.client.js"></script>
-<script type="text/javascript" src="/js/browser_fix.js"></script>
-<script type="text/javascript" src="/js/json2.js"></script>
-<script type="text/javascript" src="/js/onlinepricing/pricing_data.js"></script>
+</div>
+</div>
+</body>                       
