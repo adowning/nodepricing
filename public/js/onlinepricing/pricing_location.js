@@ -8,6 +8,8 @@ define(['pricing_data', 'pricing_script', 'build_pricing'], function(prd, ps, bp
         if (zip == "test") {
             zip = '75701';
             ziparray = getTestZipcodes(zip);
+            console.log('pd ck ' + pd.companykey)
+            prd.setTest('true');
         } else {
             ziparray = pd.validzipcodelist;
         }
@@ -43,7 +45,7 @@ define(['pricing_data', 'pricing_script', 'build_pricing'], function(prd, ps, bp
             getCityState(zip);
             $('#zipcodearea').hide();
             $('#pricecalculator').show();
-            pd.setExitPage('pricing');
+            ps.setExitPage('pricing');
         } else {
             $('#nozip').show();
 

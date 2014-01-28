@@ -65,9 +65,11 @@ define(['pricing_data', 'async', 'json2', 'build_pricing', 'build_schedule'], fu
 
     pd.setExitPage('zipcode');
 
-    window.onbeforeunload = function() {
-        saveExitPage();
-    };
+    if ($('#zipcodetext').val() != "test") {
+        window.onbeforeunload = function() {
+            saveExitPage();
+        };
+    }
 
     $('#timeholder').prop('disabled', 'disabled');
     $(".settime").click(function(e) {
@@ -295,7 +297,9 @@ define(['pricing_data', 'async', 'json2', 'build_pricing', 'build_schedule'], fu
 
         $('#services').val(encodedobj);
         $('#services_totals').val(encodedtots);
-
+        //this testbool should probably be somewhere else
+        console.log('setting testbool to ' + pd.test)
+        $('#testbool').val(pd.test);
         pd.setExitPage('schedule');
 
     }
@@ -304,7 +308,7 @@ define(['pricing_data', 'async', 'json2', 'build_pricing', 'build_schedule'], fu
 
     function saveExitPage() {
         if (pd.zipcode)
-            if (pd.companyrep != "none") {
+            if (pd.companyrep != "none" || pd.test == "true") {
                 //not saving its just a company rep getting price not a real customer
                 return false;
             }
@@ -354,6 +358,10 @@ define(['pricing_data', 'async', 'json2', 'build_pricing', 'build_schedule'], fu
     // }
 
     return {
+
+        setExitPage: function(ep) {
+            pd.exitpage = ep;
+        },
 
         fillNavLists: function() {
             var items = [];

@@ -145,7 +145,7 @@ define([
             data.sunday = sunday;
             data.timeslots = timeslots;
             data.bookedslots = bookedslots;
-
+            data.test = 'false';
             data.setExitPage = function setExitPage(str) {
                 data.exitpage = [];
                 data.discountvalue = discountvalue;
@@ -250,6 +250,11 @@ define([
             data.browserv = version;
             console.log('set browser version to ' + data.browserv)
             console.log('set browser to ' + data.browsert)
+        },
+
+        setTest: function(b) {
+            data.test = b;
         }
     }
+
 });

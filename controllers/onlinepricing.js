@@ -773,11 +773,8 @@ exports.createorder = function(req, res, next) {
             console.log(req.body)
 
             var newOrder = new Order(req.body);
-            //var ordernumber = newOrder.findOrderCountForCompany(req.params.id);
-            ////console.log('on '+ordernumber);
             newOrder.companyid = req.params.id;
 
-            //newOrder.ordernumber = parseInt(tcomp.ordertotal) + 1;
             var newnumber = parseInt(tcomp.ordertotal) + 1;
             newOrder.ordernumber = pad(newnumber, 4);
             tcomp.ordertotal = newnumber;
@@ -798,9 +795,8 @@ exports.createorder = function(req, res, next) {
                 if (err) return next(err);
                 req.flash('success', "Order created successfully!");
                 var result = JSON.parse(order.services);
-                //var result = (order.services.toString());
-                console.log(result)
-                ////console.log(result.plugin);
+                console.log('tbio' + req.body.testbool)
+                order.testbool = req.body.testbool;
                 order.services = result;
                 var result2 = JSON.parse(order.services_totals);
                 //var result2 = order.services_totals;
@@ -843,32 +839,36 @@ function mailOrder(res, order, tcomp, next) {
         if (!email) {
             console.error('error getting online price email array');
         }
+        console.log(order.testbool)
+        if (order.testbool != "true") {
+            console.log('customer email sending >>>>' + email);
 
-        console.log('customer email sending >>>>' + email);
-
-        res.mailer.send('mailer/order_sent', {
-            from: tcomp.publicemail,
-            to: order.email,
-            subject: 'Your Upcoming Cleaning Details',
-            order: order,
-            comp: tcomp
-        }, function(err) {
-            if (err) return next(err);
-        });
-        console.log('company email sending')
-        for (var i = 0; i < email.length; i++) {
-            console.log(email[i]);
-            res.mailer.send('mailer/order_sent_company', {
-                from: order.email,
-                to: email[i],
-                subject: 'New Order Received !! for ' + order.name,
+            res.mailer.send('mailer/order_sent', {
+                from: tcomp.publicemail,
+                to: order.email,
+                subject: 'Your Upcoming Cleaning Details',
                 order: order,
                 comp: tcomp
             }, function(err) {
                 if (err) return next(err);
             });
+            console.log(order.testbool);
+            console.log('company email sending')
+            for (var i = 0; i < email.length; i++) {
+                console.log(email[i]);
+                res.mailer.send('mailer/order_sent_company', {
+                    from: order.email,
+                    to: email[i],
+                    subject: 'New Order Received !! for ' + order.name,
+                    order: order,
+                    comp: tcomp
+                }, function(err) {
+                    if (err) return next(err);
+                });
+            }
+        } else {
+            console.log('did not send email, was just a test')
         }
-
 
 
     });
