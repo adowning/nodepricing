@@ -129,10 +129,12 @@ define([
             data.hashUpProt = hashUpProt;
             data.hashUpDeod = hashUpDeod;
             data.hashTilePrices = hashTilePrices;
+            console.log(hashTilePrices['Large Area (201-300sf)'])
             data.hashRugPrices = hashRugPrices;
             data.hashRugProt = hashRugProt;
             data.hashRugDeod = hashRugDeod;
             data.hashTilePricesProt = hashTilePricesProt;
+            console.log(hashTilePricesProt['Large Area (201-300sf)'])
             data.monday = monday;
             data.companyrep = companyrep;
             data.tuesday = tuesday;

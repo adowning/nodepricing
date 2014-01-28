@@ -227,53 +227,71 @@ define(['pricing_data', 'async', 'json2', 'build_pricing', 'build_schedule'], fu
         var original = false;
 
         $('#carpetrooms > tbody  > tr').each(function() {
+
             var row_array = {};
             var currentgroup = ($this).prop('class');
+
             if ($(this).attr('class')) {
 
                 row_array.roomname = $(this).find('td:first').html();
                 row_array.cost = $(this).attr('value');
                 row_array.group = $(this).attr('class');
-                // row_array.cost = $(this).attr('value');
-                // row_array.group = $(this).attr('class');
-                row_array.quantity = $(this).find("td:eq(1)").find("select option:selected").val();
-                row_array.protection = $(this).find("td:eq(3)").find("select option:selected").val();
+                row_array.cleaning_quantity = $(this).find("td:eq(1)").find("select option:selected").val();
+                row_array.protection_quantity = $(this).find("td:eq(3)").find("select option:selected").val();
+
                 if ($(this).find("td:eq(5)").find("select option:selected").val() > 0) {
-                    row_array.deodorize = $(this).find("td:eq(5)").find("select option:selected").val();
+                    row_array.deodorize_quantity = $(this).find("td:eq(5)").find("select option:selected").val();
                 } else {
-                    row_array.deodorize = 0;
+                    row_array.deodorize_quantity = 0;
                 }
+
                 var thistype = $(this).find('td:eq(0)').html();
                 var tt = thistype.split(" - ");
                 thistype = tt[1];
                 thistype = thistype.replace('_', ' ');
-                row_array.protectpricetotal = ((pd.carpetprotectionprices[thistype] * pd.tripchargevalue).toFixed(2)) * row_array.protection;
-                if ($(this).find("td:eq(5)").find("select option:selected").val() > 0) {
-                    row_array.deodorizepricetotal = ((pd.carpetdeodorizeprices[thistype] * pd.tripchargevalue).toFixed(2)) * row_array.deodorize;
-                } else {
-                    row_array.deodorizepricetotal = 0;
+
+                switch (row_array.group) {
+                    case 'Carpet':
+                        row_array.protectpricetotal = pd.carpetprotectionprices[thistype] * row_array.protection_quantity;
+                        row_array.deodorizepricetotal = pd.carpetdeodorizeprices[thistype] * row_array.deodorize_quantity;
+                        break;
+
+                    case 'Tile':
+                        row_array.protectpricetotal = pd.hashTilePricesProt[thistype] * row_array.protection_quantity;
+                        row_array.deodorizepricetotal = 0;
+                        break;
+
+                    case 'Upholstery':
+                        row_array.protectpricetotal = pd.hashUpProt[thistype] * row_array.protection_quantity;
+                        row_array.deodorizepricetotal = pd.hashUpDeod[thistype] * row_array.deodorize_quantity;
+                        break;
+
+                    case 'OrientalRugs':
+                        row_array.protectpricetotal = pd.hashRugProt[thistype] * row_array.protection_quantity;
+                        row_array.deodorizepricetotal = pd.hashRugDeod[thistype] * row_array.deodorize_quantity;
+                        break;
+
+                    default:
+                        console.log('ERROR - BUILDING AT END OF PRICING SCRIPT AND NO GROUP FOUND')
                 }
+
                 //figure total for the row
-                cleaningtotal = (((parseFloat(row_array.cost) * parseFloat(row_array.quantity) * pd.tripchargevalue)).toFixed(2));
-
-                if (!row_array.deodorizepricetotal) {
-                    row_array.deodorizepricetotal = 0;
-                }
-                if (!row_array.protectpricetotal) {
-                    row_array.protectpricetotal = 0;
-                }
-                row_array.total = parseFloat((parseFloat(cleaningtotal) + (parseFloat(row_array.protectpricetotal)) + (parseFloat(row_array.deodorizepricetotal)))).toFixed(2);
-
+                cleaningtotal = parseFloat(row_array.cost) * parseFloat(row_array.cleaning_quantity);
+                row_array.total = (cleaningtotal + row_array.protectpricetotal + row_array.deodorizepricetotal) * pd.tripchargevalue.toFixed(2);
+                console.log('rat ' + row_array.total + ' rappt ' + row_array.protectpricetotal + 'radpt ' + row_array.deodorizepricetotal)
+                //finally add object to the array that creates the work order page
                 obj.push(row_array);
+
             }
+
         });
+
         var tots = {};
         tots.subtotal = $('.totalspan').text();
         tots.tax = $('.taxspan').text();
         tots.total = $('.totspan').text();
-
-        var encodedobj = JSON.stringify(obj)
-        var encodedtots = JSON.stringify(tots)
+        var encodedobj = JSON.stringify(obj);
+        var encodedtots = JSON.stringify(tots);
 
         $('#services').val(encodedobj);
         $('#services_totals').val(encodedtots);

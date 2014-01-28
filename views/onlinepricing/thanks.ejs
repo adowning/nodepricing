@@ -136,9 +136,9 @@
 				<% for(var i=0; i<order.services.length; i++) {%>
 					<tr>
 						<th><%= order.services[i].roomname %></th>
-						<td><%= order.services[i].quantity %></td>
-						<td><%= order.services[i].protection %></td>
-						<td><%= order.services[i].deodorize %></td>
+						<td><%= order.services[i].cleaning_quantity %></td>
+						<td><%= order.services[i].protection_quantity %></td>
+						<td><%= order.services[i].deodorize_quantity %></td>
 						 <td><%= order.services[i].total %></td>
 					</tr>
 					<% } %>

@@ -36,27 +36,19 @@ define(['pricing_data', 'servicemonster'], function(prd, sm) {
     }
 
     var convertFromMilitary = function(timestring) {
-        console.log('ts = ' + timestring);
 
         if (pd.browsert == 'Explorer') {
-            console.log('explorer in convert')
             var hours24 = parseInt(timestring.substring(0, 2), 10);
             var hours = ((hours24 + 11) % 12) + 1;
             var amPm = hours24 > 11 ? 'pm' : 'am';
             var minutes = timestring.substring(2);
-            console.log('converted time hours' + hours);
-            console.log('converted time minutes ' + minutes)
             return hours + minutes;
 
         } else {
-            console.log('chrom in convert')
             var hours24 = parseInt(timestring.substring(0, 2), 10);
             var hours = ((hours24 + 11) % 12) + 1;
             var amPm = hours24 > 11 ? 'pm' : 'am';
             var minutes = timestring.substring(2, 5);
-            console.log('converted time hours' + hours);
-            console.log('converted time minutes ' + minutes)
-            console.log('converted time ' + hours + minutes + ' ' + amPm)
             return hours + minutes + ' ' + amPm;
         }
     }
@@ -73,7 +65,6 @@ define(['pricing_data', 'servicemonster'], function(prd, sm) {
         if (pd.browsert != "Explorer") {
 
             var sadate = Date.parse(sday2[0].replace(' 00:00:00', ''));
-            console.log('sadate = ' + sadate.toString().substring(0, 15))
             $('#scheduletime').val(convertedtime);
             $('#scheduletimespan').html(convertedtime);
             $('#scheduledate').val(sadate);
@@ -138,7 +129,6 @@ define(['pricing_data', 'servicemonster'], function(prd, sm) {
 
             adate = $(this).attr('name');
             if (!adate || adate == null || adate == 'undefined') {
-                console.log('adate is null')
 
             } else {
 

@@ -54,7 +54,6 @@ define(['pricing_data', 'async'], function(prd, async) {
                                     tdate.startdate = Date.parse(tempstartstring);
                                     tdate.enddate = Date.parse(tempendstring);
                                     if (json.items[i].ItemType == 'Job') {
-                                        console.log('jobtype - ' + json.items[i].ItemType);
                                         SMBooks.push(tdate);
                                     };
                                 };
