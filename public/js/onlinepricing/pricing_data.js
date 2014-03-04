@@ -96,7 +96,10 @@ define([
                 });
 
                 $.ajax({
-                    url: "http://zipcodedistanceapi.redline13.com/rest/js-TxGYdH8rWGzmMCcUp5CR0rICKGeEQC3KaKInsRPoyoLk0Yeq4Qh4i0H3GVHxyLhI/radius.json/75701/30/mile",
+                    //js-m3RIrl4NU1L1aj4TlzY8hPTqEPafqR9MV1vmmA9hBViMfmGAWEIetCF7sPnSGxFB
+                    //Z7gUAzcWlRFCtpre5MWVFfsoMvHemf2mnjhXTuUflARO0i355Z0Kft81ZQfm6iIt
+                    //                    url: "http://zipcodedistanceapi.redline13.com/rest/js-TxGYdH8rWGzmMCcUp5CR0rICKGeEQC3KaKInsRPoyoLk0Yeq4Qh4i0H3GVHxyLhI/radius.json/75701/30/mile",
+                    url: "http://zipcodedistanceapi.redline13.com/rest/js-m3RIrl4NU1L1aj4TlzY8hPTqEPafqR9MV1vmmA9hBViMfmGAWEIetCF7sPnSGxFB/radius.json/75701/30/mile",
                     success: function(data) {
                         console.log('setting zipcodelist in pricing_data')
                         validzipcodelist = data;
