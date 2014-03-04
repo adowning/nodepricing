@@ -33,7 +33,7 @@ define(['pricing_data', 'pricing_script', 'build_pricing'], function(prd, ps, bp
         });
 
         var tcprice;
-
+        console.log('distance is '+distance)
         if (distance != 'notassigned') {
             console.log('zipcode found 2')
             $.each(sortedtripcharges, function(index, element) {
