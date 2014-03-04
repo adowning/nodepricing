@@ -8,7 +8,6 @@
       <change type="DELETED" beforePath="$PROJECT_DIR$/public/js/onlinepricing/loc.bak" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/public/js/onlinepricing/pricing-location.js.bak" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/views/shared/leftmenu.ejs" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/js/onlinepricing/pricing_location.js" afterPath="$PROJECT_DIR$/public/js/onlinepricing/pricing_location.js" />
     </list>
     <ignored path="npdot2.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -33,7 +32,7 @@
       <file leaf-file-name="pricing_location.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/js/onlinepricing/pricing_location.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="36" column="43" selection-start="1342" selection-end="1342" vertical-scroll-proportion="0.48913044" vertical-offset="441" max-vertical-offset="8694">
+            <state line="35" column="0" selection-start="1298" selection-end="1298" vertical-scroll-proportion="-0.42391303" vertical-offset="1008" max-vertical-offset="8694">
               <folding />
             </state>
           </provider>
@@ -296,7 +295,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/public/js/onlinepricing/pricing_location.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="36" column="43" selection-start="1342" selection-end="1342" vertical-scroll-proportion="0.48913044" vertical-offset="441" max-vertical-offset="8694">
+        <state line="35" column="0" selection-start="1298" selection-end="1298" vertical-scroll-proportion="-0.42391303" vertical-offset="1008" max-vertical-offset="8694">
           <folding />
         </state>
       </provider>
