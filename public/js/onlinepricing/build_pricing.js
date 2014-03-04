@@ -1,7 +1,9 @@
+//TODO fix me adding global
+//var actionR = 0;
 define(['pricing_data'], function(prd) {
 
     console.log('buildpricing loading');
-
+    var addAction = 0;
     var pd = prd.getOP();
 
     var getCount = function(aVal, myArr) {
@@ -269,8 +271,10 @@ define(['pricing_data'], function(prd) {
     return {
 
         addAction: function() {
-
-
+            console.log('addAction = '+addAction)
+            if(addAction != 0 || addAction > 0){
+                return;
+            }
             $(".action-addroom").click(function(e) {
                 console.log('adding action called')
 
@@ -390,7 +394,7 @@ define(['pricing_data'], function(prd) {
                 e.preventDefault();
 
             }); //end click define
-
+            addAction ++;
         } //end addAction
 
     } //end return
