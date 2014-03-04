@@ -5,21 +5,25 @@ define(['pricing_data', 'pricing_script', 'build_pricing'], function(prd, ps, bp
     var pd = prd.getOP();
 
     function zipCheck(zip) {
+        console.log('runnign zipCheck')
+        var ziparray = {};
         if (zip == "test") {
             zip = '75701';
-            ziparray = getTestZipcodes(zip);
+             ziparray = getTestZipcodes(zip);
             console.log('pd ck ' + pd.companykey)
             prd.setTest('true');
         } else {
-            ziparray = pd.validzipcodelist;
+             ziparray = pd.validzipcodelist;
+            console.log('za length = '+ziparray.length)
         }
 
         var sortedtripcharges = getTripChargePoints().sort(function(obj1, obj2) {
             return obj2.distance - obj1.distance;
         });
-
+        console.log('sorted tripcharges length -= '+sortedtripcharges.length)
         $.each(ziparray.zip_codes, function(index, element) {
             if (element.zip_code == zip) {
+                console.log('zipcode found')
                 distance = element.distance;
             }
         });
@@ -27,6 +31,7 @@ define(['pricing_data', 'pricing_script', 'build_pricing'], function(prd, ps, bp
         var tcprice;
 
         if (distance) {
+            console.log('zipcode found 2')
             $.each(sortedtripcharges, function(index, element) {
                 if (distance >= element.distance) {
                     tcprice = element.price;
@@ -47,6 +52,8 @@ define(['pricing_data', 'pricing_script', 'build_pricing'], function(prd, ps, bp
             $('#pricecalculator').show();
             ps.setExitPage('pricing');
         } else {
+            console.log('showing noZip')
+
             $('#nozip').show();
 
         }

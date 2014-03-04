@@ -98,8 +98,10 @@ define([
                 $.ajax({
                     url: "http://zipcodedistanceapi.redline13.com/rest/js-TxGYdH8rWGzmMCcUp5CR0rICKGeEQC3KaKInsRPoyoLk0Yeq4Qh4i0H3GVHxyLhI/radius.json/75701/30/mile",
                     success: function(data) {
-
+                        console.log('setting zipcodelist in pricing_data')
                         validzipcodelist = data;
+                        console.log('validzipcodelist.length = '+validzipcodelist.length)
+
                     },
                     complete: function(data) {
 

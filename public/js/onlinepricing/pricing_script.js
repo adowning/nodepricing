@@ -1,21 +1,25 @@
+//Pricing calc 
+//by ash downing 
+//andrewscarpetcleaning.com
+
 define(['pricing_data', 'async', 'json2', 'build_pricing', 'build_schedule'], function(prd, async, JSON, bp, bs) {
-    //Pricing calc 
-    //by ash downing 
-    //andrewscarpetcleaning.com
+
     console.log('pricing script loading')
-    // return {
-    //     initialize: function() {
+
     var pd = prd.getOP();
+
     $(".submit").click(function(e) {
         pd.setExitPage('complete');
         e.preventDefault();
     });
+
     $("#scheduleNext").click(function(e) {
         $('#scheduleform').hide();
         $('#contactform').show();
         pd.setExitPage('contactinformation');
         e.preventDefault();
     });
+
     $("#scheduleBack").click(function(e) {
         $('#scheduleform').hide();
         $('#pricecalculator').show();
@@ -28,6 +32,7 @@ define(['pricing_data', 'async', 'json2', 'build_pricing', 'build_schedule'], fu
         pd.setExitPage('schedule');
         e.preventDefault();
     });
+
     $("#contactBack").click(function(e) {
         $('#contactform').hide();
         $('#scheduleform').show();
@@ -56,13 +61,6 @@ define(['pricing_data', 'async', 'json2', 'build_pricing', 'build_schedule'], fu
         e.preventDefault();
     });
 
-    // $("#confirmationNext").click(function(e) {
-    //     $('#confirmation').hide();
-    //     //$('#contactform').show(); 
-    //     pd.setExitPage('schedule');
-    //     e.preventDefault();
-    // });
-
     pd.setExitPage('zipcode');
 
     if ($('#zipcodetext').val() != "test") {
@@ -79,8 +77,6 @@ define(['pricing_data', 'async', 'json2', 'build_pricing', 'build_schedule'], fu
     });
 
     var zip = "none";
-    // fillNavLists();
-
 
     bs.buildStable();
 
@@ -103,19 +99,24 @@ define(['pricing_data', 'async', 'json2', 'build_pricing', 'build_schedule'], fu
 
         bs.addWeek(-7);
     });
+
     //TODO fix me!
     $('#collapseOne').on('shown.bs.collapse', function() {
         activegroup = $(this).parent().find('.accordion-toggle').text().replace(/[^A-Za-z]+/g, '');
     });
+
     $('#collapseTwo').on('shown.bs.collapse', function() {
         activegroup = $(this).parent().find('.accordion-toggle').text().replace(/[^A-Za-z]+/g, '');
     });
+
     $('#collapseThree').on('shown.bs.collapse', function() {
         activegroup = $(this).parent().find('.accordion-toggle').text().replace(/[^A-Za-z]+/g, '');
     });
+
     $('#collapseFour').on('shown.bs.collapse', function() {
         activegroup = $(this).parent().find('.accordion-toggle').text().replace(/[^A-Za-z]+/g, '');
     });
+
     $('.panel-body').on('show', function() {
         activegroup = $(this).parent().find('.accordion-toggle').text().replace(/[^A-Za-z]+/g, '');
     });
@@ -123,11 +124,6 @@ define(['pricing_data', 'async', 'json2', 'build_pricing', 'build_schedule'], fu
     $('.collapse').on('hide', function() {
         $(this).parent().find('a').removeClass('open'); //remove active state to button on close
     });
-
-    //$(rotateAds);
-    checkBrowserChangeBookModal();
-
-
 
     $('#couponBut').click(function(e) {
         e.preventDefault();
@@ -196,27 +192,7 @@ define(['pricing_data', 'async', 'json2', 'build_pricing', 'build_schedule'], fu
         }
     }
 
-    // function checkRoomQuantities(roomname, obj) {
-    //     if (obj.length < 1) {
-    //         original = true;
-    //         return true;
-    //     };
-
-
-    //     for (var i in obj) {
-    //         if (roomname == obj[i].roomname) {
-    //             obj[i].quantity = obj[i].quantity + 1;
-    //             return false;
-    //         } else {
-    //             obj[i].row_array.quantity = 1;
-    //             original = true;
-    //             return true;
-    //         }
-
-    //     }
-
-    //     return false;
-    // }
+    checkBrowserChangeBookModal();
 
     function SortByValue(a, b) {
         var aName = a.distance;
@@ -325,37 +301,11 @@ define(['pricing_data', 'async', 'json2', 'build_pricing', 'build_schedule'], fu
             complete: function(some) {
 
             },
+
             error: function() {}
+
         });
     }
-
-
-    // function updateServer(sd) {
-    //     if (jQuery.inArray(sd, price.bookedslots) != -1) {
-    //         price.bookedslots = jQuery.removeFromArray(sd, price.bookedslots);
-    //     } else {
-    //         //console.log('selecteddate not found adding to array');
-    //         price.bookedslots.push(sd);
-    //     }
-    //     //console.log('bs >>> ' + price.bookedslots.length);
-    //     $.ajax({
-    //         url: "/changeavailability",
-    //         type: "POST",
-    //         dataType: "json",
-    //         data: JSON.stringify(price.bookedslots),
-    //         contentType: "application/json",
-    //         cache: false,
-    //         timeout: 5000,
-    //         complete: function(some) {
-    //             //console.log('server updated sucessfully new array ' + price.bookedslots);
-    //         },
-    //         success: function(some) {},
-    //         error: function() {},
-    //     });
-    //     //callback();
-    // }
-    //     }
-    // }
 
     return {
 
@@ -365,19 +315,23 @@ define(['pricing_data', 'async', 'json2', 'build_pricing', 'build_schedule'], fu
 
         fillNavLists: function() {
             var items = [];
+
             $.each(pd.carpetprices, function(key, value) {
                 valueWTC = addTripCharge(value);
                 var linkhtml = "<li><a class='action-addroom' href='#' data-type='carpet_furn' data-price='" + valueWTC + "'>" + key + "</a></li>";
                 items.push(linkhtml);
             });
+
             $('#carpet-nav-list').append(items.join(''));
             linkhtml = "";
             items = [];
+
             $.each(pd.hashUp, function(key, value) {
                 valueWTC = addTripCharge(value);
                 linkhtml = "<li><a class='action-addroom' href='#' data-type='carpet_furn' data-price='" + valueWTC + "'>" + key + "</a></li>";
                 items.push(linkhtml);
             });
+
             $('#upnavlist').append(items.join(''));
             linkhtml = "";
             items = [];
@@ -386,14 +340,17 @@ define(['pricing_data', 'async', 'json2', 'build_pricing', 'build_schedule'], fu
                 linkhtml = "<li><a class='action-addroom' href='#' data-type='carpet_furn' data-price='" + valueWTC + "'>" + key + "</a></li>";
                 items.push(linkhtml);
             });
+
             $('#upruglist').append(items.join(''));
             linkhtml = "";
             items = [];
+
             $.each(pd.hashTilePrices, function(key, value) {
                 valueWTC = addTripCharge(value);
                 linkhtml = "<li><a class='action-addroom' href='#' data-type='carpet_furn' data-price='" + valueWTC + "'>" + key + "</a></li>";
                 items.push(linkhtml);
             });
+
             $('#tile-nav-list').append(items.join(''));
             linkhtml = "";
             items = [];
