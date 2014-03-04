@@ -33,7 +33,7 @@
       <file leaf-file-name="pricing_location.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/js/onlinepricing/pricing_location.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="33" column="0" selection-start="1153" selection-end="1153" vertical-scroll-proportion="0.6847826" vertical-offset="252" max-vertical-offset="8652">
+            <state line="25" column="56" selection-start="972" selection-end="972" vertical-scroll-proportion="0.32608697" vertical-offset="315" max-vertical-offset="8652">
               <folding />
             </state>
           </provider>
@@ -296,7 +296,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/public/js/onlinepricing/pricing_location.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="33" column="0" selection-start="1153" selection-end="1153" vertical-scroll-proportion="0.6847826" vertical-offset="252" max-vertical-offset="8652">
+        <state line="25" column="56" selection-start="972" selection-end="972" vertical-scroll-proportion="0.32608697" vertical-offset="315" max-vertical-offset="8652">
           <folding />
         </state>
       </provider>

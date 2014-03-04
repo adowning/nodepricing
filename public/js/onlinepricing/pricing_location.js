@@ -23,7 +23,7 @@ define(['pricing_data', 'pricing_script', 'build_pricing'], function(prd, ps, bp
         });
         console.log('sorted tripcharges length -= '+sortedtripcharges.length)
         $.each(ziparray.zip_codes, function(index, element) {
-            console.log('checking zip codes with '+zip)
+            console.log('checking zip codes with '+zip +' and '+ element.zip_code)
             if (element.zip_code == zip) {
                 console.log('zipcode found')
                 distance = element.distance;
