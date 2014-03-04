@@ -55,14 +55,15 @@ define(['pricing_data', 'pricing_script', 'build_pricing'], function(prd, ps, bp
             $('#zipcodearea').hide();
             $('#pricecalculator').show();
             ps.setExitPage('pricing');
+            ps.fillNavLists();
+            bp.addAction();
         } else {
             console.log('showing noZip')
 
             $('#nozip').show();
 
         }
-        ps.fillNavLists();
-        bp.addAction();
+
 
     }
 
