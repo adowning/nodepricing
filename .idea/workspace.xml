@@ -8,7 +8,7 @@
       <change type="DELETED" beforePath="$PROJECT_DIR$/public/js/onlinepricing/loc.bak" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/public/js/onlinepricing/pricing-location.js.bak" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/views/shared/leftmenu.ejs" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/js/onlinepricing/pricing_data.js" afterPath="$PROJECT_DIR$/public/js/onlinepricing/pricing_data.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/js/onlinepricing/pricing_location.js" afterPath="$PROJECT_DIR$/public/js/onlinepricing/pricing_location.js" />
     </list>
     <ignored path="npdot2.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -30,19 +30,19 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="pricing_location.js" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="pricing_location.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/js/onlinepricing/pricing_location.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="25" column="18" selection-start="950" selection-end="950" vertical-scroll-proportion="-10.111111" vertical-offset="252" max-vertical-offset="8610">
+            <state line="33" column="0" selection-start="1153" selection-end="1153" vertical-scroll-proportion="0.6847826" vertical-offset="252" max-vertical-offset="8652">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="pricing_data.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="pricing_data.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/js/onlinepricing/pricing_data.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="104" column="40" selection-start="3062" selection-end="3062" vertical-scroll-proportion="0.49920762" vertical-offset="1869" max-vertical-offset="5691">
+            <state line="93" column="22" selection-start="2283" selection-end="2283" vertical-scroll-proportion="-3.1111112" vertical-offset="1869" max-vertical-offset="5691">
               <folding />
             </state>
           </provider>
@@ -66,8 +66,8 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/public/js/onlinepricing/pricing_location.js" />
         <option value="$PROJECT_DIR$/public/js/onlinepricing/pricing_data.js" />
+        <option value="$PROJECT_DIR$/public/js/onlinepricing/pricing_location.js" />
       </list>
     </option>
   </component>
@@ -287,16 +287,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/js/onlinepricing/pricing_location.js">
+    <entry file="file://$PROJECT_DIR$/public/js/onlinepricing/pricing_data.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="18" selection-start="950" selection-end="950" vertical-scroll-proportion="-10.111111" vertical-offset="252" max-vertical-offset="8610">
+        <state line="93" column="22" selection-start="2283" selection-end="2283" vertical-scroll-proportion="-3.1111112" vertical-offset="1869" max-vertical-offset="5691">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/js/onlinepricing/pricing_data.js">
+    <entry file="file://$PROJECT_DIR$/public/js/onlinepricing/pricing_location.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="104" column="40" selection-start="3062" selection-end="3062" vertical-scroll-proportion="0.49920762" vertical-offset="1869" max-vertical-offset="5691">
+        <state line="33" column="0" selection-start="1153" selection-end="1153" vertical-scroll-proportion="0.6847826" vertical-offset="252" max-vertical-offset="8652">
           <folding />
         </state>
       </provider>
