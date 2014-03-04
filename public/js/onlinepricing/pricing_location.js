@@ -7,7 +7,7 @@ define(['pricing_data', 'pricing_script', 'build_pricing'], function(prd, ps, bp
     function zipCheck(zip) {
         console.log('runnign zipCheck')
         var ziparray = {};
-        var distance = {};
+        var distance = "notassigned";
         if (zip == "test") {
             zip = '75701';
              ziparray = getTestZipcodes(zip);
@@ -34,7 +34,7 @@ define(['pricing_data', 'pricing_script', 'build_pricing'], function(prd, ps, bp
 
         var tcprice;
 
-        if (distance.length < 1) {
+        if (distance.length != 'notassigned') {
             console.log('zipcode found 2')
             $.each(sortedtripcharges, function(index, element) {
                 if (distance >= element.distance) {
