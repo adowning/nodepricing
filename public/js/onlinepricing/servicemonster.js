@@ -19,7 +19,7 @@ define(['pricing_data', 'async'], function(prd, async) {
         },
 
         checkSlotsSM: function() {
-
+            console.log('checking slots sm')
             var SMBooks = new Array(),
                 busyDates = new Array();
 
@@ -129,7 +129,7 @@ define(['pricing_data', 'async'], function(prd, async) {
                         }
 
                         $(".open").each(function() {
-
+                            console.log('hai2u')
                             var openslot = $(this).attr('name');
 
                             for (var i = 0; i < busyDates.length; i++) {
