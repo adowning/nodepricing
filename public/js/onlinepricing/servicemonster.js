@@ -53,6 +53,8 @@ define(['pricing_data', 'async'], function(prd, async) {
                                     var tdate = new Object();
                                     tdate.startdate = Date.parse(tempstartstring);
                                     tdate.enddate = Date.parse(tempendstring);
+                                    // console.log('json items  ' + json.items[i].ItemType)
+
                                     if (json.items[i].ItemType == 'Job') {
                                         SMBooks.push(tdate);
                                     };
@@ -74,6 +76,7 @@ define(['pricing_data', 'async'], function(prd, async) {
                                             SMBooks[x].startdate.toString().substring(16, 24) &&
                                             pd.timeslots[openslots[i].slot] <
                                             SMBooks[x].enddate.toString().substring(16, 24)) {
+                                            console.log(' booking >>>> ')
                                             var bdate = new Object();
 
                                             bdate.slot = openslots[i].slot;
@@ -129,12 +132,14 @@ define(['pricing_data', 'async'], function(prd, async) {
                         }
 
                         $(".open").each(function() {
-                            console.log('hai2u')
+                            // console.log('hai2u' + busyDates.length)
+
                             var openslot = $(this).attr('name');
 
                             for (var i = 0; i < busyDates.length; i++) {
 
                                 if (openslot.substring(5, 6) == busyDates[i].slot && openslot.substring(11, 26) == busyDates[i].date /*!!!check date here*/ ) {
+
                                     $(this).children('img').prop('src', "/img/Closed.gif");
                                     $(this).prop('class', 'closed');
 

@@ -829,7 +829,7 @@ function mailOrder(res, order, tcomp, next) {
     OnlinePrice.findOne({
         key: thiskey
     }, function(err, op) {
-        console.log('err' + err);
+        console.log('832 ' + err);
         //console.log(thiskey);
         if (!op) {
             console.error('error getting online price email array');
@@ -850,7 +850,7 @@ function mailOrder(res, order, tcomp, next) {
                 order: order,
                 comp: tcomp
             }, function(err) {
-                if (err) return next(err);
+                if (err) return next('853 ' + err);
             });
             console.log(order.testbool);
             console.log('company email sending')
@@ -863,7 +863,7 @@ function mailOrder(res, order, tcomp, next) {
                     order: order,
                     comp: tcomp
                 }, function(err) {
-                    if (err) return next(err);
+                    if (err) return next('866' + err);
                 });
             }
         } else {

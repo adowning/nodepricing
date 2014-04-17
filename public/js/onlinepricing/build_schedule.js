@@ -151,9 +151,7 @@ define(['pricing_data', 'servicemonster'], function(prd, sm) {
                             }
                         }
                     }
-
                     if ($(this).prop('class') == 'open' && pd.servicemonster == "true") {
-
                         sm.addOpenToSMChecklist(adate);
 
                     } else {}
