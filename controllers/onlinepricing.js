@@ -825,7 +825,7 @@ exports.createorder = function(req, res, next) {
 function mailOrder(res, order, tcomp, next) {
     var email;
     var thiskey = tcomp.key;
-    console.log('1' + thiskey);
+    console.log('key:' + thiskey);
     OnlinePrice.findOne({
         key: thiskey
     }, function(err, op) {
@@ -841,7 +841,9 @@ function mailOrder(res, order, tcomp, next) {
         }
         console.log(order.testbool)
         if (order.testbool != "true") {
-            console.log('customer email sending >>>>' + email);
+            console.log('customer email sending >>>>');
+            console.log('tcomp.publicemail:' + tcomp.publicemail);
+            consoel.log('order.email:' + order.email);
 
             res.mailer.send('mailer/order_sent', {
                 from: tcomp.publicemail,
@@ -857,7 +859,8 @@ function mailOrder(res, order, tcomp, next) {
             for (var i = 0; i < email.length; i++) {
                 console.log(email[i]);
                 res.mailer.send('mailer/order_sent_company', {
-                    from: order.email,
+                    //from: order.email,
+                    from: 'ashdowning@gmail.com',
                     to: email[i],
                     subject: 'New Order Received !! for ' + order.name,
                     order: order,
