@@ -843,7 +843,7 @@ function mailOrder(res, order, tcomp, next) {
         if (order.testbool != "true") {
             console.log('customer email sending >>>>');
             console.log('tcomp.publicemail:' + tcomp.publicemail);
-            consoel.log('order.email:' + order.email);
+            console.log('order.email:' + order.email);
 
             res.mailer.send('mailer/order_sent', {
                 from: tcomp.publicemail,
