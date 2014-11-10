@@ -107,9 +107,12 @@ define(['pricing_data', 'async'], function (prd, async) {
 									var edate = json.items[i].EndDateTime.substring(0, 10);
 									var etime = json.items[i].EndDateTime.substring(11, 22);
 									var tempendstring = edate + " " + etime;
+									var route = json.items[i].RouteID;
 									var tdate = new Object();
 									tdate.startdate = Date.parse(tempstartstring);
 									tdate.enddate = Date.parse(tempendstring);
+									tdate.route = route;
+
 									//TODO set me to define route id's to look at when scheduling off SM
 
 //									console.log('route id = ' + json.items[i].RouteID)
@@ -144,93 +147,177 @@ define(['pricing_data', 'async'], function (prd, async) {
 								dailySlots.push(s)
 							}
 						}
-//						console.log(dailySlots.length)
-						for (var i = 0; i < dailySlots.length; i++) {
-//							console.log(dailySlots[i])
-						}
+
+//						//TODO dont forget to put in IE explorer shit
+//						for (var i = 0; i < openslots.length; i++) {
+//							for (var x = 0; x < SMBooks.length; x++) {
+//
+//								if (pd.browsert != "Explorer") {
+//									var thisSlot = pd.timeslots[openslots[i].slot].replace(":", "");
+//									thisSlot = thisSlot.replace("am", "")
+//									thisSlot = thisSlot.replace("pm", "")
+//									var nextSloti = dailySlots.indexOf(thisSlot) + 1;
+//									var nextSlot = dailySlots[nextSloti];
+//
+//									var smBookingStart = SMBooks[x].startdate.toString().substring(16, 24).replace(":", "");
+//									var smBookingEnd = SMBooks[x].enddate.toString().substring(16, 24).replace(":", "");
+//									smBookingStart = smBookingStart.slice(0, -3);
+//									smBookingEnd = smBookingEnd.slice(0, -3);
+//
+//									var booked = false;
+//
+////									console.log(smBookingEnd)
+////									console.log(smBookingStart)
+////									console.log(thisSlot)
+////									console.log(nextSlot)
+//
+//									if (nextSlot) {
+//										//inside
+//										if (smBookingStart < thisSlot &&
+//											smBookingEnd > thisSlot && !booked) {
+//											var bdate = new Object();
+//											bdate.slot = openslots[i].slot;
+//											bdate.date = openslots[i].date.substring(0, 15);
+//											busyDates.push(bdate);
+//											console.log('1. >slot ' + bdate.slot + 'date '+ bdate.date)
+//											booked = true;
+//										}
+//										// if the booking starts between this slot and next
+//										if (smBookingStart > thisSlot &&
+//											smBookingStart < nextSlot && !booked) {
+//											var bdate = new Object();
+//											bdate.slot = openslots[i].slot;
+//											bdate.date = openslots[i].date.substring(0, 15);
+//											busyDates.push(bdate);
+//											console.log(thisSlot)
+//											console.log('2. >slot ' + bdate.slot + 'date '+ bdate.date)
+//
+//											booked = true;
+//										}
+//									}
+////									if (nextSlot) {
+////										// starts before beginning and nextSlot before end
+////										if (timeslotE < smBookingStart &&
+////											nextSlot < smBookingEnd && !booked) {
+////											var bdate = new Object();
+////											bdate.slot = openslots[i].slot;
+////											bdate.date = openslots[i].date.substring(0, 15);
+////											busyDates.push(bdate);
+////											console.log('1. > ' + bdate.slot)
+////											console.log('1. > ' + bdate.date)
+////
+////											booked = true;
+////										}
+////										//inside
+////										if (smBookingStart < timeslotE &&
+////											smBookingEnd > timeslotE && !booked) {
+////											var bdate = new Object();
+////											bdate.slot = openslots[i].slot;
+////											bdate.date = openslots[i].date.substring(0, 15);
+////											busyDates.push(bdate);
+////											console.log('2. > ' + bdate.slot)
+////											console.log('2. > ' + bdate.date)
+////											booked = true;
+////										}
+////										//if the booking starts between this slot and next
+////										if (smBookingStart > timeslotE &&
+////											smBookingStart < nextSlot && !booked) {
+////											var bdate = new Object();
+////											bdate.slot = openslots[i].slot;
+////											bdate.date = openslots[i].date.substring(0, 15);
+////											busyDates.push(bdate);
+////											console.log('3. > ' + bdate.slot)
+////											console.log('3. > ' + bdate.date)
+////											booked = true;
+////										}
+////										// timeslot is after bookingStart and before bookingEnd
+////										if (smBookingStart > timeslotE &&
+////											smBookingEnd < timeslotE && !booked) {
+////											var bdate = new Object();
+////											bdate.slot = openslots[i].slot;
+////											bdate.date = openslots[i].date.substring(0, 15);
+////											busyDates.push(bdate);
+////											console.log('4. > ' + bdate.slot)
+////											console.log('4. > ' + bdate.date)
+////											booked = true;
+////										}
+////										//wtf is this one
+//////											if (timeslotE <= smBookingStart &&
+//////												nextSlot <= smBookingEnd &&
+//////												nextSlot >= smBookingStart && !booked
+//////												) {
+//////												var bdate = new Object();
+//////												bdate.slot = openslots[i].slot;
+//////												bdate.date = openslots[i].date.substring(0, 15);
+//////												busyDates.push(bdate);
+//////												console.log('4. > '+bdate)
+//////												booked = true;
+//////											}
+////									}
+////									//last slot of day
+////									else {
+////
+////										if (timeslotE <= smBookingStart &&
+////											(parseInt(timeslotE) + 200) <= smBookingEnd &&
+////											(parseInt(timeslotE) + 200) >= smBookingStart
+////											) {
+////											var bdate = new Object();
+////											bdate.slot = openslots[i].slot;
+////											bdate.date = openslots[i].date.substring(0, 15);
+////											busyDates.push(bdate);
+////											console.log('end 1. > ' + bdate.slot)
+////											console.log('1. > ' + bdate.date)
+////											booked = true;
+////										}
+////										//inside3
+////										if (smBookingStart < timeslotE &&
+////											smBookingEnd > timeslotE && !booked) {
+////											var bdate = new Object();
+////											bdate.slot = openslots[i].slot;
+////											bdate.date = openslots[i].date.substring(0, 15);
+////											busyDates.push(bdate);
+////											console.log('end 2. > ' + bdate.slot)
+////											console.log('end 2. > ' + bdate.date)
+////											booked = true;
+////										}
+////										// timeslot is after bookingStart and before bookingEnd
+////										if (smBookingStart > timeslotE &&
+////											smBookingEnd < timeslotE && !booked) {
+////											var bdate = new Object();
+////											bdate.slot = openslots[i].slot;
+////											bdate.date = openslots[i].date.substring(0, 15);
+////											busyDates.push(bdate);
+////											console.log('end 3. > ' + bdate.slot)
+////											console.log('end 4. > ' + bdate.date)
+////											booked = true;
+////										}
+////									}
+//
+//								}
+//							}
+//						}
+
+						//OLD CODE - ran the loops wrong I think
+
 						for (var x = 0; x < SMBooks.length; x++) {
+
 							for (var i = 0; i < openslots.length; i++) {
-//								console.log('timeslot a '+ pd.timeslots[openslots[i].slot])
-								var timeslot = convertToMilitaryTime(pd.timeslots[openslots[i].slot].substring(6, 8),
-									pd.timeslots[openslots[i].slot].substring(0, 2),
-									pd.timeslots[openslots[i].slot].substring(3, 5));
-//								console.log('timeslot ' + timeslot)
+
 								if (pd.browsert != "Explorer") {
 									//check dates are the same first
 									if (SMBooks[x].startdate.toString().substring(0, 15) ==
 										openslots[i].date.substring(0, 15)) {
 										//TODO here is where we are working
-//										console.log(timeslot)
 										var timeslotE = pd.timeslots[openslots[i].slot].replace(":", "");
-//										console.log(timeslotE)
 										timeslotE = timeslotE.replace("am", "")
 										timeslotE = timeslotE.replace("pm", "")
-//										console.log(timeslotE)
-//										console.log(i)
-//										console.log(i+1)
-										var nx = i + 1;
-//										console.log(i)
-//										console.log(nx)
-//										console.log(pd.timeslots[openslots[i].slot]);
-//
-//										console.log(pd.timeslots[openslots[nx].slot]);
-
-//										console.log(nx)
-//										console.log(openslots.length)
-////										console.log(dailySlots.length)
-//										console.log(timeslotE)
-//										console.log('>>' + dailySlots.indexOf(timeslotE))
 										var nextSloti = dailySlots.indexOf(timeslotE) + 1;
-//										console.log('xx ' +dailySlots[dailySlots.indexOf(timeslotE)]);
-//
-//										console.log('yy ' +dailySlots[nextSloti]);
 										var nextSlot = dailySlots[nextSloti];
-
-//										if (nx < openslots.length){
-//											var nextSlot =  dailySlots[nx];
-////											console.log(nextSlot)
-//											nextSlot = nextSlot.replace(":", "")
-//											nextSlot = nextSlot.replace("am", "")
-//											nextSlot = nextSlot.replace("pm", "")
-//										}else
-//										{
-//											var nextSlot = "none";
-//										}
-
-////										console.log(SMBooks[x].startdate.toString().substring(16, 24).replace(":", ""))
 										var smBookingStart = SMBooks[x].startdate.toString().substring(16, 24).replace(":", "");
 										var smBookingEnd = SMBooks[x].enddate.toString().substring(16, 24).replace(":", "");
 										smBookingStart = smBookingStart.slice(0, -3);
 										smBookingEnd = smBookingEnd.slice(0, -3);
-//										console.log(smBookingEnd)
-//										console.log(smBookingStart)
-//										console.log(timeslotE)
-//										console.log(nextSlot)
-//										console.log(smBookingStart)
-//										console.log(smBookingEnd)
-//										if (pd.timeslots[openslots[i].slot] >=
-//										SMBooks[x].startdate.toString().substring(16, 24)){
-//											console.log(pd.timeslots[openslots[i].slot] + ' is >= ' +
-//											SMBooks[x].startdate.toString().substring(16, 24))
-//										}
 
-//										this is if slot is between beggining and end of sm booking
-										if (timeslotE >= smBookingStart &&
-											timeslotE < smBookingEnd) {
-											var bdate = new Object();
-											bdate.slot = openslots[i].slot;
-											bdate.date = openslots[i].date.substring(0, 15);
-											console.log("...."+bdate)
-											busyDates.push(bdate);
-										}
-//										if (timeslotE <= smBookingStart &&
-//											timeslotE < smBookingEnd) {
-//											var bdate = new Object();
-//											bdate.slot = openslots[i].slot;
-//											bdate.date = openslots[i].date.substring(0, 15);
-//											console.log(bdate)
-//											busyDates.push(bdate);
-//										}
 										/////////////////////////////////////
 										//TODO FROM THIS POINT ON----
 										//you have to check to be sure its not already added if not it will fuck
@@ -238,67 +325,138 @@ define(['pricing_data', 'async'], function (prd, async) {
 										// on routes
 										////////////////////////////////////
 
-//										this is if slot is before sm booking but start of sm booking is before next slot
+										var booked = false;
+										var thisRoute = SMBooks[x].route;
+										//TODO keep in mind we are looping through timeslots inside book loop
+										var thisSMRouteIsAccountedFor = false;
+										var skip = false;
+										for (var z = 0; z < busyDates.length; z++)
+										{
+											var busydateRoute = busyDates[z].route;
+											var slot = busyDates[z].slot;
+											var date = busyDates[z].date;
+//											if( openslots[i].slot == busyDates.slot[z] &&
+//												openslots[i].date.substring(0, 15) == busyDates.date[z] &&
+//												openslots[i].route == busyDates[z].route ){
+//												console.log('repeat')
+//											}
+										}
 										if (nextSlot) {
+											// inside
+//											if (timeslotE >= smBookingStart &&
+//												timeslotE < smBookingEnd && !booked) {
+//												var bdate = new Object();
+//												bdate.slot = openslots[i].slot;
+//												bdate.date = openslots[i].date.substring(0, 15);
+//												busyDates.push(bdate);
+//												console.log('1. > '+bdate)
+//												booked = true;
+//											}
+											// starts before beginning and nextSlot before end
 											if (timeslotE < smBookingStart &&
-												nextSlot < smBookingEnd &&
-												nextSlot > smBookingStart
-												) {
-//											console.log('hwdy hoe')
+												nextSlot < smBookingEnd && !booked) {
 												var bdate = new Object();
 												bdate.slot = openslots[i].slot;
 												bdate.date = openslots[i].date.substring(0, 15);
-												console.log(bdate)
-
+												bdate.route = SMBooks[x].route;
 												busyDates.push(bdate);
+												console.log('1. > ' + bdate.slot)
+												console.log('1. > ' + bdate.date)
+												booked = true;
 											}
+											//inside
+											if (smBookingStart < timeslotE &&
+												smBookingEnd > timeslotE && !booked) {
+												var bdate = new Object();
+												bdate.slot = openslots[i].slot;
+												bdate.date = openslots[i].date.substring(0, 15);
+												bdate.route = SMBooks[x].route;
+												busyDates.push(bdate);
+												console.log('2. > ' + bdate.slot)
+												console.log('2. > ' + bdate.date)
+												booked = true;
+											}
+											//if the booking starts between this slot and next
+											if (smBookingStart > timeslotE &&
+												smBookingStart < nextSlot && !booked) {
+												var bdate = new Object();
+												bdate.slot = openslots[i].slot;
+												bdate.date = openslots[i].date.substring(0, 15);
+												bdate.route = SMBooks[x].route;
+												busyDates.push(bdate);
+												console.log('3. > ' + bdate.slot)
+												console.log('3. > ' + bdate.date)
+												booked = true;
+											}
+											// timeslot is after bookingStart and before bookingEnd
+											if (smBookingStart > timeslotE &&
+												smBookingEnd < timeslotE && !booked) {
+												var bdate = new Object();
+												bdate.slot = openslots[i].slot;
+												bdate.date = openslots[i].date.substring(0, 15);
+												bdate.route = SMBooks[x].route;
+												busyDates.push(bdate);
+												console.log('4. > ' + bdate.slot)
+												console.log('4. > ' + bdate.date)
+												booked = true;
+											}
+											//wtf is this one
+//											if (timeslotE <= smBookingStart &&
+//												nextSlot <= smBookingEnd &&
+//												nextSlot >= smBookingStart && !booked
+//												) {
+//												var bdate = new Object();
+//												bdate.slot = openslots[i].slot;
+//												bdate.date = openslots[i].date.substring(0, 15);
+//												busyDates.push(bdate);
+//												console.log('4. > '+bdate)
+//												booked = true;
+//											}
 										}
 										//last slot of day
 										else {
-//											console.log(timeslotE)
-//											console.log(parseInt(timeslotE) + 200)
-//											console.log(smBookingStart)
-//											console.log(smBookingEnd)
-											if (timeslotE <= smBookingStart) {
-//												console.log('a');
-											}
-//											console.log('trying b/')
-//											console.log(parseInt(timeslotE) + 200)
-//											console.log(smBookingEnd)
-											if ((parseInt(timeslotE) + 200) <= smBookingEnd) {
-//												console.log('b')
-											}
 
-											if ((parseInt(timeslotE) + 200) >= smBookingStart) {
-//												console.log('c')
-											}
 											if (timeslotE <= smBookingStart &&
 												(parseInt(timeslotE) + 200) <= smBookingEnd &&
-												(parseInt(timeslotE) + 200) >= smBookingStart
+												(parseInt(timeslotE) + 200) >= smBookingStart && !booked
 												) {
-//												console.log('end hit')
 												var bdate = new Object();
 												bdate.slot = openslots[i].slot;
 												bdate.date = openslots[i].date.substring(0, 15);
-//												console.log(bdate)
-
+												bdate.route = SMBooks[x].route;
 												busyDates.push(bdate);
+												console.log('end 1. > ' + bdate.slot)
+												console.log('1. > ' + bdate.date)
+												booked = true;
+											}
+											//inside3
+											if (smBookingStart < timeslotE &&
+												smBookingEnd > timeslotE && !booked) {
+												var bdate = new Object();
+												bdate.slot = openslots[i].slot;
+												bdate.date = openslots[i].date.substring(0, 15);
+												bdate.route = SMBooks[x].route;
+												busyDates.push(bdate);
+												console.log('end 2. > ' + bdate.slot)
+												console.log('end 2. > ' + bdate.date)
+												booked = true;
+											}
+											// timeslot is after bookingStart and before bookingEnd
+											if (smBookingStart > timeslotE &&
+												smBookingEnd < timeslotE && !booked) {
+												var bdate = new Object();
+												bdate.slot = openslots[i].slot;
+												bdate.date = openslots[i].date.substring(0, 15);
+												bdate.route = SMBooks[x].route;
+												busyDates.push(bdate);
+												console.log('end 3. > ' + bdate.slot)
+												console.log('end 4. > ' + bdate.date)
+												booked = true;
 											}
 										}
 
-										//old code
-//										if (pd.timeslots[openslots[i].slot] >=
-//											SMBooks[x].startdate.toString().substring(16, 24) &&
-//											pd.timeslots[openslots[i].slot] <
-//											SMBooks[x].enddate.toString().substring(16, 24)) {
-//											console.log(' booking >>>> ')
-//											var bdate = new Object();
-//
-//											bdate.slot = openslots[i].slot;
-//											bdate.date = openslots[i].date.substring(0, 15);
-//											busyDates.push(bdate);
-//										}
 									}
+
 								} else {
 									var smshort = "",
 										os = "";
@@ -334,8 +492,8 @@ define(['pricing_data', 'async'], function (prd, async) {
 						var closedList = new Array();
 
 						for (var i = 0; i < busyDates.length; i++) {
-							console.log('slot: ' + busyDates[i].slot)
-							console.log('date: ' + busyDates[i].date)
+//							console.log('slot: ' + busyDates[i].slot)
+//							console.log('date: ' + busyDates[i].date)
 						}
 
 						$(".open").each(function () {
@@ -347,7 +505,7 @@ define(['pricing_data', 'async'], function (prd, async) {
 									openSlot.substring(11, 26) == busyDates[i].date /*!!!check date here*/) {
 //									$(this).children('img').prop('src', "/img/Closed.gif");
 //									$(this).prop('class', 'closed');
-									console.log('pushing in ' + $(this).attr('name'))
+//									console.log('pushing in ' + $(this).attr('name'))
 
 									closedList.push($(this).attr('name'))
 								}
@@ -357,7 +515,7 @@ define(['pricing_data', 'async'], function (prd, async) {
 
 //						var src = ['2013/03', '2013/03', '2012/01', '2012/11', '2012/09', '2012/09', '2012/09'];
 						for (var i = 0; i < closedList.length; i++) {
-							console.log(closedList[i]);
+//							console.log(closedList[i]);
 						}
 
 						var cnts = [];
@@ -373,7 +531,7 @@ define(['pricing_data', 'async'], function (prd, async) {
 							element.count = count;
 							cnts.push(element)
 						}
-						console.log(cnts)
+//						console.log(cnts)
 
 						$(".open").each(function () {
 
@@ -388,14 +546,14 @@ define(['pricing_data', 'async'], function (prd, async) {
 //										console.log('b')
 //										console.log(cnts.length)
 //										console.log(openSlot)
-										for(var x = 0; x < cnts.length; x++){
+										for (var x = 0; x < cnts.length; x++) {
 											var thisvalue = cnts[0].value;
 
-											if(cnts[x].value == openSlot){
-												if(cnts[x].count > 1){
-													console.log(cnts[x].value)
-													console.log(openSlot)
-													console.log(cnts[x].count)
+											if (cnts[x].value == openSlot) {
+												if (cnts[x].count > 1) {
+//													console.log(cnts[x].value)
+//													console.log(openSlot)
+//													console.log(cnts[x].count)
 													$(this).children('img').prop('src', "/img/Closed.gif");
 													$(this).prop('class', 'closed');
 												}
